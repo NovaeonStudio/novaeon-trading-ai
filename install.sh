@@ -35,7 +35,7 @@ HF_SUBFOLDER_8BIT="mlx-8bit"                   # >= 16 GB RAM
 HF_SUBFOLDER_4BIT="mlx-4bit"                   # 8 GB RAM (AI leverage locked off)
 SENTINEL_8BIT_SHA256="373bc466f1b795a080490dff3d4b952293909d930b9d053a09c8038250b1ea8a"   # pin of <subfolder>/model.safetensors (release 1.0.0)
 SENTINEL_4BIT_SHA256="9dbad3f4805cfd62eb3a0319f06ab15d8dd87206a6ef961f6be7d7358706837a"
-TELEMETRY_URL=""   # opt-in install count endpoint (planned: https://novaeon.studio/api/install-count); empty = never asked, nothing sent
+TELEMETRY_URL="https://novaeon.studio/api/install-count"   # opt-in install count endpoint (planned: https://novaeon.studio/api/install-count); empty = never asked, nothing sent
 UV_VERSION="0.12.17"
 ENGINE_PYTHON="3.12"
 SENTINEL_PYTHON="3.13"
