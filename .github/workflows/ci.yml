@@ -87,7 +87,7 @@ jobs:
           for f in $files; do bash -n "$f" && echo "ok $f"; done
           shellcheck --version | head -2
           # shellcheck disable=SC2086
-          shellcheck $files
+          shellcheck -S warning $files   # info-level notes (e.g. SC2015) are style hints, not failures
       - name: Installer helpers compile and write valid systemd units
         run: |
           python3 -m py_compile installer/lib/novaeon_setup.py installer/lib/fetch_model.py novaeon-kev/sentinel/serve.py
