@@ -61,6 +61,10 @@ and the `Breakout` base class they extend.
 - It keeps headlines that mention the coin by name (for example "chainlink") or by its ticker as an uppercase word
   (`LINK`), up to 15, newest first. Up to 7 of the 15 go to hits of the risk search first, so a day-old hack is not
   pushed out by a few hours of price commentary on a busy coin.
+- Filler is dropped before that: paid presale promotions and "best crypto to buy" lists (always, even when they
+  ride on real news), currency-converter and price-chart pages, and price predictions unless they contain a risk word.
+  That is about one in five search hits for a big coin. On Sentinel's 495 held-out items the filter kept every
+  caught bad-news item (23 of 28 with the 8-bit build) and cut harmless blocks from 8 to 6.
 - If there are none, the trade is allowed at 1× without asking the model.
 - Otherwise Sentinel answers two questions in one call (see [SENTINEL.md](SENTINEL.md)). The answer is cached for
   2 minutes, shared by the leverage and entry decisions.

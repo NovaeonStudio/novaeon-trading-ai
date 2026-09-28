@@ -11,6 +11,7 @@
 # REPLAY_SOURCES all | press (only CoinDesk, Cointelegraph, Decrypt, The Block: the four feeds the live bot reads)
 # REPLAY_SELECT  newest = the 15 newest matching headlines (live selection up to 1.1.0)
 #                live   = hits of risk-angled searches first (up to MAX_RISK_HEADLINES), then the newest (1.1.1+)
+# REPLAY_FILTER  on = drop promotions and price chatter like the live bot (1.1.2+; needs BreakoutRegimeKev._is_promo)
 import bisect
 import hashlib
 import json
@@ -33,7 +34,8 @@ MODE = os.environ.get("REPLAY_MODE", "record")
 TIMING = os.environ.get("REPLAY_TIMING", "safe")
 SOURCES = os.environ.get("REPLAY_SOURCES", "all")
 SELECT = os.environ.get("REPLAY_SELECT", "newest")
-TAG = os.environ.get("REPLAY_TAG", f"{MODE}-{TIMING}-{SOURCES}-{SELECT}")
+FILTER = os.environ.get("REPLAY_FILTER", "off") == "on"
+TAG = os.environ.get("REPLAY_TAG", f"{MODE}-{TIMING}-{SOURCES}-{SELECT}{'-filter' if FILTER else ''}")
 RISKY = re.compile(r"hack|exploit|stolen|delist|lawsuit|SEC|investigation|outage|halt|ban|probe", re.I)
 OUT = HERE / "out"
 OUT.mkdir(exist_ok=True)
@@ -84,7 +86,8 @@ class BreakoutRegimeReplay(BreakoutRegimeKev):
         t = self._now
         hi = bisect.bisect_right(TIMES, t)
         lo = bisect.bisect_left(TIMES, t - timedelta(hours=K.HEADLINE_MAX_AGE_H))
-        cand = [i for i in range(hi - 1, lo - 1, -1) if by_name.search(TITLES[i]) or by_ticker.search(TITLES[i])]
+        cand = [i for i in range(hi - 1, lo - 1, -1) if (by_name.search(TITLES[i]) or by_ticker.search(TITLES[i]))
+                and not (FILTER and K._is_promo(TITLES[i]))]
         if SELECT == "live":
             risk = [i for i in cand if RISK[i]][: K.MAX_RISK_HEADLINES]
             rest = [i for i in cand if i not in set(risk)]

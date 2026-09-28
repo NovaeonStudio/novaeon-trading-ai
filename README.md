@@ -9,7 +9,7 @@ with Sentinel on your Mac in the same private network.
 By [Novaeon Studio](https://novaeon.studio). Free and open source (GPL-3.0).
 
 <p>
-  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.1.1/NovaeonTradingAI-1.1.1.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.1.1-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
+  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.1.2/NovaeonTradingAI-1.1.2.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.1.2-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
   <a href="https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/Model-Sentinel%209B%20on%20Hugging%20Face-6C7BFF?style=for-the-badge&logo=huggingface&logoColor=white&labelColor=0A0E1C"></a>
 </p>
 

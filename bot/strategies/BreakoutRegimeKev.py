@@ -64,6 +64,27 @@ MAX_HEADLINES = 15
 # Up to this many of the 15 go to hits of the risk search first: a busy coin has ~100 headlines in 48 h, and
 # newest-first alone would push a day-old hack out behind a few hours of price commentary.
 MAX_RISK_HEADLINES = 7
+# Filler that is not news about the coin, about one in five search hits for a big coin. PROMO: paid presale
+# promotions and "best crypto to buy" lists (they also ride on real news: "... hack as <token> presale fills"), and
+# currency-converter or price-chart pages; always dropped. CHATTER: price predictions, which the promotions use as
+# their carrier; dropped unless the headline also has a risk word.
+PROMO = re.compile(
+    r"pre-?sale|\bICO\b|\bnext \d{2,4}x\b|\b\d{2,4}x (crypto|coin|token|gem|return|potential)"
+    r"|\bbest (new )?(crypto|cryptocurrenc\w*|altcoins?|coins?|tokens?)\b"
+    r".{0,30}\b(to buy|to watch|presales?|picks?|portfolio)"
+    r"|\b(crypto|cryptos|altcoins?|coins?|tokens?|gems?) to (buy|watch)\b|\b(crypto|cryptocurrency|growth) picks\b"
+    r"|\bworth watching\b|\bto explode\b|\broi potential\b|\bsoft cap\b|\btop picks\b"
+    r"|^convert [\d.,]+ |live price chart|\bby market cap\b|\bprice chart\b.*\bmarket cap\b", re.I)
+CHATTER = re.compile(r"price (prediction|forecast)|\bbuy (now|before)\b|\bstage \d{1,2}\b", re.I)
+RISK_WORDS = re.compile(
+    r"hack|exploit|breach|stolen|drain|delist|lawsuit|\bsue[sd]?\b|\bSEC\b|charged|probe|investigat|outage|halt"
+    r"|insolven|bankrupt|arrest|froze|frozen|freez|\brug|scam|fraud|attack|vulnerab|\bbug\b|shut(s|ting)? down", re.I)
+
+
+def _is_promo(title: str) -> bool:
+    return bool(PROMO.search(title)) or (bool(CHATTER.search(title)) and not RISK_WORDS.search(title))
+
+
 # Coin names match case-insensitively; tickers only as uppercase words (so "ledger link" != LINK).
 NAMES = {
     "BTC": ["bitcoin"], "ETH": ["ethereum", "ether"], "SOL": ["solana"], "BNB": ["bnb"],
@@ -224,7 +245,9 @@ class BreakoutRegimeKev(BreakoutRegime):
                 if len(picked) >= limit:
                     return
                 key = h["title"].lower()
-                if key not in seen and (by_name.search(t := h["title"] + " " + h["summary"]) or by_ticker.search(t)):
+                if key in seen or _is_promo(h["title"]):
+                    continue
+                if by_name.search(t := h["title"] + " " + h["summary"]) or by_ticker.search(t):
                     seen.add(key)
                     picked.append(h)
 
