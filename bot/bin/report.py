@@ -24,9 +24,17 @@ try:
     cfg, p, b, s = api("show_config"), api("profit"), api("balance"), api("status")
 except Exception as e:  # noqa: BLE001
     raise SystemExit(f"BOT DOWN ({e.__class__.__name__}): see logs/engine.log in the install folder")
+def _start():
+    """Practice money as set in the app (user_data/practice.json), else the engine's figures."""
+    try:
+        return json.loads((ROOT / "user_data/practice.json").read_text())["dry_run_wallet"]
+    except Exception:  # noqa: BLE001
+        return b.get("starting_capital") or cfg.get("dry_run_wallet") or "?"
+
+
 mode = "PAPER (simulated)" if cfg["dry_run"] else "LIVE — REAL MONEY"
 print(f"Bot: {cfg['exchange']} / {cfg['trading_mode']} / {cfg['stake_currency']} / {cfg['strategy']} / {mode}")
-print(f"Wallet:          {b['total']:.2f} {cfg['stake_currency']} (start {cfg.get('dry_run_wallet', '?')})")
+print(f"Wallet:          {b['total']:.2f} {cfg['stake_currency']} (start {_start()})")
 print(f"Total P&L:       {p['profit_all_percent']:+.2f}% (incl. open trades)")
 print(f"Closed trades:   {p['closed_trade_count']}  (wins {p['winning_trades']} / losses {p['losing_trades']}), "
       f"closed P&L {p['profit_closed_percent']:+.2f}%")
