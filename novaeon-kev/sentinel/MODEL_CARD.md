@@ -21,6 +21,9 @@ tags:
 
 # Novaeon Sentinel 9B
 
+![Novaeon Sentinel 9B: reads the news before your bot buys](https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b/resolve/main/assets/sentinel-banner.png)
+
+
 **A 9B model that reads crypto headlines and answers in probabilities, not prose. It runs on any Apple Silicon Mac,
 including 8 GB machines.**
 
