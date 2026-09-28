@@ -83,7 +83,7 @@ def plists(a):
     engine_env = {"NOVAEON_LOG_FILE": str(logs / "engine.log"), "NOVAEON_SENTINEL_URL": sentinel_url}
     agents = {
         "engine": _agent(f"{p}.engine", ["/bin/bash", str(home / "bin/run-bot.sh")], home, logs / "engine.err",
-                         engine_env, keepalive={"SuccessfulExit": False}, throttle=60),
+                         engine_env, keepalive=True, throttle=60),  # always restart: a clean exit (e.g. SIGTERM after a hang) must not leave the bot off
         "control": _agent(f"{p}.control", [str(home / ".venv/bin/python"), str(home / "bin/control.py")], home,
                           logs / "control.log", {"NOVAEON_ENGINE_PORT": str(a.engine_port),
                                                  "NOVAEON_CONTROL_PORT": str(a.control_port),
