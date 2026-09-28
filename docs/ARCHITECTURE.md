@@ -1,7 +1,9 @@
 # Architecture
 
 NovaeonTradingAI is four local programs that talk over HTTP on `127.0.0.1`, plus two outside services
-(Hyperliquid and public news feeds). Nothing runs in a Novaeon cloud.
+(Hyperliquid and public news feeds). Nothing runs in a Novaeon cloud. On a Mac all four run on the Mac (below); in a
+[split setup](#split-setup) the bot runs on Linux (or in WSL2 on Windows) and Sentinel on a Mac in the same private
+network.
 
 ```mermaid
 flowchart TB
@@ -85,6 +87,59 @@ The MLX build of [Novaeon Sentinel 9B](SENTINEL.md) (8-bit on Macs with 16 GB or
 with Kev's server on `127.0.0.1:8010` (`/v1/systemone`). The strategy calls it once per new position, at most every
 2 minutes per coin. If it does not answer, the bot trades at 1× without the news check.
 
+Where it runs is the installer's *Sentinel mode*, passed to the engine as `NOVAEON_SENTINEL_URL`:
+
+| Mode | Sentinel | Engine asks |
+|---|---|---|
+| `mlx` (macOS default) | this Mac, MLX package (`mlx-8bit` / `mlx-4bit`) | `http://127.0.0.1:8010/v1/systemone` |
+| `remote` | another machine in your private network | the URL you gave, e.g. `http://100.x.y.z:8010/v1/systemone` |
+| `cuda` (experimental) | this machine's NVIDIA GPU: the LoRA run (`lora/` on Hugging Face) on Qwen3.5-9B-Base, Kev's PyTorch backend, bf16 | `http://127.0.0.1:8010/v1/systemone` |
+| `cpu` (experimental, not recommended) | the same on the processor | `http://127.0.0.1:8010/v1/systemone` |
+| `off` | nowhere | `off`: no call, every entry at 1× without the news check |
+
+## Split setup
+
+The bot needs little; Sentinel needs an Apple Silicon Mac (or a 24 GB NVIDIA GPU). The split setup puts each where it
+fits. This is how the reference installation runs: engine and control service on a small Linux server, Sentinel on a
+Mac, both in one Tailscale network.
+
+```mermaid
+flowchart LR
+    subgraph Bot["Linux server, or Windows PC with WSL2 (services on 127.0.0.1)"]
+        direction TB
+        UI["App<br/>(served by the engine)"]
+        ENG["Trading engine :8081<br/>systemd user service"]
+        CTL["Control service :8082<br/>systemd user service"]
+        CRED[("systemd user credential<br/>bot key, encrypted")]
+        FILES[("user_data/")]
+    end
+    subgraph Mac["Mac (Sentinel only)"]
+        TS["tailscale serve --tcp 8010"]
+        SEN["Sentinel :8010 on 127.0.0.1<br/>MLX, launchd agent"]
+    end
+    YOU["You: browser via SSH tunnel,<br/>or localhost on Windows"]
+    HL["Hyperliquid API"]
+    NEWS["RSS feeds"]
+
+    YOU -->|"127.0.0.1:8081 / :8082"| UI
+    UI --> ENG
+    UI --> CTL
+    CTL --> CRED
+    CTL --> FILES
+    ENG --> FILES
+    ENG -->|"candles, orders"| HL
+    ENG -->|"headlines"| NEWS
+    ENG -->|"/v1/systemone over the tailnet<br/>(no login: private network only)"| TS
+    TS --> SEN
+```
+
+- The engine only sends Sentinel the coin name and public headlines; no keys, balances or trades.
+- Sentinel keeps listening on `127.0.0.1` on the Mac; `tailscale serve --tcp` makes that one port reachable inside
+  your tailnet only. Binding Sentinel to another address (`NOVAEON_SENTINEL_BIND`) is possible but opt-in.
+- If the Mac is off, asleep or unreachable, the check fails after a connection error or at most 45 seconds and the
+  bot trades at 1× without the news check (logged as `kev_unavailable` in `kev_decisions.jsonl`).
+- The bot machine never runs a model: 2 GB of memory is enough for engine and control service.
+
 ## Key flows
 
 ### A new position
@@ -139,7 +194,9 @@ sequenceDiagram
 
 ## Where data lives
 
-All under the install directory (`~/NovaeonTradingAI`), mostly in `user_data/`:
+All under the install directory (`~/NovaeonTradingAI`), mostly in `user_data/`. Services: launchd agents in
+`~/Library/LaunchAgents` (macOS) or systemd user units in `~/.config/systemd/user` (Linux), all written by the
+installer; `install.env` records what was installed.
 
 | What | Where |
 |---|---|
@@ -148,7 +205,7 @@ All under the install directory (`~/NovaeonTradingAI`), mostly in `user_data/`:
 | Mode, wallet address, practice ledger, manual stops, settings | small JSON files written with mode 600 |
 | AI decisions | `kev_decisions.jsonl` and the trade's custom data |
 | Audit log of control actions | `control-audit.jsonl` |
-| Bot key (live trading) | macOS login Keychain, never in a file |
+| Bot key (live trading) | macOS login Keychain; on Linux an encrypted systemd user credential in `~/.config/novaeon/credentials/` (host key + TPM when present, readable only by your user on that machine); never in a plain file |
 | Your wallet key | only in MetaMask |
 
 ## Ports
@@ -157,7 +214,7 @@ All under the install directory (`~/NovaeonTradingAI`), mostly in `user_data/`:
 |---|---|---|
 | 8081 | Trading engine API + app | 127.0.0.1 |
 | 8082 | Control service | 127.0.0.1 |
-| 8010 | Sentinel | 127.0.0.1 |
+| 8010 | Sentinel (not on the bot machine in a split setup) | 127.0.0.1 (share it in a tailnet with `tailscale serve --tcp`) |
 
 To use the app from your phone, put your own authenticated tunnel or VPN in front of it. Do not expose these ports
 to the internet.

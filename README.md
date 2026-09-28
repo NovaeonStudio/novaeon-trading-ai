@@ -2,17 +2,19 @@
 
 **A crypto trading bot for your Mac that reads the news before it buys.** It trades one simple, tested breakout
 strategy on Hyperliquid, asks a local AI model (Novaeon Sentinel 9B) whether there is serious bad news about a coin
-before every purchase, and shows everything in a clear app. It starts with practice money, runs entirely on your Mac,
-and your wallet key never leaves MetaMask.
+before every purchase, and shows everything in a clear app. It starts with practice money, runs entirely on your own
+computers, and your wallet key never leaves MetaMask. New in 1.1: the bot also runs on Linux and, in beta, on Windows,
+with Sentinel on your Mac in the same private network.
 
 By [Novaeon Studio](https://novaeon.studio). Free and open source (GPL-3.0).
 
 <p>
-  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.0.0/NovaeonTradingAI-1.0.0.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.0.0-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
+  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.1.0/NovaeonTradingAI-1.1.0.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.1.0-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
   <a href="https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/Model-Sentinel%209B%20on%20Hugging%20Face-6C7BFF?style=for-the-badge&logo=huggingface&logoColor=white&labelColor=0A0E1C"></a>
 </p>
 
-Apple Silicon Mac, macOS 14 or newer. All versions: [Releases](https://github.com/NovaeonStudio/novaeon-trading-ai/releases). Prefer Terminal? See [Install](#install).
+Apple Silicon Mac, macOS 14 or newer. Linux and Windows (beta): see [Install](#install). All versions:
+[Releases](https://github.com/NovaeonStudio/novaeon-trading-ai/releases).
 
 > **Risk warning.** Trading crypto can lose you money, quickly. Backtests and practice results do not guarantee
 > future results. This is not financial advice. Read the [disclaimer](docs/DISCLAIMER.md) before using real money.
@@ -62,10 +64,22 @@ For comparison, the full-precision model catches 24 of 28 and blocks 6 harmless 
 heavy apps and expect other apps to feel slower. A news check only happens right before a purchase (a few times a
 day), so trading itself is not slowed down. Seconds per check on a base 8 GB M1/M2 have not been measured yet.
 
-Intel Macs are not supported. The installer is Mac-only today: the app and the bot are portable, but the model
-builds and background services are made for Apple Silicon.
+Intel Macs are not supported as Sentinel machines. On Linux and Windows, the bot runs on its own and asks Sentinel on
+your Mac over your private network (see [split setup](#split-setup-bot-on-linux-or-windows-sentinel-on-your-mac)).
 
 ## Install
+
+| | macOS | Linux | Windows (beta) |
+|---|---|---|---|
+| Computer | Apple Silicon Mac, macOS 14+, 8 GB memory or more | x86_64 or arm64, a glibc distribution with systemd (e.g. Ubuntu, Debian, Fedora), 2 GB memory for the bot | Windows 10 (2004 or newer) or 11, 64-bit, WSL2 |
+| Free disk | about 12 GB | about 4 GB for the bot; 26 to 30 GB with Sentinel on this machine | as Linux |
+| Background services | launchd agents | systemd user services | systemd user services inside WSL2; run while WSL runs |
+| Sentinel (news check), default | on this Mac (`mlx`) | `remote` if you give a URL; `cuda` if an NVIDIA GPU with 24 GB is found; otherwise the installer asks (without a terminal: `off`) | as Linux |
+| Sentinel, other choices | `remote`, `off` | `cuda` (experimental), `cpu` (experimental, not recommended), `off` | as Linux |
+| Bot key for real money | macOS Keychain | encrypted systemd user credential (needs systemd 256+, e.g. Ubuntu 25.04+, Debian 13, Fedora 41+) | as Linux, inside WSL |
+| Status | stable | new in 1.1.0, tested on Ubuntu 26.04 (x86_64) | beta: not yet tested on a real Windows PC |
+
+### macOS
 
 **One line** (in Terminal):
 
@@ -97,12 +111,85 @@ What the installer does:
   `~/NovaeonTradingAI/login.txt`);
 - starts in practice mode at 1× leverage, reachable only from your own Mac, and opens the app in your browser;
 - asks once whether it may count the install anonymously. Only if you say yes, it sends the app version, the macOS
-  major version and a memory size class, once. No IDs.
+  major version and a memory size class, once. No IDs. (Linux and Windows installs are never asked or counted.)
 
-Afterwards, `~/NovaeonTradingAI/bin/novaeon` controls everything: `status`, `start`, `stop`, `logs`, `password`,
-`update`, `uninstall`. Running the install command again updates an existing install and keeps your settings and
-trades. `uninstall` asks whether to keep your trade history; the bot key in the Keychain is never deleted
-automatically.
+### Linux
+
+```bash
+# bot here, Sentinel on your Mac (see "Split setup" below):
+curl -fsSL https://raw.githubusercontent.com/NovaeonStudio/novaeon-trading-ai/main/install.sh | bash -s -- --sentinel remote --sentinel-url http://<your-mac>:8010
+# or let the installer decide (NVIDIA GPU with 24 GB -> Sentinel on it; otherwise it asks):
+curl -fsSL https://raw.githubusercontent.com/NovaeonStudio/novaeon-trading-ai/main/install.sh | bash
+```
+
+Same defaults as on the Mac: its own Python in `~/NovaeonTradingAI`, practice money, a random password, the app on
+127.0.0.1 only, 1× leverage. No root rights are needed. The services are systemd *user* services; the installer
+offers to turn on "linger" for your user so they keep running after you log out and start with the computer
+(otherwise: `sudo loginctl enable-linger $USER`).
+
+On a server without a screen, open the app through an SSH tunnel from your own computer (the app and its wallet
+service use two ports): `ssh -L 8081:127.0.0.1:8081 -L 8082:127.0.0.1:8082 you@server`, then open
+http://127.0.0.1:8081.
+
+Sentinel on this Linux machine is **experimental**:
+- `--sentinel cuda`: an NVIDIA GPU with 24 GB of memory (e.g. RTX 3090/4090, L4, A10), about 20 GB of main memory
+  while the model loads, about 30 GB of disk. It runs the full-precision model (bf16) with Kev's PyTorch backend.
+  Tested on NVIDIA hardware only with a small Kev model so far, not yet with the 9B model. GPUs with 30 GB or more
+  also get Kev's CUDA graphs; a C compiler (`build-essential`) enables faster GPU kernels.
+- `--sentinel cpu`: about 20 GB of main memory (24 GB or more recommended). **Not recommended:** on a typical CPU
+  without fast bf16 support (AMX or AVX512-BF16) one news check takes about 1 to 3 minutes, and the bot waits that
+  long before each buy.
+
+### Windows (beta)
+
+In PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/NovaeonStudio/novaeon-trading-ai/main/installer/windows/install.ps1 | iex
+```
+
+The Windows installer sets up the Linux version inside WSL2 (Ubuntu): it checks Windows, installs Ubuntu in WSL if
+needed (administrator rights once, maybe a restart: then open Ubuntu once to create your Linux user and run the line
+again), turns on systemd in WSL, and runs the Linux installer. Options go into environment variables first, e.g.
+`$env:NOVAEON_SENTINEL_MODE="remote"; $env:NOVAEON_SENTINEL_URL="http://<your-mac>:8010"`.
+
+- The app is at http://localhost:8081 in your Windows browser.
+- The bot only runs while WSL runs and Windows is awake. The installer can add a scheduled task (opt-in) that starts
+  WSL when you log in and keeps it running in the background; remove it with `install.ps1 -RemoveStartAtLogon` or in
+  Task Scheduler.
+- Manage it with `wsl -d Ubuntu -- ~/NovaeonTradingAI/bin/novaeon status` (or `start`, `stop`, `logs`, `password`,
+  `update`, `uninstall`).
+- Real money inside WSL uses the Linux key store, which needs systemd 256 or newer in the distribution (Ubuntu 25.04
+  or newer). On Ubuntu 24.04 practice mode works, but connecting a wallet for real money stops with an error.
+- **Beta:** we have not tested this on a real Windows PC yet. Please report problems.
+
+### Split setup: bot on Linux or Windows, Sentinel on your Mac
+
+The bot needs little: a small Linux server or a Windows PC is enough. Sentinel needs an Apple Silicon Mac (or a big
+NVIDIA GPU). Put both in one private network; [Tailscale](https://tailscale.com) is the easy way.
+
+1. **On the Mac:** install Sentinel only (or use a normal Mac install: it already runs Sentinel on port 8010):
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/NovaeonStudio/novaeon-trading-ai/main/install.sh | bash -s -- --sentinel-only
+   ```
+2. **Share it in your tailnet** (on the Mac, with Tailscale installed on both machines):
+   `tailscale serve --bg --tcp 8010 tcp://127.0.0.1:8010`. The Mac's Tailscale address is shown by `tailscale ip -4`.
+3. **On the Linux or Windows machine:** install with `--sentinel remote --sentinel-url http://<mac's Tailscale address>:8010`
+   (Linux line above; on Windows set `NOVAEON_SENTINEL_MODE` and `NOVAEON_SENTINEL_URL` first). The installer checks
+   that Sentinel answers.
+
+**Sentinel has no login.** Anyone who can reach its port can use it, so keep it in a private network (Tailscale) and
+never forward it to the internet. `--sentinel-only` listens on 127.0.0.1 only; `NOVAEON_SENTINEL_BIND=<address>`
+makes it listen elsewhere (opt-in, with a warning). The Mac has to be on and awake: while Sentinel does not answer,
+the bot keeps trading at 1× without the news check and notes that in its decision log.
+
+### After installing
+
+`~/NovaeonTradingAI/bin/novaeon` controls everything: `status`, `start`, `stop`, `logs`, `password`, `update`,
+`uninstall`. Running the install command again updates an existing install and keeps your settings and trades;
+`novaeon update` does the same and takes installer options, e.g. `novaeon update --sentinel remote --sentinel-url
+http://<mac>:8010` to move Sentinel to another machine. `uninstall` asks whether to keep your trade history; the bot
+key (Keychain or systemd credential) is never deleted automatically.
 
 ## First steps
 
@@ -121,15 +208,16 @@ through MetaMask:
 
 1. Deposit USDC into your Hyperliquid account. Hyperliquid only accepts a bot key after a deposit.
 2. On the **Wallet** page, click **Connect MetaMask**.
-3. The app creates a **bot key** (Hyperliquid calls it an "API wallet") and stores it in your Mac's Keychain.
+3. The app creates a **bot key** (Hyperliquid calls it an "API wallet") and stores it in your Mac's Keychain (on
+   Linux: an encrypted systemd user credential that only your user on that machine can read).
    MetaMask asks you to sign one message that allows this key to trade for your account.
    - Your MetaMask key never leaves MetaMask. The app never sees it.
    - The bot key can place and cancel orders. **It cannot withdraw or transfer your funds.**
    - You can remove the bot's permission at any time on Hyperliquid's API page, or disconnect the wallet in the app.
 4. Choose how much the bot may use (at least 20 USDC, at most your balance), confirm the warnings and type
    `REAL MONEY`.
-5. In live mode, stop-losses are also placed on the exchange, so open positions stay protected when your Mac is
-   off. Switching back to practice is only possible after all real positions are sold.
+5. In live mode, stop-losses are also placed on the exchange, so open positions stay protected when your
+   computer is off. Switching back to practice is only possible after all real positions are sold.
 
 Start small. Only use money you can afford to lose.
 
@@ -190,8 +278,11 @@ cases and blocks 6 of 467 harmless ones.
 
 - Practice mode, 1× leverage and local-only access are the defaults.
 - Real money needs four deliberate steps: deposit, MetaMask signature, spending cap, typed confirmation.
-- The bot key lives in the macOS Keychain and cannot withdraw. See [docs/SECURITY.md](docs/SECURITY.md).
-- The bot only trades while your Mac is on and awake. In live mode, stop-losses also sit on the exchange.
+- The bot key lives in the macOS Keychain (Linux: an encrypted systemd user credential) and cannot withdraw. See
+  [docs/SECURITY.md](docs/SECURITY.md).
+- The bot only trades while the computer it runs on is on and awake. In live mode, stop-losses also sit on the
+  exchange.
+- Sentinel's model server has no login: in a split setup, keep it in a private network (Tailscale).
 - Sentinel can be wrong in both directions: it can miss bad news, and it can block good trades.
 - Leverage multiplies losses as well as gains.
 - Hyperliquid is a decentralized exchange; check that using it is legal where you live. Taxes are your
@@ -226,7 +317,9 @@ flowchart LR
     CTL -- "register bot key" --> HL
 ```
 
-More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+In a [split setup](#split-setup-bot-on-linux-or-windows-sentinel-on-your-mac) the engine and the control service run
+on a Linux machine (or in WSL2 on Windows) and ask Sentinel on your Mac over your private network. More detail:
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Repository layout
 
@@ -235,6 +328,7 @@ More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 | `src/`, `public/`, `tests/`, `e2e/` | The app (Vue 3, TypeScript, Nuxt UI, ECharts) and its tests |
 | `bot/strategies/` | The strategy |
 | `bot/bin/` | Control service, start script, watchdog, data tools |
+| `install.sh`, `installer/` | Installer for macOS and Linux, `installer/windows/install.ps1` for Windows (WSL2), `.dmg` build |
 | `bot/config/` | Configs without keys (`dry_run: true`) |
 | `novaeon-kev/` | Sentinel training pipeline, labeling guide, evaluation, metrics, model card |
 | `docs/` | Strategy, Sentinel, architecture, security, disclaimer, contributing |

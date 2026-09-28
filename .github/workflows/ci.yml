@@ -68,8 +68,54 @@ jobs:
           persist-credentials: false
       - name: bash -n (macOS ships bash 3.2, the installer must parse with it)
         run: |
-          for f in install.sh installer/*.sh installer/app/*.sh installer/novaeon bot/bin/*.sh; do
+          for f in install.sh installer/*.sh installer/app/*.sh installer/lib/*.sh installer/novaeon bot/bin/*.sh; do
             [ -f "$f" ] || continue
             head -1 "$f" | grep -q zsh && continue
             /bin/bash -n "$f" && echo "ok $f"
           done
+
+  shell-linux:
+    name: Installer scripts on Linux (bash -n, shellcheck, unit files)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: bash -n and shellcheck (preinstalled on the runner)
+        run: |
+          files="install.sh installer/novaeon installer/uninstall.sh installer/lib/ensure-engine-patches.sh installer/build-dmg.sh installer/build-release.sh installer/app/launch.sh bot/bin/run-bot.sh"
+          for f in $files; do bash -n "$f" && echo "ok $f"; done
+          shellcheck --version | head -2
+          # shellcheck disable=SC2086
+          shellcheck $files
+      - name: Installer helpers compile and write valid systemd units
+        run: |
+          python3 -m py_compile installer/lib/novaeon_setup.py installer/lib/fetch_model.py novaeon-kev/sentinel/serve.py
+          d=$(mktemp -d)
+          python3 installer/lib/novaeon_setup.py units --home "$d/h" --prefix ci --out "$d/units" --services engine,control,sentinel \
+            --sentinel-device cpu --model-dir "$d/h/models/lora" --sentinel-timeout 240
+          for u in "$d"/units/*.service; do systemd-analyze verify --user "$u" 2>&1 | grep -v -e 'Command .* is not executable' -e 'not found' || true; done
+          grep -H -e '^ExecStart=' -e 'SENTINEL' "$d"/units/*.service
+          bash install.sh --help > "$d/help.txt" && head -5 "$d/help.txt"
+
+  powershell:
+    name: Windows installer parses (Windows PowerShell 5.1 + PSScriptAnalyzer)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Parse with Windows PowerShell 5.1 (what "irm | iex" runs in on most PCs)
+        shell: powershell
+        run: |
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("$PWD\installer\windows\install.ps1", [ref]$null, [ref]$errors) | Out-Null
+          if ($errors) { $errors | Format-List; exit 1 }
+          "parsed OK with PowerShell $($PSVersionTable.PSVersion)"
+      - name: PSScriptAnalyzer (errors fail the job)
+        shell: pwsh
+        run: |
+          if (-not (Get-Module -ListAvailable PSScriptAnalyzer)) { Install-Module PSScriptAnalyzer -Scope CurrentUser -Force }
+          $r = Invoke-ScriptAnalyzer -Path installer/windows/install.ps1 -ExcludeRule PSAvoidUsingWriteHost
+          $r | Format-Table -AutoSize RuleName, Severity, Line, Message
+          if ($r | Where-Object Severity -eq 'Error') { exit 1 }

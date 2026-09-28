@@ -1,23 +1,39 @@
-"""Serve a Novaeon Sentinel MLX package (built by build_mlx.py) with Kev's server (`kev.serve`, same /v1/systemone API).
+"""Serve Novaeon Sentinel with Kev's server (`kev.serve`, same /v1/systemone API).
 
-The package already contains the merged, quantized text backbone, the tokenizer and the pointer head, so nothing else is
-downloaded and no LoRA is merged at load time. Usage: python -m sentinel.serve --run <package_dir> --port 8010
+Two kinds of --run:
+- a Sentinel MLX package (built by build_mlx.py; Apple Silicon): it already contains the merged, quantized text backbone,
+  the tokenizer and the pointer head, so nothing else is downloaded and no LoRA is merged at load time;
+- the LoRA run (Hugging Face NovaeonStudio/novaeon-sentinel-9b, folder lora/): Kev's torch backend on top of the base
+  model it names (Qwen/Qwen3.5-9B-Base, resolved from the Hugging Face cache), in bf16 as trained. This is the path for
+  NVIDIA GPUs and for CPUs (experimental).
+
+Usage: python -m sentinel.serve --run <package_or_lora_dir> --port 8010
+Environment: SENTINEL_DEVICE=cuda|cpu forces the device (default: Kev's choice, cuda -> mps -> cpu);
+             SENTINEL_HOST=<address> listens there instead of 127.0.0.1 (the server has no login unless KEV_API_KEY is set:
+             only on a private network); the KEV_* options of kev.checkpoint.LoadOptions.from_env apply as usual.
 """
 import json, os
 from pathlib import Path
 
 import kev.checkpoint as ck
-import mlx.core as mx
-import mlx.nn as nn
-from kev.mlx_model import MLXDecisionModel
 from kev.model import PointerHead, pad_id, rows_of, rows_per_pass
 
+DEVICE = os.environ.get("SENTINEL_DEVICE", "")
+HOST = os.environ.get("SENTINEL_HOST", "127.0.0.1")
 # opt-in cap on question rows per branch pass on Metal (memory bound for 8 GB Macs). 0 (default) = kev's own split (all
 # questions of a request in one pass). Splitting changes batch shapes, so answers can move by float noise (<= ~0.03 on the
 # 4-bit build for 6-question requests); 2-question requests (the live bot) are unaffected by a cap of 2.
 ROWS_PER_PASS = int(os.environ.get("SENTINEL_ROWS_PER_PASS", "0"))
-from mlx_lm.utils import load_model
-from transformers import AutoTokenizer
+try:   # Apple Silicon only; on Linux/Windows the torch backend serves the LoRA run
+    import mlx.core as mx
+    import mlx.nn as nn
+    from kev.mlx_model import MLXDecisionModel
+    from mlx_lm.utils import load_model
+    from transformers import AutoTokenizer
+    HAVE_MLX = True
+except ImportError:
+    HAVE_MLX = False
+    MLXDecisionModel = object
 
 
 def _is_package(path) -> bool:
@@ -79,6 +95,9 @@ def backend(self, device, opts=ck.LoadOptions()):
 def load(self, device, opts=ck.LoadOptions()):
     if not _is_package(self.path):
         return _orig_load(self, device, opts)
+    if not HAVE_MLX:
+        raise SystemExit(f"{self.path} is a Sentinel MLX package (Apple Silicon only); on this machine serve the LoRA run "
+                         "(Hugging Face NovaeonStudio/novaeon-sentinel-9b, folder lora/)")
     tok = AutoTokenizer.from_pretrained(self.path)
     m = SentinelMLX(self.path, pad_id(tok), head_dim=self.meta.head_dim)
     m.head.load_state_dict(self.meta.head); m.eval()
@@ -88,6 +107,19 @@ def load(self, device, opts=ck.LoadOptions()):
 
 ck.Checkpoint.hybrid_base, ck.Checkpoint.backend, ck.Checkpoint.load = hybrid_base, backend, load
 
+
+def main():
+    import kev.serve as ks
+    if DEVICE:
+        if DEVICE not in ("cuda", "cpu", "mps"): raise SystemExit(f"SENTINEL_DEVICE must be cuda, cpu or mps, not {DEVICE!r}")
+        ks.default_device = lambda: DEVICE   # kev.serve asks kev.device.default_device(); same serving defaults per device
+    if HOST != "127.0.0.1":
+        import uvicorn
+        run = uvicorn.run
+        uvicorn.run = lambda app, **kw: run(app, **{**kw, "host": HOST})
+        print(f"listening on {HOST} (not only this machine): keep it on a private network", flush=True)
+    ks.main()
+
+
 if __name__ == "__main__":
-    from kev.serve import main
     main()

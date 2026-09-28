@@ -186,6 +186,35 @@ and to a build, answer by answer, at the bot's thresholds:
   The bot sends a check only right before a purchase.
 - Speed on an Apple M5 Max: about 0.5 s per check for either build. Not yet measured on a base 8 GB M1/M2.
 
+## Running on Linux: NVIDIA GPU or CPU (experimental), or on another machine
+
+Off the Mac there is no MLX build. The installer's `cuda` and `cpu` modes serve the **LoRA run** from Hugging Face
+(`lora/`: adapter, pointer head, tokenizer) on top of its base model `Qwen/Qwen3.5-9B-Base` (pinned to the snapshot
+Sentinel was trained on) with Kev's PyTorch backend, via the same `sentinel/serve.py`:
+
+```bash
+SENTINEL_DEVICE=cuda python -m sentinel.serve --run <lora dir> --port 8010   # or SENTINEL_DEVICE=cpu
+```
+
+- This is the reference path of the table above (bf16, adapter kept unmerged as trained), not a quantized build.
+- `SENTINEL_DEVICE` forces the device (Kev otherwise picks cuda, then mps, then cpu); Kev's `KEV_*` options apply
+  (`KEV_CUDA_GRAPHS`, `KEV_FUSED`, `KEV_DTYPE`, ...). The installer writes its choices to
+  `~/NovaeonTradingAI/sentinel/sentinel.env`; your own go into `sentinel/sentinel.local.env` next to it.
+- **NVIDIA GPU (`cuda`):** the bf16 backbone is about 17 GB, so a 24 GB GPU is the minimum. Kev's CUDA serving
+  defaults (CUDA graphs with several GB of fixed buffers, fused Triton kernels) are used where they fit: CUDA graphs
+  only on GPUs with 30 GB or more, the flash-linear-attention kernels only when a C compiler is installed (Triton
+  compiles at run time). The model is staged through main memory while it loads (about 20 GB). What we tested: the
+  installer end to end on Ubuntu 26.04 with an NVIDIA GTX 1650 Ti (driver 595, PyTorch 2.8 cu129 chosen
+  automatically), and this serving code on that GPU with the small Kev-0.8B model (eager, bf16: about 80 ms per
+  check). The 9B model itself has not run on an NVIDIA GPU yet.
+- **CPU (`cpu`):** needs about 20 GB of main memory. It works, but it is **not recommended**: PyTorch reaches about
+  90 GFLOPS in bf16 on a 6-core AVX2 laptop CPU (435 GFLOPS in fp32), which puts one news check with 15 headlines at
+  roughly 1 to 3 minutes. The installer lets the engine wait up to 240 s in this mode. CPUs with AMX or AVX512-BF16
+  are much faster; not measured.
+- **Another machine (`remote`):** the engine asks a Sentinel on another machine, usually a Mac in the same Tailscale
+  network. Measured from a Linux server to a Mac (8-bit build) over Tailscale: about 0.2 s per check, the same
+  answers as on the Mac. See the README, "Split setup".
+
 ## Limitations
 
 - **English crypto headlines only.** Other languages and other asset classes are out of scope.

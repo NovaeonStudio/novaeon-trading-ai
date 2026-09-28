@@ -32,10 +32,16 @@ log = logging.getLogger(__name__)
 # Decision model: Novaeon Sentinel 9B (NOVAEON_SENTINEL_URL, or the older NOVAEON_KEV_URL). No fallback by default:
 # the stock Kev-9B base model is much weaker on crypto news (bad-news precision 41% vs 78%, "clearly positive"
 # precision 41% vs 83% on the held-out set), so if Sentinel is unreachable the bot trades without the news check at 1x
-# instead. A fallback endpoint can still be set explicitly with NOVAEON_KEV_FALLBACK_URL.
+# instead. A fallback endpoint can still be set explicitly with NOVAEON_KEV_FALLBACK_URL. NOVAEON_SENTINEL_URL=off (installs
+# without Sentinel) skips the call: every entry is allowed at 1x without the news check.
 SENTINEL_URL = (os.environ.get("NOVAEON_SENTINEL_URL") or os.environ.get("NOVAEON_KEV_URL")
                 or "http://127.0.0.1:8010/v1/systemone")
-KEV_URLS = [SENTINEL_URL] + ([os.environ["NOVAEON_KEV_FALLBACK_URL"]] if os.environ.get("NOVAEON_KEV_FALLBACK_URL") else [])
+SENTINEL_OFF = SENTINEL_URL.strip().lower() in ("off", "none")
+# Seconds to wait for one answer. 45 s is plenty for Apple GPUs and NVIDIA GPUs (well under a second); the experimental CPU
+# mode sets more (a 9B model on a CPU without fast bf16 support takes minutes per news check).
+SENTINEL_TIMEOUT = float(os.environ.get("NOVAEON_SENTINEL_TIMEOUT") or 45)
+KEV_URLS = ([] if SENTINEL_OFF else [SENTINEL_URL]) + (
+    [os.environ["NOVAEON_KEV_FALLBACK_URL"]] if os.environ.get("NOVAEON_KEV_FALLBACK_URL") else [])
 FEEDS = [
     "https://www.coindesk.com/arc/outboundfeeds/rss/",
     "https://cointelegraph.com/rss",
@@ -169,7 +175,8 @@ class BreakoutRegimeKev(BreakoutRegime):
         nv = self.config.get("novaeon") or {}
         if not nv.get("ai_leverage_allowed", True):
             on, why = False, "ai_leverage_locked"
-        elif self.config.get("runmode") in (RunMode.DRY_RUN, RunMode.LIVE) and _ram_gb() < AI_LEVERAGE_MIN_RAM_GB:
+        elif (self.config.get("runmode") in (RunMode.DRY_RUN, RunMode.LIVE) and nv.get("sentinel_local", True)
+              and _ram_gb() < AI_LEVERAGE_MIN_RAM_GB):   # small machine = 4-bit model; not when Sentinel runs elsewhere
             on, why = False, "ai_leverage_locked"
         elif not nv.get("ai_leverage", False):
             on, why = False, "ai_leverage_off"
@@ -229,15 +236,15 @@ class BreakoutRegimeKev(BreakoutRegime):
                 try:
                     req = urllib.request.Request(url, data=json.dumps(body).encode(),
                                                  headers={"content-type": "application/json"})
-                    ans = json.loads(urllib.request.urlopen(req, timeout=45).read())["answers"]
+                    ans = json.loads(urllib.request.urlopen(req, timeout=SENTINEL_TIMEOUT).read())["answers"]
                     res["p_negative"] = float(ans["major_negative"]["noul"])
                     res["outlook"] = {k: float(v) for k, v in ans["outlook"]["probabilities"].items()}
-                    res["model"] = "novaeon-sentinel-9b" if url == KEV_URLS[0] else "kev-9b"
+                    res["model"] = "novaeon-sentinel-9b" if url == SENTINEL_URL else "kev-9b"
                     break
                 except Exception as e:  # noqa: BLE001
                     errors.append(f"{url.split('/')[2]}: {e}")
             else:
-                res["error"] = "kev_unavailable: " + "; ".join(errors)
+                res["error"] = "kev_unavailable: " + ("; ".join(errors) or "Sentinel is off on this install")
         self._assess_cache[pair] = (time.time(), res)
         return res
 

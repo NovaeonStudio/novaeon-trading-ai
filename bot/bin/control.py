@@ -466,9 +466,12 @@ _build_cache: dict = {"at": 0.0, "value": None}
 def _ram_gb() -> float | None:
     if not _ram_cache:
         try:
-            r = subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True, timeout=5)
-            _ram_cache.append(round(int(r.stdout.strip()) / 2**30, 1))
-        except (OSError, ValueError, subprocess.SubprocessError):
+            if _MAC:
+                r = subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True, timeout=5)
+                _ram_cache.append(round(int(r.stdout.strip()) / 2**30, 1))
+            else:
+                _ram_cache.append(round(os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 2**30, 1))
+        except (OSError, ValueError, AttributeError, subprocess.SubprocessError):
             _ram_cache.append(None)
     return _ram_cache[0]
 
@@ -483,6 +486,8 @@ def _sentinel_build(nv: dict) -> str | None:
     server (cached 5 min)."""
     if nv.get("sentinel_build"):
         return str(nv["sentinel_build"])
+    if SENTINEL_URL.strip().lower() in ("off", "none"):
+        return "off"
     if time.time() - _build_cache["at"] > 300:
         value = None
         try:
@@ -499,11 +504,15 @@ def _settings() -> dict:
     nv = _novaeon().get("novaeon") or {}
     ram = _ram_gb()
     locked_reason = None
-    if not nv.get("ai_leverage_allowed", True):
-        locked_reason = ("This Mac runs the smaller Sentinel build, which is less precise at picking leverage. "
+    machine = "This Mac" if _MAC else "This computer"
+    if nv.get("sentinel_mode") == "off" or SENTINEL_URL.strip().lower() in ("off", "none"):
+        locked_reason = ("Sentinel is switched off on this install, so there is no news check to pick leverage. "
                          "Every trade uses 1× (no borrowing).")
-    elif ram is not None and ram < AI_LEVERAGE_MIN_RAM_GB:
-        locked_reason = (f"This Mac has {ram:g} GB of memory and runs the smaller Sentinel build, which is less "
+    elif not nv.get("ai_leverage_allowed", True):
+        locked_reason = (f"{machine} runs the smaller Sentinel build, which is less precise at picking leverage. "
+                         "Every trade uses 1× (no borrowing).")
+    elif nv.get("sentinel_local", True) and ram is not None and ram < AI_LEVERAGE_MIN_RAM_GB:
+        locked_reason = (f"{machine} has {ram:g} GB of memory and runs the smaller Sentinel build, which is less "
                          "precise at picking leverage. Every trade uses 1× (no borrowing).")
     allowed = locked_reason is None
     return {"ai_leverage": bool(nv.get("ai_leverage", False)) and allowed, "ai_leverage_allowed": allowed,

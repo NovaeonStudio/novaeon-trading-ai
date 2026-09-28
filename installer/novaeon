@@ -1,45 +1,87 @@
 #!/bin/bash
 # novaeon: manage a NovaeonTradingAI install (installed as <install dir>/bin/novaeon).
 #   novaeon status | start | stop | restart [engine|control|sentinel] | logs [engine|control|sentinel]
-#   novaeon open | password [--reset] | update | uninstall | version
+#   novaeon open | password [--reset] | update [installer options, e.g. --sentinel off] | uninstall | version
 set -euo pipefail
 H=$(cd "$(dirname "$0")/.." && pwd)
 [ -f "$H/install.env" ] || H=${NOVAEON_HOME:-$HOME/NovaeonTradingAI}
 [ -f "$H/install.env" ] || { echo "No NovaeonTradingAI install found ($H/install.env missing)." >&2; exit 1; }
+USER_ENV=$(export -p | grep -E '^(declare -x|export) NOVAEON_' || true)   # the caller's overrides, for "update"
 # shellcheck disable=SC1091
 . "$H/install.env"
 P=$NOVAEON_LABEL_PREFIX
+OSN=${NOVAEON_OS:-Darwin}            # installs before 1.1.0 were macOS-only and did not record it
+KIND=${NOVAEON_INSTALL_KIND:-full}
+MODE=${NOVAEON_SENTINEL_MODE:-mlx}
 LA=${NOVAEON_LAUNCH_AGENTS:-$HOME/Library/LaunchAgents}
-URL="http://127.0.0.1:$NOVAEON_ENGINE_PORT"
+URL="http://127.0.0.1:${NOVAEON_ENGINE_PORT:-8081}"
 INSTALL_URL="https://raw.githubusercontent.com/NovaeonStudio/novaeon-trading-ai/main/install.sh"
 UIDN=$(id -u)
-NAMES="sentinel engine control"
+NAMES=${NOVAEON_SERVICES:-sentinel engine control}
 
-loaded() { launchctl list "$P.$1" >/dev/null 2>&1; }
-pid_of() { launchctl list "$P.$1" 2>/dev/null | awk -F' = ' '/"PID"/{gsub(/;/,"",$2); print $2}'; }
+svc() { if [ "$OSN" = Darwin ]; then echo "$P.$1"; else echo "$P-$1.service"; fi; }
+loaded() {
+  if [ "$OSN" = Darwin ]; then launchctl list "$(svc "$1")" >/dev/null 2>&1
+  else case "$(systemctl --user show -p ActiveState --value "$(svc "$1")" 2>/dev/null)" in active|activating|reloading) return 0 ;; *) return 1 ;; esac; fi
+}
+pid_of() {
+  if [ "$OSN" = Darwin ]; then launchctl list "$(svc "$1")" 2>/dev/null | awk -F' = ' '/"PID"/{gsub(/;/,"",$2); print $2}'
+  else local p; p=$(systemctl --user show -p MainPID --value "$(svc "$1")" 2>/dev/null || echo 0); [ "${p:-0}" = 0 ] || echo "$p"; fi
+}
 http_ok() { curl -fs -m 3 -o /dev/null "$1"; }
+sentinel_base() {
+  case "$MODE" in
+    remote) echo "${NOVAEON_SENTINEL_URL%%/v1/*}" ;;
+    off) echo "" ;;
+    *) echo "http://127.0.0.1:$NOVAEON_SENTINEL_PORT" ;;
+  esac
+}
 check_url() {
   case $1 in
     engine) echo "$URL/api/v1/ping" ;;
     control) echo "" ;;   # needs a login token; the process state is enough here
-    sentinel) echo "http://127.0.0.1:$NOVAEON_SENTINEL_PORT/v1/models" ;;
+    sentinel) case "${NOVAEON_SENTINEL_BIND:-127.0.0.1}" in
+                127.0.0.1|0.0.0.0|::|'') echo "http://127.0.0.1:$NOVAEON_SENTINEL_PORT/v1/models" ;;
+                *) echo "http://$NOVAEON_SENTINEL_BIND:$NOVAEON_SENTINEL_PORT/v1/models" ;;
+              esac ;;
   esac
 }
-pick() { case "${1:-}" in "") echo "$NAMES" ;; engine|control|sentinel) echo "$1" ;; *) echo "unknown service: $1" >&2; exit 2 ;; esac; }
+pick() {
+  case "${1:-}" in
+    "") echo "$NAMES" ;;
+    engine|control|sentinel)
+      case " $NAMES " in *" $1 "*) echo "$1" ;; *) echo "$1 is not part of this install (services: $NAMES)" >&2; exit 2 ;; esac ;;
+    *) echo "unknown service: $1" >&2; exit 2 ;;
+  esac
+}
+restart_one() {
+  if [ "$OSN" = Darwin ]; then launchctl kickstart -k "gui/$UIDN/$(svc "$1")"
+  else systemctl --user restart "$(svc "$1")"; fi
+}
 
 start() {
   for n in $(pick "${1:-}"); do
-    if loaded "$n"; then launchctl kickstart "gui/$UIDN/$P.$n" 2>/dev/null || true
-    else launchctl bootstrap "gui/$UIDN" "$LA/$P.$n.plist"; fi
+    if [ "$OSN" = Darwin ]; then
+      if loaded "$n"; then launchctl kickstart "gui/$UIDN/$(svc "$n")" 2>/dev/null || true
+      else launchctl bootstrap "gui/$UIDN" "$LA/$(svc "$n").plist"; fi
+    else
+      systemctl --user enable -q "$(svc "$n")" 2>/dev/null || true
+      systemctl --user start "$(svc "$n")"
+    fi
     echo "started $n"
   done
 }
 
 stop() {
   local list; list=$(pick "${1:-}")
-  [ -z "${1:-}" ] && list="control engine sentinel"
+  if [ -z "${1:-}" ]; then list=""; for n in control engine sentinel; do case " $NAMES " in *" $n "*) list="$list $n" ;; esac; done; fi
   for n in $list; do
-    if loaded "$n"; then launchctl bootout "gui/$UIDN/$P.$n" 2>/dev/null || true; echo "stopped $n"; fi
+    loaded "$n" || continue
+    if [ "$OSN" = Darwin ]; then
+      launchctl bootout "gui/$UIDN/$(svc "$n")" 2>/dev/null || true
+      local i=0; while loaded "$n" && [ $i -lt 40 ]; do sleep 0.5; i=$((i + 1)); done   # bootout returns before it is done
+    else systemctl --user stop "$(svc "$n")" 2>/dev/null || true; fi
+    echo "stopped $n"
   done
 }
 
@@ -53,6 +95,16 @@ status() {
     printf '%-9s %-8s %-7s %s\n' "$n" "$state" "$pid" "$chk"
   done
   echo
+  case "$MODE" in
+    remote) local s; if http_ok "$(sentinel_base)/v1/models"; then s=ok; else s="not answering: trades go ahead at 1x without the news check"; fi
+            echo "News:  Sentinel at $NOVAEON_SENTINEL_URL ($s)" ;;
+    off) echo "News:  Sentinel off (no news check, every trade at 1x)" ;;
+    cuda|cpu) echo "News:  Sentinel on this computer ($MODE, experimental)" ;;
+  esac
+  if [ "$KIND" = sentinel-only ]; then
+    echo "Model: http://${NOVAEON_SENTINEL_BIND:-127.0.0.1}:$NOVAEON_SENTINEL_PORT/v1/systemone${NOVAEON_VERSION:+   (version $NOVAEON_VERSION)}"
+    return
+  fi
   echo "App:   $URL   (show the login: $0 password)"
   local mode=""
   [ -f "$H/user_data/mode.json" ] && mode=$(sed -n 's/.*"mode": *"\([a-z]*\)".*/\1/p' "$H/user_data/mode.json")
@@ -70,28 +122,40 @@ logs() {
 }
 
 password() {
+  [ "$KIND" = full ] || { echo "This is a Sentinel-only install: there is no app login." >&2; exit 2; }
   if [ "${1:-}" = "--reset" ]; then
     "$H/.venv/bin/python" "$H/src/installer/lib/novaeon_setup.py" password --home "$H" >/dev/null
-    launchctl kickstart -k "gui/$UIDN/$P.engine" >/dev/null 2>&1 || true
+    restart_one engine >/dev/null 2>&1 || true
     echo "New password set (the engine restarts, open browser sessions are signed out)."
   fi
   echo "User:     $(sed -n 's/^user: //p' "$H/login.txt")"
   echo "Password: $(sed -n 's/^password: //p' "$H/login.txt")"
 }
 
+open_app() {
+  if [ "$OSN" = Darwin ]; then open "$URL"
+  elif [ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ] && command -v xdg-open >/dev/null 2>&1; then xdg-open "$URL" >/dev/null 2>&1 &
+  else local e=${NOVAEON_ENGINE_PORT:-8081} c=${NOVAEON_CONTROL_PORT:-8082}
+       echo "Open $URL in a browser on this computer (from elsewhere: ssh -L $e:127.0.0.1:$e -L $c:127.0.0.1:$c <this machine>)."; fi
+}
+
 case "${1:-status}" in
   status) status ;;
   start) start "${2:-}" ;;
   stop) stop "${2:-}" ;;
-  restart) for n in $(pick "${2:-}"); do launchctl kickstart -k "gui/$UIDN/$P.$n" && echo "restarted $n"; done ;;
+  restart) for n in $(pick "${2:-}"); do restart_one "$n" && echo "restarted $n"; done ;;
   logs|log) logs "${2:-}" ;;
-  open) open "$URL" ;;
+  open) open_app ;;
   password) password "${2:-}" ;;
   update)
-    if [ -n "${NOVAEON_INSTALL_SCRIPT:-}" ]; then NOVAEON_HOME=$H bash "$NOVAEON_INSTALL_SCRIPT"
-    else curl -fsSL "$INSTALL_URL" | NOVAEON_HOME=$H bash; fi ;;
+    # the installer reads install.env itself; pass on only what the caller set (e.g. NOVAEON_SENTINEL_MODE=off)
+    # shellcheck disable=SC2046
+    unset $(env | sed -n 's/^\(NOVAEON_[A-Z0-9_]*\)=.*/\1/p')
+    eval "$USER_ENV"
+    if [ -n "${NOVAEON_INSTALL_SCRIPT:-}" ]; then NOVAEON_HOME=$H bash "$NOVAEON_INSTALL_SCRIPT" "${@:2}"
+    else curl -fsSL "$INSTALL_URL" | NOVAEON_HOME=$H bash -s -- "${@:2}"; fi ;;
   uninstall) exec "$H/bin/uninstall.sh" "${@:2}" ;;
-  version) echo "NovaeonTradingAI ${NOVAEON_VERSION:-?} (installed $NOVAEON_INSTALLED_AT, model $NOVAEON_MODEL_VARIANT)" ;;
+  version) echo "NovaeonTradingAI ${NOVAEON_VERSION:-?} (installed $NOVAEON_INSTALLED_AT, Sentinel $MODE${NOVAEON_MODEL_VARIANT:+ $NOVAEON_MODEL_VARIANT})" ;;
   -h|--help|help) sed -n '2,4p' "$0" | sed 's/^# \{0,1\}//' ;;
   *) echo "unknown command: $1 (try: novaeon help)" >&2; exit 2 ;;
 esac

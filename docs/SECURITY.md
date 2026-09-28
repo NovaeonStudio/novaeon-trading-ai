@@ -46,7 +46,7 @@ What this means in practice:
 
 | Secret | Where |
 |---|---|
-| Bot key | macOS login Keychain (`novaeon-trading-agent`; a not-yet-approved key under `novaeon-trading-agent-pending`). Never written to a file or a log. When the engine starts in live mode it reads the key from the Keychain into its process environment. |
+| Bot key | **macOS:** login Keychain (`novaeon-trading-agent`; a not-yet-approved key under `novaeon-trading-agent-pending`). **Linux (and WSL2):** an encrypted systemd user credential per key in `~/.config/novaeon/credentials/` (`systemd-creds --user`, systemd 256 or newer): encrypted with a key of this machine (and its TPM when there is one) and bound to your user, so the file is useless elsewhere or to other users. Never written to a plain file or a log. When the engine starts in live mode it reads the key from the key store into its process environment. Uninstalling never deletes it; revoke the API wallet on Hyperliquid if in doubt. |
 | App login password, API token secrets | Generated at random during install; stored in the engine's config (`user_data/bot.json`) and, for you to look up, in `~/NovaeonTradingAI/login.txt` (file mode 600). `bin/novaeon password` sets a new one. |
 | Wallet address, mode, practice ledger, manual stops | JSON files in `user_data/`, written with file mode 600 |
 | Your wallet key and seed phrase | Only MetaMask. The app never asks for them. **Nobody from Novaeon will ever ask for them.** |
@@ -56,6 +56,14 @@ The configs in this repository ship with empty exchange keys, placeholder passwo
 ## Network exposure
 
 - All services listen on `127.0.0.1` only: engine and app (8081), control service (8082), Sentinel (8010).
+- **Sentinel's model server has no login.** Whoever can reach its port can send it questions (it only answers with
+  probabilities and holds no secrets, but it costs your Mac's compute and could be fed crafted text). In a split setup
+  keep it inside a private network: we recommend [Tailscale](https://tailscale.com), with Sentinel on `127.0.0.1` and
+  `tailscale serve --tcp 8010 tcp://127.0.0.1:8010` on the Mac, so only devices in your tailnet (and allowed by its
+  access rules) reach it. Never forward port 8010 on your router. `NOVAEON_SENTINEL_BIND` can make a Sentinel-only
+  install listen on another address; that is opt-in and prints a warning. (Kev's server can require a bearer token
+  with `KEV_API_KEY`, but the bot does not send one yet.)
+- The engine sends Sentinel only the coin name and public headlines: no keys, balances or trades.
 - The control service accepts only requests that carry a valid engine login token.
 - Outbound connections: Hyperliquid (market data, orders, agent approval), four public news RSS feeds, Hugging Face
   (model download during install), and, only if you agreed during install, one anonymous install count.
@@ -66,7 +74,12 @@ The configs in this repository ship with empty exchange keys, placeholder passwo
 
 - Anyone who can run programs as your macOS user can read your Keychain items (after macOS asks, depending on
   settings), your config files and the environment of the engine process. Protect your Mac account with a strong
-  password and FileVault.
+  password and FileVault. The same holds for your Linux user: it can decrypt its own systemd credentials. Use disk
+  encryption and keep other people off that account.
+- On Linux with systemd older than 256 (e.g. Ubuntu 24.04, Debian 12) there is no user credential store: practice
+  mode works, but connecting a wallet for real money fails with an error instead of storing the key insecurely.
+- Windows (beta) runs the Linux version inside WSL2; the bot key is a systemd credential inside the WSL
+  distribution, protected by your Windows account.
 - The app is not code-signed or notarized (no Apple developer certificate). Download it only from the official
   GitHub releases and check the SHA-256 checksum published with each release.
 - `curl … | bash` runs a script from the internet. You can download and read `install.sh` first.
