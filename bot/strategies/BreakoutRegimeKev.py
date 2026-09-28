@@ -29,11 +29,13 @@ from BreakoutRegime import BreakoutRegime
 
 log = logging.getLogger(__name__)
 
-# Decision-model endpoints (kev.serve), tried in order: Novaeon Sentinel 9B, then the stock Kev-9B base model.
-# NOVAEON_SENTINEL_URL (or the older NOVAEON_KEV_URL) overrides the first one.
+# Decision model: Novaeon Sentinel 9B (NOVAEON_SENTINEL_URL, or the older NOVAEON_KEV_URL). No fallback by default:
+# the stock Kev-9B base model is much weaker on crypto news (bad-news precision 41% vs 78%, "clearly positive"
+# precision 41% vs 83% on the held-out set), so if Sentinel is unreachable the bot trades without the news check at 1x
+# instead. A fallback endpoint can still be set explicitly with NOVAEON_KEV_FALLBACK_URL.
 SENTINEL_URL = (os.environ.get("NOVAEON_SENTINEL_URL") or os.environ.get("NOVAEON_KEV_URL")
                 or "http://127.0.0.1:8010/v1/systemone")
-KEV_URLS = [SENTINEL_URL, os.environ.get("NOVAEON_KEV_FALLBACK_URL") or "http://127.0.0.1:8008/v1/systemone"]
+KEV_URLS = [SENTINEL_URL] + ([os.environ["NOVAEON_KEV_FALLBACK_URL"]] if os.environ.get("NOVAEON_KEV_FALLBACK_URL") else [])
 FEEDS = [
     "https://www.coindesk.com/arc/outboundfeeds/rss/",
     "https://cointelegraph.com/rss",
