@@ -33,7 +33,7 @@ log = logging.getLogger(__name__)
 # NOVAEON_SENTINEL_URL (or the older NOVAEON_KEV_URL) overrides the first one.
 SENTINEL_URL = (os.environ.get("NOVAEON_SENTINEL_URL") or os.environ.get("NOVAEON_KEV_URL")
                 or "http://127.0.0.1:8010/v1/systemone")
-KEV_URLS = [SENTINEL_URL, "http://127.0.0.1:8008/v1/systemone"]
+KEV_URLS = [SENTINEL_URL, os.environ.get("NOVAEON_KEV_FALLBACK_URL") or "http://127.0.0.1:8008/v1/systemone"]
 FEEDS = [
     "https://www.coindesk.com/arc/outboundfeeds/rss/",
     "https://cointelegraph.com/rss",

@@ -6,7 +6,8 @@ Bearer token the UI uses for the trading engine; it is checked against the engin
 Security model:
 - The user's MetaMask key never leaves MetaMask. MetaMask only signs Hyperliquid's "ApproveAgent" message, which lets
   a bot key (the "API wallet") place orders for the account. An API wallet cannot withdraw funds.
-- The bot key is generated here and stored only in the macOS login Keychain (service novaeon-trading-agent).
+- The bot key is generated here and stored only in the macOS login Keychain (service novaeon-trading-agent), or on
+  Linux as an encrypted systemd user credential bound to this user and machine.
 - Live mode starts only after explicit confirmation, with an approved API wallet, a funded account and a capital cap.
 - Manual trading: buys go through /control/buy (long only, tag "manual", add limit enforced) and manual stops through
   /control/trades/{id}/stop. Stops can only be tightened; the engine never lowers a stop.
@@ -18,6 +19,7 @@ import math
 import os
 import secrets
 import subprocess
+import sys
 import time
 from datetime import datetime
 from decimal import Decimal
@@ -83,19 +85,53 @@ def _valid_addr(a: str) -> str:
     return _checksum(a)
 
 
+# Key store for the bot's API-wallet key. macOS: login Keychain. Linux: a systemd user credential - encrypted with the
+# host key (and TPM when present), bound to this user on this machine; nothing readable is ever written to disk.
+_MAC = sys.platform == "darwin"
+_CRED_DIR = Path.home() / ".config/novaeon/credentials"
+
+
+def _cred(service: str, account: str) -> tuple[Path, str]:
+    name = f"{service}.{account.lower()}"
+    return _CRED_DIR / f"{name}.cred", name
+
+
 def _kc_set(service: str, account: str, secret: str) -> None:
-    subprocess.run(["security", "add-generic-password", "-U", "-s", service, "-a", account, "-w", secret],
-                   check=True, capture_output=True)
+    if _MAC:
+        subprocess.run(["security", "add-generic-password", "-U", "-s", service, "-a", account, "-w", secret],
+                       check=True, capture_output=True)
+        return
+    _CRED_DIR.mkdir(parents=True, exist_ok=True)
+    os.chmod(_CRED_DIR, 0o700)
+    path, name = _cred(service, account)
+    tmp = path.with_suffix(".tmp")
+    r = subprocess.run(["systemd-creds", "--user", "encrypt", f"--name={name}", "-", str(tmp)],
+                       input=secret.encode(), capture_output=True)
+    if r.returncode != 0:
+        tmp.unlink(missing_ok=True)
+        raise HTTPException(500, "Could not store the bot key securely on this server.")
+    os.chmod(tmp, 0o600)
+    tmp.replace(path)
 
 
 def _kc_get(service: str, account: str) -> str | None:
-    r = subprocess.run(["security", "find-generic-password", "-s", service, "-a", account, "-w"],
+    if _MAC:
+        r = subprocess.run(["security", "find-generic-password", "-s", service, "-a", account, "-w"],
+                           capture_output=True, text=True)
+        return r.stdout.strip() if r.returncode == 0 else None
+    path, name = _cred(service, account)
+    if not path.exists():
+        return None
+    r = subprocess.run(["systemd-creds", "--user", "decrypt", f"--name={name}", str(path), "-"],
                        capture_output=True, text=True)
-    return r.stdout.strip() if r.returncode == 0 else None
+    return r.stdout.strip() if r.returncode == 0 and r.stdout.strip() else None
 
 
 def _kc_del(service: str, account: str) -> None:
-    subprocess.run(["security", "delete-generic-password", "-s", service, "-a", account], capture_output=True)
+    if _MAC:
+        subprocess.run(["security", "delete-generic-password", "-s", service, "-a", account], capture_output=True)
+        return
+    _cred(service, account)[0].unlink(missing_ok=True)
 
 
 def _read(path: Path, default):
@@ -152,7 +188,11 @@ def _engine(path: str, auth: str):
 
 
 def _restart_engine() -> None:
-    r = subprocess.run(["launchctl", "kickstart", "-k", f"gui/{os.getuid()}/{LAUNCHD_LABEL}"], capture_output=True)
+    if sys.platform == "darwin":
+        cmd = ["launchctl", "kickstart", "-k", f"gui/{os.getuid()}/{LAUNCHD_LABEL}"]
+    else:  # Linux server: the engine runs as a systemd user service
+        cmd = ["systemctl", "--user", "restart", os.environ.get("NOVAEON_ENGINE_UNIT", "novaeon-freqtrade.service")]
+    r = subprocess.run(cmd, capture_output=True)
     if r.returncode != 0:
         raise HTTPException(502, "The change is saved, but the bot could not be restarted. Restart the app to apply it.")
 
