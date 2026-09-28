@@ -20,3 +20,6 @@ overrides:
   "brace-expansion@2": "^2.1.2"
   "nanoid@3": "^3.3.18"
   "postcss@8": "^8.4.25"
+  # security: GHSA Tiptap ReDoS + mergeAttributes (fixed in 3.30.5); pulled in via @nuxt/ui, not used directly
+  "@tiptap/core": "^3.31.3"
+  "@tiptap/pm": "^3.31.3"
