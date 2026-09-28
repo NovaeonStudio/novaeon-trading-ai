@@ -75,7 +75,7 @@ test.describe('Analysis', () => {
     ).toBeInViewport();
 
     await expect(page.getByRole('button', { name: 'Start lookahead analysis' })).not.toBeEnabled();
-    await page.getByRole('button', { name: 'Show popup' }).click();
+    await page.locator('#strategy-select').click();
     await page.getByText('AverageStrategy').click();
     await expect(page.getByRole('button', { name: 'Start lookahead analysis' })).toBeEnabled();
     await page.getByRole('button', { name: 'Start lookahead analysis' }).click();
@@ -123,7 +123,7 @@ test.describe('Analysis', () => {
       page.getByRole('heading', { name: 'Recursive analysis', level: 1 }),
     ).toBeInViewport();
     await expect(page.getByRole('button', { name: 'Start recursive analysis' })).not.toBeEnabled();
-    await page.getByRole('button', { name: 'Show popup' }).click();
+    await page.locator('#strategy-select').click();
     await page.getByText('AverageStrategy').click();
     await expect(page.getByRole('button', { name: 'Start recursive analysis' })).toBeEnabled();
     await page.getByRole('button', { name: 'Start recursive analysis' }).click();

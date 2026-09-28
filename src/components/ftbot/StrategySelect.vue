@@ -33,6 +33,7 @@ onMounted(() => {
       <USelectMenu
         id="strategy-select"
         v-model="strategy"
+        :aria-label="t('strategy.select.placeholder')"
         filter
         :placeholder="t('strategy.select.placeholder')"
         class="w-full"
