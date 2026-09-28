@@ -15,6 +15,7 @@ import logging
 import os
 import re
 import time
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -43,11 +44,26 @@ SENTINEL_TIMEOUT = float(os.environ.get("NOVAEON_SENTINEL_TIMEOUT") or 45)
 KEV_URLS = ([] if SENTINEL_OFF else [SENTINEL_URL]) + (
     [os.environ["NOVAEON_KEV_FALLBACK_URL"]] if os.environ.get("NOVAEON_KEV_FALLBACK_URL") else [])
 FEEDS = [
-    "https://www.coindesk.com/arc/outboundfeeds/rss/",
+    "https://www.coindesk.com/arc/outboundfeeds/rss",
     "https://cointelegraph.com/rss",
     "https://decrypt.co/feed",
     "https://www.theblock.co/rss.xml",
 ]
+# Google News RSS search per coin, the source Sentinel's training data came from. The four outlet feeds above carry
+# ~50 items in 48 h in total, so most coins had no headlines at all (live 2026-09-28: 17 of 20). Two searches per coin
+# (plain and risk-angled), fetched only when an entry is checked, cached 15 minutes. NOVAEON_NEWS_SEARCH=off keeps only
+# the outlet feeds.
+NEWS_SEARCH = (os.environ.get("NOVAEON_NEWS_SEARCH") or "on").strip().lower() not in ("off", "none", "0", "false")
+SEARCH_TERMS = {"BTC": "bitcoin", "ETH": "ethereum", "SOL": "solana", "BNB": "BNB binance coin", "XRP": "XRP ripple",
+                "ADA": "cardano", "DOGE": "dogecoin", "AVAX": "avalanche AVAX", "LINK": "chainlink",
+                "NEAR": "NEAR protocol", "ZEC": "zcash", "ONDO": "ondo finance", "ENA": "ethena", "LTC": "litecoin",
+                "TAO": "bittensor", "SUI": "sui blockchain", "UNI": "uniswap", "ARB": "arbitrum", "WLD": "worldcoin",
+                "AAVE": "aave", "EGLD": "multiversx"}
+RISK_TERMS = "hack OR exploit OR delist OR lawsuit OR outage OR halt"
+MAX_HEADLINES = 15
+# Up to this many of the 15 go to hits of the risk search first: a busy coin has ~100 headlines in 48 h, and
+# newest-first alone would push a day-old hack out behind a few hours of price commentary.
+MAX_RISK_HEADLINES = 7
 # Coin names match case-insensitively; tickers only as uppercase words (so "ledger link" != LINK).
 NAMES = {
     "BTC": ["bitcoin"], "ETH": ["ethereum", "ether"], "SOL": ["solana"], "BNB": ["bnb"],
@@ -70,6 +86,27 @@ LOG_PATH = Path(__file__).resolve().parents[1] / "kev_decisions.jsonl"
 MANUAL_STOPS_PATH = Path(__file__).resolve().parents[1] / "manual-stops.json"
 
 
+def _rss(url: str, now: datetime, timeout: float = 10) -> list[dict]:
+    """Items of one RSS feed from the last HEADLINE_MAX_AGE_H hours: {title, summary, age_h}."""
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    root = ET.fromstring(urllib.request.urlopen(req, timeout=timeout).read())
+    items = []
+    for it in root.iter("item"):
+        title = (it.findtext("title") or "").strip()
+        source = (it.findtext("source") or "").strip()
+        if source and title.endswith(" - " + source):   # Google News appends " - Publisher"
+            title = title[: -len(source) - 3].strip()
+        # Google News descriptions only repeat the title as a link, so summaries come from the outlet feeds only.
+        desc = "" if source else re.sub(r"<[^>]+>", "", it.findtext("description") or "").strip()[:200]
+        try:
+            age_h = (now - parsedate_to_datetime(it.findtext("pubDate"))).total_seconds() / 3600
+        except Exception:  # noqa: BLE001
+            age_h = 0
+        if title and age_h <= HEADLINE_MAX_AGE_H:
+            items.append({"title": title, "summary": desc, "age_h": round(max(age_h, 0), 1)})
+    return items
+
+
 def _ram_gb() -> float:
     try:
         return os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 2**30
@@ -79,6 +116,7 @@ def _ram_gb() -> float:
 
 class BreakoutRegimeKev(BreakoutRegime):
     _feed_cache: tuple[float, list[dict]] = (0.0, [])
+    _search_cache: dict[str, tuple[float, tuple[list[dict], list[dict]]]] = {}
     _assess_cache: dict[str, tuple[float, dict]] = {}
     _pending_kev: dict[str, dict] = {}  # decision record waiting for the entry fill -> trade custom data
     _policy_logged = False
@@ -142,22 +180,33 @@ class BreakoutRegimeKev(BreakoutRegime):
         now = datetime.now(timezone.utc)
         for url in FEEDS:
             try:
-                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-                root = ET.fromstring(urllib.request.urlopen(req, timeout=10).read())
+                items += _rss(url, now)
             except Exception as e:  # noqa: BLE001
                 log.warning("feed failed %s: %s", url, e)
-                continue
-            for it in root.iter("item"):
-                title = (it.findtext("title") or "").strip()
-                desc = re.sub(r"<[^>]+>", "", it.findtext("description") or "").strip()[:200]
-                try:
-                    age_h = (now - parsedate_to_datetime(it.findtext("pubDate"))).total_seconds() / 3600
-                except Exception:  # noqa: BLE001
-                    age_h = 0
-                if age_h <= HEADLINE_MAX_AGE_H:
-                    items.append({"title": title, "summary": desc, "age_h": round(age_h, 1)})
         BreakoutRegimeKev._feed_cache = (time.time(), items)
         return items
+
+    def _search(self, coin: str) -> tuple[list[dict], list[dict]]:
+        """(plain, risk) Google News search hits for one coin, cached 15 minutes ([] each when search is off)."""
+        if not NEWS_SEARCH:
+            return [], []
+        cached = self._search_cache.get(coin)
+        if cached and time.time() - cached[0] < 900:
+            return cached[1]
+        term = SEARCH_TERMS.get(coin) or NAMES.get(coin, [coin.lower()])[0]
+        now, res, ok = datetime.now(timezone.utc), [], False
+        for q in (f"{term} crypto when:2d", f"{term} {RISK_TERMS} when:2d"):
+            url = "https://news.google.com/rss/search?" + urllib.parse.urlencode(
+                {"q": q, "hl": "en-US", "gl": "US", "ceid": "US:en"})
+            try:
+                res.append(_rss(url, now))
+                ok = True
+            except Exception as e:  # noqa: BLE001
+                log.warning("news search failed %s (%s): %s", coin, q, e)
+                res.append([])
+        if ok:
+            self._search_cache[coin] = (time.time(), (res[0], res[1]))
+        return res[0], res[1]
 
     def _log(self, rec: dict) -> None:
         with LOG_PATH.open("a") as f:
@@ -167,8 +216,21 @@ class BreakoutRegimeKev(BreakoutRegime):
         words = NAMES.get(coin, [coin.lower()])
         by_name = re.compile(r"\b(" + "|".join(map(re.escape, words)) + r")\b", re.I)
         by_ticker = re.compile(r"\b" + re.escape(coin) + r"\b")
-        return [h for h in self._headlines()
-                if by_name.search(t := h["title"] + " " + h["summary"]) or by_ticker.search(t)][:15]
+        plain, risk = self._search(coin)
+        picked, seen = [], set()
+
+        def take(items: list[dict], limit: int) -> None:
+            for h in sorted(items, key=lambda h: h["age_h"]):
+                if len(picked) >= limit:
+                    return
+                key = h["title"].lower()
+                if key not in seen and (by_name.search(t := h["title"] + " " + h["summary"]) or by_ticker.search(t)):
+                    seen.add(key)
+                    picked.append(h)
+
+        take(risk, MAX_RISK_HEADLINES)
+        take(self._headlines() + plain, MAX_HEADLINES)
+        return sorted(picked, key=lambda h: h["age_h"])
 
     def _ai_leverage_policy(self) -> tuple[bool, str | None]:
         """(on, reason_if_off). Off by default; see the header comment for the config flags."""

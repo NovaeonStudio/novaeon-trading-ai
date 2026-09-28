@@ -65,8 +65,8 @@ The configs in this repository ship with empty exchange keys, placeholder passwo
   with `KEV_API_KEY`, but the bot does not send one yet.)
 - The engine sends Sentinel only the coin name and public headlines: no keys, balances or trades.
 - The control service accepts only requests that carry a valid engine login token.
-- Outbound connections: Hyperliquid (market data, orders, agent approval), four public news RSS feeds, Hugging Face
-  (model download during install), and, only if you agreed during install, one anonymous install count.
+- Outbound connections: Hyperliquid (market data, orders, agent approval), four public news RSS feeds and Google News
+  RSS search, Hugging Face (model download during install), and, only if you agreed during install, one anonymous install count.
 - Do not expose the ports to the internet. If you want to reach the app from your phone, use your own
   authenticated VPN or tunnel.
 

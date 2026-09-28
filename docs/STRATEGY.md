@@ -51,10 +51,16 @@ and the `Breakout` base class they extend.
 
 ### The news check in detail
 
-- Before each new position, the bot collects headlines (title plus up to 200 characters of summary) from the
-  public RSS feeds of CoinDesk, Cointelegraph, Decrypt and The Block. Feeds are refreshed at most every 15 minutes.
-- It keeps headlines from the last 48 hours that mention the coin by name (for example "chainlink") or by its
-  ticker as an uppercase word (`LINK`), up to 15.
+- Before each new position, the bot collects headlines from the last 48 hours from two kinds of source:
+  - the public RSS feeds of CoinDesk, Cointelegraph, Decrypt and The Block (title plus up to 200 characters of
+    summary), refreshed at most every 15 minutes;
+  - two public Google News RSS searches for the coin, one plain and one for risk words (hack, exploit, delisting,
+    lawsuit, outage, halt), cached for 15 minutes. This is the same source Sentinel's training data came from. The
+    four outlet feeds alone carry only about 50 items in 48 hours, so most coins had no headlines at all.
+    `NOVAEON_NEWS_SEARCH=off` turns the searches off.
+- It keeps headlines that mention the coin by name (for example "chainlink") or by its ticker as an uppercase word
+  (`LINK`), up to 15, newest first. Up to 7 of the 15 go to hits of the risk search first, so a day-old hack is not
+  pushed out by a few hours of price commentary on a busy coin.
 - If there are none, the trade is allowed at 1× without asking the model.
 - Otherwise Sentinel answers two questions in one call (see [SENTINEL.md](SENTINEL.md)). The answer is cached for
   2 minutes, shared by the leverage and entry decisions.
@@ -90,7 +96,8 @@ positions keep a stop.
   the other 11 start in March 2026.
 - **Not in the backtests:** the news check and AI leverage. Historical headlines cannot be replayed the way the
   live feeds deliver them, so the backtests show the plain rules at 1×. The news check can only change results by
-  skipping trades.
+  skipping trades. A separate replay with archived headlines estimates what the news check did: see
+  [The news check in a replay](#the-news-check-in-a-replay).
 
 ## Results
 
@@ -152,3 +159,21 @@ freqtrade backtesting -c config.json -c exchange-hyperliquid.json -s BreakoutReg
 ```
 
 Results depend on the data you download (exchanges revise candles, and newer data extends the last period).
+
+## The news check in a replay
+
+To see what the news check does to the bot (not just how well Sentinel agrees with its training labels), we replayed
+it over the second Binance year with an archive of about 33,000 timestamped headlines (the Google News searches
+Sentinel's data was collected from). The replay uses the bot's own news-check code and only swaps the live feeds for
+the archive. Headlines with only a date count as known 24 hours later, so no later news leaks into an entry.
+
+- 2025-10-01 to 2026-09-23: 616 entries the strategy wanted (no slot limit), 530 with headlines, **10 blocked**.
+- Blocked entries: average trade −2.1%, 1 of 10 winners, −2.8% after 72 hours. Allowed entries: +1.0%, 38% winners,
+  +0.9% after 72 hours. Difference per trade −3.0 points (one-sided permutation p ≈ 0.05; after 72 hours p ≈ 0.12).
+- The 10 blocks come from about five events (the Kelp DAO fallout at Aave, the Litecoin MWEB exploit, a Bittensor
+  founder dispute, a closed Dogecoin ETF and a Uniswap trademark case), so this is weak evidence, not proof.
+- Portfolio (8 slots, 2,000 USDT): +61.5% without the news check, +61.4% with it, drawdown 17.1% vs 17.2%. The
+  stop-loss already limits these trades to −2% to −5%, and the freed slots get average trades.
+
+Read: the news check is cheap insurance against hack-type events, not a source of returns. Code and full results:
+[`research/veto-eval/`](../research/veto-eval/).

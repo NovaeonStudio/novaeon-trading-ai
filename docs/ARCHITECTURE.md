@@ -20,7 +20,7 @@ flowchart TB
     end
     MM["MetaMask<br/>browser extension"]
     HL["Hyperliquid API"]
-    NEWS["RSS: CoinDesk, Cointelegraph,<br/>Decrypt, The Block"]
+    NEWS["RSS: CoinDesk, Cointelegraph,<br/>Decrypt, The Block, Google News"]
 
     UI -->|"REST + JWT"| ENG
     UI -->|"REST, same token"| CTL
