@@ -17,7 +17,13 @@ AUTH = "Basic " + base64.b64encode(f"{USER}:{PW}".encode()).decode()
 
 def api(path):
     req = urllib.request.Request(f"http://127.0.0.1:{os.environ.get('NOVAEON_ENGINE_PORT', '8081')}/api/v1/{path}", headers={"Authorization": AUTH})
-    return json.loads(urllib.request.urlopen(req, timeout=10).read())
+    # /balance can take half a minute when the engine refreshes all exchange prices: wait longer and retry once.
+    for attempt in (1, 2):
+        try:
+            return json.loads(urllib.request.urlopen(req, timeout=60).read())
+        except TimeoutError:
+            if attempt == 2:
+                raise
 
 
 try:
