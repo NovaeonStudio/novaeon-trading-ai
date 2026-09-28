@@ -1,0 +1,79 @@
+name: E2E
+
+# Optional browser tests (Playwright, Chromium project = Google Chrome). Not part of the required CI checks.
+#
+# Chart snapshot baselines are per platform. The committed *-chromium-linux.png baselines are older than the
+# current chart design, so the chart snapshot tests fail on Linux until they are regenerated: run this workflow
+# manually with "update_snapshots" checked, download the "chromium-linux-snapshots" artifact, copy the files into
+# e2e/chart.spec.ts-snapshots/ and commit them.
+
+on:
+  workflow_dispatch:
+    inputs:
+      update_snapshots:
+        description: "Regenerate the Linux screenshot baselines (uploaded as an artifact, not committed)"
+        type: boolean
+        default: false
+  pull_request:
+    branches:
+      - main
+    types: [labeled, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    name: Playwright (chromium)
+    # On pull requests only when the "run-e2e" label is set.
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'run-e2e') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+        with:
+          runtime: node@26
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (the tests run against "vite preview")
+        run: pnpm run build
+
+      - name: Install browser
+        # The chromium project uses channel "chrome". GitHub's Ubuntu images ship Google Chrome; install it if not.
+        run: |
+          pnpm exec playwright install-deps chromium
+          google-chrome --version || pnpm exec playwright install --with-deps chrome
+
+      - name: Run tests
+        if: ${{ !inputs.update_snapshots }}
+        run: pnpm exec playwright test --project=chromium
+
+      - name: Regenerate Linux snapshot baselines
+        if: ${{ inputs.update_snapshots }}
+        run: pnpm exec playwright test --project=chromium --update-snapshots
+
+      - name: Upload regenerated baselines
+        if: ${{ inputs.update_snapshots }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: chromium-linux-snapshots
+          path: e2e/**/*-chromium-linux.png
+          retention-days: 14
+
+      - name: Upload report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14

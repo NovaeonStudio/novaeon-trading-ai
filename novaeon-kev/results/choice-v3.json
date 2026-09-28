@@ -1,0 +1,79 @@
+{
+ "report": [
+  {
+   "model": "v1",
+   "n": 495,
+   "bad_news": 28,
+   "brier": 0.0205,
+   "at_live_0.6": {
+    "caught": 20,
+    "false_blocks": 3,
+    "cost": 27
+   },
+   "best_veto": {
+    "threshold": 0.45,
+    "caught": 21,
+    "false_blocks": 5,
+    "cost": 26
+   },
+   "lev2": [
+    0.8,
+    66,
+    0.818
+   ],
+   "lev3": null
+  },
+  {
+   "model": "v3",
+   "n": 495,
+   "bad_news": 28,
+   "brier": 0.02,
+   "at_live_0.6": {
+    "caught": 20,
+    "false_blocks": 5,
+    "cost": 29
+   },
+   "best_veto": {
+    "threshold": 0.3,
+    "caught": 24,
+    "false_blocks": 6,
+    "cost": 18
+   },
+   "lev2": [
+    0.5,
+    76,
+    0.803
+   ],
+   "lev3": null
+  },
+  {
+   "model": "v2",
+   "n": 495,
+   "bad_news": 28,
+   "brier": 0.0234,
+   "at_live_0.6": {
+    "caught": 16,
+    "false_blocks": 2,
+    "cost": 38
+   },
+   "best_veto": {
+    "threshold": 0.2,
+    "caught": 20,
+    "false_blocks": 5,
+    "cost": 29
+   },
+   "lev2": [
+    0.55,
+    80,
+    0.8
+   ],
+   "lev3": null
+  }
+ ],
+ "choice": {
+  "model": "v3",
+  "VETO_THRESHOLD": 0.3,
+  "LEV2_POSITIVE": 0.5,
+  "LEV3_POSITIVE": 0.75
+ }
+}

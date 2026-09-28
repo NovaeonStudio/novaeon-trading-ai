@@ -1,0 +1,58 @@
+{
+  "stake_currency": "USDC",
+  "trading_mode": "futures",
+  "margin_mode": "isolated",
+  "fee": 0.00045,
+  "entry_pricing": {
+    "price_side": "other",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "exit_pricing": {
+    "price_side": "other",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "order_types": {
+    "entry": "limit",
+    "exit": "limit",
+    "stoploss": "limit",
+    "stoploss_on_exchange": false
+  },
+  "exchange": {
+    "name": "hyperliquid",
+    "walletAddress": "",
+    "privateKey": "",
+    "pair_whitelist": [
+      "BTC/USDC:USDC",
+      "ETH/USDC:USDC",
+      "SOL/USDC:USDC",
+      "BNB/USDC:USDC",
+      "XRP/USDC:USDC",
+      "ADA/USDC:USDC",
+      "DOGE/USDC:USDC",
+      "AVAX/USDC:USDC",
+      "LINK/USDC:USDC",
+      "NEAR/USDC:USDC",
+      "ZEC/USDC:USDC",
+      "ONDO/USDC:USDC",
+      "ENA/USDC:USDC",
+      "LTC/USDC:USDC",
+      "TAO/USDC:USDC",
+      "SUI/USDC:USDC",
+      "UNI/USDC:USDC",
+      "ARB/USDC:USDC",
+      "WLD/USDC:USDC",
+      "AAVE/USDC:USDC"
+    ],
+    "pair_blacklist": [],
+    "ccxt_config": {
+      "enableRateLimit": true,
+      "rateLimit": 200
+    },
+    "ccxt_async_config": {
+      "enableRateLimit": true,
+      "rateLimit": 200
+    }
+  }
+}

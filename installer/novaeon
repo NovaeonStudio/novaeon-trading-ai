@@ -1,0 +1,97 @@
+#!/bin/bash
+# novaeon: manage a NovaeonTradingAI install (installed as <install dir>/bin/novaeon).
+#   novaeon status | start | stop | restart [engine|control|sentinel] | logs [engine|control|sentinel]
+#   novaeon open | password [--reset] | update | uninstall | version
+set -euo pipefail
+H=$(cd "$(dirname "$0")/.." && pwd)
+[ -f "$H/install.env" ] || H=${NOVAEON_HOME:-$HOME/NovaeonTradingAI}
+[ -f "$H/install.env" ] || { echo "No NovaeonTradingAI install found ($H/install.env missing)." >&2; exit 1; }
+# shellcheck disable=SC1091
+. "$H/install.env"
+P=$NOVAEON_LABEL_PREFIX
+LA=${NOVAEON_LAUNCH_AGENTS:-$HOME/Library/LaunchAgents}
+URL="http://127.0.0.1:$NOVAEON_ENGINE_PORT"
+INSTALL_URL="https://raw.githubusercontent.com/NovaeonStudio/novaeon-trading-ai/main/install.sh"
+UIDN=$(id -u)
+NAMES="sentinel engine control"
+
+loaded() { launchctl list "$P.$1" >/dev/null 2>&1; }
+pid_of() { launchctl list "$P.$1" 2>/dev/null | awk -F' = ' '/"PID"/{gsub(/;/,"",$2); print $2}'; }
+http_ok() { curl -fs -m 3 -o /dev/null "$1"; }
+check_url() {
+  case $1 in
+    engine) echo "$URL/api/v1/ping" ;;
+    control) echo "" ;;   # needs a login token; the process state is enough here
+    sentinel) echo "http://127.0.0.1:$NOVAEON_SENTINEL_PORT/v1/models" ;;
+  esac
+}
+pick() { case "${1:-}" in "") echo "$NAMES" ;; engine|control|sentinel) echo "$1" ;; *) echo "unknown service: $1" >&2; exit 2 ;; esac; }
+
+start() {
+  for n in $(pick "${1:-}"); do
+    if loaded "$n"; then launchctl kickstart "gui/$UIDN/$P.$n" 2>/dev/null || true
+    else launchctl bootstrap "gui/$UIDN" "$LA/$P.$n.plist"; fi
+    echo "started $n"
+  done
+}
+
+stop() {
+  local list; list=$(pick "${1:-}")
+  [ -z "${1:-}" ] && list="control engine sentinel"
+  for n in $list; do
+    if loaded "$n"; then launchctl bootout "gui/$UIDN/$P.$n" 2>/dev/null || true; echo "stopped $n"; fi
+  done
+}
+
+status() {
+  printf '%-9s %-8s %-7s %s\n' SERVICE STATE PID CHECK
+  for n in $NAMES; do
+    local state=stopped pid="-" chk="-" u
+    if loaded "$n"; then pid=$(pid_of "$n"); if [ -n "$pid" ]; then state=running; else state=waiting; pid="-"; fi; fi
+    u=$(check_url "$n")
+    if [ -n "$u" ] && [ "$state" = running ]; then if http_ok "$u"; then chk=ok; else chk="not answering (yet)"; fi; fi
+    printf '%-9s %-8s %-7s %s\n' "$n" "$state" "$pid" "$chk"
+  done
+  echo
+  echo "App:   $URL   (show the login: $0 password)"
+  local mode=""
+  [ -f "$H/user_data/mode.json" ] && mode=$(sed -n 's/.*"mode": *"\([a-z]*\)".*/\1/p' "$H/user_data/mode.json")
+  case "${mode:-paper}" in live) mode="REAL MONEY" ;; *) mode="practice money" ;; esac
+  echo "Mode:  $mode${NOVAEON_VERSION:+   (version $NOVAEON_VERSION)}"
+}
+
+logs() {
+  local files=""
+  for n in $(pick "${1:-}"); do
+    case $n in engine) files="$files $H/logs/engine.log $H/logs/engine.err" ;; *) files="$files $H/logs/$n.log" ;; esac
+  done
+  # shellcheck disable=SC2086
+  exec tail -n 40 -F $files
+}
+
+password() {
+  if [ "${1:-}" = "--reset" ]; then
+    "$H/.venv/bin/python" "$H/src/installer/lib/novaeon_setup.py" password --home "$H" >/dev/null
+    launchctl kickstart -k "gui/$UIDN/$P.engine" >/dev/null 2>&1 || true
+    echo "New password set (the engine restarts, open browser sessions are signed out)."
+  fi
+  echo "User:     $(sed -n 's/^user: //p' "$H/login.txt")"
+  echo "Password: $(sed -n 's/^password: //p' "$H/login.txt")"
+}
+
+case "${1:-status}" in
+  status) status ;;
+  start) start "${2:-}" ;;
+  stop) stop "${2:-}" ;;
+  restart) for n in $(pick "${2:-}"); do launchctl kickstart -k "gui/$UIDN/$P.$n" && echo "restarted $n"; done ;;
+  logs|log) logs "${2:-}" ;;
+  open) open "$URL" ;;
+  password) password "${2:-}" ;;
+  update)
+    if [ -n "${NOVAEON_INSTALL_SCRIPT:-}" ]; then NOVAEON_HOME=$H bash "$NOVAEON_INSTALL_SCRIPT"
+    else curl -fsSL "$INSTALL_URL" | NOVAEON_HOME=$H bash; fi ;;
+  uninstall) exec "$H/bin/uninstall.sh" "${@:2}" ;;
+  version) echo "NovaeonTradingAI ${NOVAEON_VERSION:-?} (installed $NOVAEON_INSTALLED_AT, model $NOVAEON_MODEL_VARIANT)" ;;
+  -h|--help|help) sed -n '2,4p' "$0" | sed 's/^# \{0,1\}//' ;;
+  *) echo "unknown command: $1 (try: novaeon help)" >&2; exit 2 ;;
+esac

@@ -1,0 +1,36 @@
+{
+  "max_open_trades": 8,
+  "stake_amount": "unlimited",
+  "tradable_balance_ratio": 0.99,
+  "dry_run": true,
+  "dry_run_wallet": 2000,
+  "cancel_open_orders_on_exit": false,
+  "unfilledtimeout": {
+    "entry": 10,
+    "exit": 10,
+    "unit": "minutes"
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "bot_name": "novaeon-trading-ai",
+  "initial_state": "running",
+  "internals": {
+    "process_throttle_secs": 5
+  },
+  "entry_pricing": {
+    "price_side": "same",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "exit_pricing": {
+    "price_side": "same",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "force_entry_enable": true,
+  "position_adjustment_enable": true,
+  "max_entry_position_adjustment": 3
+}

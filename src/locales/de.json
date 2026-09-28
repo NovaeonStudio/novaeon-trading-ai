@@ -1,0 +1,2361 @@
+{
+  "_meta": {
+    "language": "Deutsch",
+    "review": "Muttersprachliche Korrekturen willkommen (siehe src/locales/README.md)."
+  },
+  "common": {
+    "skipToContent": "Zum Inhalt springen",
+    "language": "Sprache",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "done": "Fertig",
+    "ok": "OK",
+    "yes": "Ja",
+    "no": "Nein",
+    "on": "An",
+    "off": "Aus",
+    "loading": "Lädt…",
+    "retry": "Nochmal versuchen",
+    "refresh": "Aktualisieren",
+    "reload": "Neu laden",
+    "apply": "Übernehmen",
+    "reset": "Zurücksetzen",
+    "delete": "Löschen",
+    "remove": "Entfernen",
+    "edit": "Bearbeiten",
+    "add": "Hinzufügen",
+    "search": "Suchen",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "seeAll": "Alle ansehen",
+    "more": "Mehr",
+    "less": "Weniger",
+    "show": "Anzeigen",
+    "hide": "Ausblenden",
+    "buy": "Kaufen",
+    "sell": "Verkaufen",
+    "error": "Da ist etwas schiefgelaufen",
+    "unknown": "Unbekannt",
+    "none": "Keine",
+    "all": "Alle",
+    "simple": "Einfach",
+    "pro": "Pro",
+    "practiceMoney": "Übungsgeld",
+    "realMoney": "Echtgeld",
+    "online": "Online",
+    "offline": "Offline",
+    "version": "Version {version}",
+    "learnMore": "Mehr erfahren",
+    "languageHint": "Gilt für alle Texte, Zahlen und Daten in diesem Browser."
+  },
+  "bot": {
+    "na": "k. A.",
+    "balance": {
+      "titleBot": "Bot-Guthaben",
+      "titleAccount": "Konto-Guthaben",
+      "showingAccount": "Zeigt das Konto-Guthaben",
+      "showingBot": "Zeigt das Bot-Guthaben",
+      "hideSmall": "Kleine Guthaben ausblenden",
+      "showAll": "Alle Guthaben zeigen",
+      "colCurrency": "Währung",
+      "colAvailable": "Verfügbar",
+      "colInStake": "in {currency}",
+      "total": "Gesamt",
+      "increaseOver": "Zuwachs gegenüber dem Startkapital von {amount} {currency}"
+    },
+    "comparison": {
+      "summary": "Summe",
+      "dry": "(Übung)",
+      "live": "(live)",
+      "mixed": "(Übung und live gemischt)",
+      "colTrades": "Trades",
+      "colOpenProfit": "Offener Gewinn",
+      "colClosedProfit": "Realisierter Gewinn",
+      "colBalance": "Guthaben",
+      "colWinLoss": "G/V",
+      "botName": "Bot-Name",
+      "selectAll": "Klicken, um alle Bots auszuwählen",
+      "showInDashboard": "Diesen Bot im Dashboard zeigen",
+      "toggleAll": "Alle Bots umschalten",
+      "needsLogin": "Anmeldung nötig",
+      "selectDry": "Klicken, um alle Übungs-Bots auszuwählen",
+      "dryBadge": "Übung",
+      "selectLive": "Klicken, um alle Live-Bots auszuwählen",
+      "liveBadge": "Live",
+      "totalProfitDesc": "Gesamtgewinn (offen und realisiert) {pct}"
+    },
+    "controls": {
+      "stopTitle": "Bot stoppen",
+      "stopMessage": "Die Bot-Schleife anhalten?",
+      "pauseTitle": "Pause – keine neuen Einstiege",
+      "pauseMessage": "Der Bot kümmert sich weiter um offene Trades, eröffnet aber keine neuen Trades und vergrößert keine Positionen.\nWirklich keine neuen Einstiege mehr?",
+      "reloadTitle": "Konfiguration neu laden",
+      "reloadMessage": "Konfiguration (inklusive Strategie) neu laden?",
+      "forceExitAllTitle": "Alle sofort schließen",
+      "forceExitAllMessage": "Wirklich ALLE Trades sofort schließen?",
+      "start": "Trading starten",
+      "stopHint": "Trading stoppen – stoppt auch die Verwaltung offener Trades.",
+      "pauseHint": "Pause (StopBuy) – der Bot kümmert sich weiter um offene Trades, eröffnet aber keine neuen Trades und vergrößert keine Positionen.",
+      "reloadHint": "Konfiguration neu laden – lädt die Konfiguration inklusive Strategie neu und setzt alle zur Laufzeit geänderten Einstellungen zurück.",
+      "forceExitAll": "Alle sofort schließen",
+      "forceEnterHint": "Sofort einsteigen – eröffnet sofort einen Trade, optional zu einem festen Preis. Ausstiege folgen dann den Regeln der Strategie.",
+      "startTradingMode": "Trading-Modus starten"
+    },
+    "performance": {
+      "title": "Performance",
+      "colPair": "Paar",
+      "colEnterTag": "Einstiegs-Tag",
+      "colExitReason": "Ausstiegsgrund",
+      "colMixTag": "Mix-Tag",
+      "colProfitPct": "Gewinn %",
+      "colProfitAbs": "Gewinn {currency}",
+      "colCount": "Anzahl",
+      "optPerformance": "Performance",
+      "optEntries": "Einstiege",
+      "optExits": "Ausstiege",
+      "optMixTag": "Mix-Tag"
+    },
+    "profit": {
+      "roiClosed": "ROI geschlossene Trades",
+      "roiAll": "ROI alle Trades",
+      "tradeCount": "Anzahl Trades gesamt",
+      "botStarted": "Bot gestartet",
+      "firstTrade": "Erster Trade eröffnet",
+      "latestTrade": "Letzter Trade eröffnet",
+      "winLoss": "Gewinn / Verlust",
+      "winrate": "Trefferquote",
+      "expectancy": "Erwartungswert (Verhältnis)",
+      "avgDuration": "Ø Dauer",
+      "bestPerforming": "Bestes Paar",
+      "tradingVolume": "Handelsvolumen",
+      "profitFactor": "Profitfaktor",
+      "maxDrawdown": "Max. Drawdown",
+      "currentDrawdown": "Aktueller Drawdown",
+      "fromTo": "von {start} bis {end}",
+      "since": "seit {start}",
+      "profitsFor": "Gewinne für",
+      "trades": "Trades",
+      "colMetric": "Kennzahl",
+      "colValue": "Wert",
+      "optLong": "Long",
+      "optShort": "Short"
+    },
+    "status": {
+      "engine": "Trading-Engine {version}",
+      "runningWith": "Läuft mit {stake} auf {exchange} im Markt {mode}, mit der Strategie {strategy}.",
+      "demo": "(Demo)",
+      "stoplossOnExchange": "Stop an der Börse ist {state}.",
+      "enabled": "aktiv",
+      "disabled": "aus",
+      "currently": "Aktuell {state}, {forceEntry}",
+      "forceEntry": "Sofort-Einstieg: {value}",
+      "dryRun": "Dry-Run (Übungsgeld)",
+      "live": "Live",
+      "avgProfit": "Ø Gewinn {avg} (∑ {sum}) in {count} Trades, mit einer durchschnittlichen Dauer von {duration}. Bestes Paar: {pair}.",
+      "botStartDate": "Bot-Start:",
+      "firstTradeOpened": "Erster Trade eröffnet:",
+      "lastTradeOpened": "Letzter Trade eröffnet:",
+      "profitFactor": "Profitfaktor:",
+      "tradingVolume": "Handelsvolumen:",
+      "strategyParams": "Strategie-Parameter"
+    },
+    "reload": {
+      "group": "Alle Bots aktualisieren",
+      "autoOn": "Auto-Aktualisierung für alle Bots ist an",
+      "autoOff": "Auto-Aktualisierung für alle Bots ist aus",
+      "auto": "Auto-Aktualisierung für alle Bots",
+      "refreshNow": "Alle Bots jetzt aktualisieren"
+    },
+    "period": {
+      "days": "Tage",
+      "weeks": "Wochen",
+      "months": "Monate",
+      "abs": "Abs. {'$'}",
+      "rel": "Rel. %",
+      "colDay": "Tag",
+      "colProfit": "Gewinn",
+      "colIn": "In {currency}",
+      "colTrades": "Trades",
+      "colProfitPct": "Gewinn %",
+      "titlePeriod": "Aufschlüsselung nach Zeitraum",
+      "titleDaily": "Tägliche Aufschlüsselung",
+      "chartUnavailable": "Das Zeitraum-Chart gibt es nur, wenn ein einzelner Bot ausgewählt ist und der absolute Gewinn angezeigt wird."
+    },
+    "exchange": {
+      "supported": "Unterstützt",
+      "unsupported": "Nicht unterstützt"
+    }
+  },
+  "tradeList": {
+    "short": "Short",
+    "long": "Long",
+    "list": {
+      "empty": "Keine Trades vorhanden.",
+      "emptyCustom": "Keine Trades vorhanden.",
+      "filter": "Filter",
+      "filterPlaceholder": "Nach Paar, Tag oder Grund filtern",
+      "filterAria": "Trades filtern"
+    },
+    "col": {
+      "bot": "Bot",
+      "id": "ID",
+      "pair": "Paar",
+      "amount": "Menge",
+      "stakeAmount": "Einsatz",
+      "totalStakeAmount": "Einsatz gesamt",
+      "openRate": "Einstiegskurs",
+      "currentRate": "Aktueller Kurs",
+      "closeRate": "Ausstiegskurs",
+      "currentProfitPct": "Akt. Gewinn %",
+      "profitPct": "Gewinn %",
+      "openDate": "Eröffnet",
+      "closeDate": "Geschlossen",
+      "exitReason": "Ausstiegsgrund"
+    },
+    "confirm": {
+      "forceExitTitle": "Trade sofort schließen",
+      "cannotUndo": "Das kann nicht rückgängig gemacht werden.",
+      "forceExitMsgType": "Trade {id} (Paar {pair}) wirklich mit einer {type}-Order schließen?",
+      "forceExitMsg": "Trade {id} (Paar {pair}) wirklich schließen?",
+      "deleteTitle": "Trade löschen",
+      "deleteMsg": "Trade {id} (Paar {pair}) wirklich löschen?",
+      "cancelOrderTitle": "Offene Order stornieren",
+      "cancelOrderMsg": "Offene Order für Trade {id} (Paar {pair}) wirklich stornieren?"
+    },
+    "mobile": {
+      "openTitle": "Offene Trades",
+      "historyTitle": "Trade-Verlauf",
+      "emptyOpen": "Keine offenen Trades.",
+      "emptyClosed": "Bisher keine geschlossenen Trades."
+    },
+    "entry": {
+      "amount": "Menge",
+      "openRate": "Einstiegskurs",
+      "currentRate": "Aktueller Kurs",
+      "openDate": "Eröffnet",
+      "closeDate": "Geschlossen"
+    },
+    "nav": {
+      "sortBy": "Sortieren nach:",
+      "openDate": "Eröffnet",
+      "profit": "Gewinn %",
+      "title": "Trade-Navigation",
+      "orderLine": "{side} {amount} zu {price}",
+      "empty": "Keine Trades vorhanden …"
+    },
+    "detail": {
+      "general": "Allgemein",
+      "showCustomData": "Zusatzdaten zeigen",
+      "tradeId": "Trade-ID",
+      "pair": "Paar",
+      "openDate": "Eröffnet",
+      "entryTag": "Einstiegs-Tag",
+      "stake": "Einsatz",
+      "positionValue": "Positionswert",
+      "totalStake": "Einsatz gesamt",
+      "amount": "Menge",
+      "openRate": "Einstiegskurs",
+      "currentRate": "Aktueller Kurs",
+      "currentValueHint": "Aktueller Wert – im Futures-Modus Sicherheitsleistung + Gewinn/Verlust",
+      "closeRate": "Ausstiegskurs",
+      "closeDate": "Geschlossen",
+      "realizedProfit": "Realisierter Gewinn",
+      "totalProfit": "Gesamtgewinn",
+      "currentProfit": "Aktueller Gewinn",
+      "closeProfit": "Gewinn beim Schließen",
+      "details": "Details",
+      "minRate": "Tiefstkurs",
+      "maxRate": "Höchstkurs",
+      "openFees": "Gebühren Einstieg",
+      "inCurrency": "(in {currency})",
+      "feesClose": "Gebühren Ausstieg",
+      "stoplossTitle": "Stop",
+      "stoploss": "Stop",
+      "atRisk": "Im Risiko",
+      "atRiskHelp": "Der riskierte Betrag, bezogen auf den Einsatz. So viel würdest du verlieren, wenn der Stop ausgelöst wird.",
+      "currentStoplossDist": "Aktueller Abstand zum Stop",
+      "initialStoploss": "Anfänglicher Stop",
+      "stoplossUpdated": "Stop zuletzt aktualisiert",
+      "futures": "Futures und Margin",
+      "direction": "Richtung",
+      "short": "short",
+      "long": "long",
+      "fundingFees": "Funding-Gebühren",
+      "fundingFeesHelp": "Positive funding_fees -> der Trade hat an Gebühren verdient. Negative funding_fees -> der Trade musste Gebühren zahlen.",
+      "interestRate": "Zinssatz",
+      "liquidationPrice": "Liquidationspreis",
+      "orders": "Orders",
+      "orderTitle": "{side}-{type}-Order über {amount} zu {price}, ausgeführt {filled}",
+      "orderFor": "zu {price}",
+      "remaining": "offen",
+      "filled": "Ausgeführt"
+    },
+    "profit": {
+      "current": "Aktueller Gewinn",
+      "total": "Gesamtgewinn",
+      "realized": "Realisierter Gewinn",
+      "openSince": "Offen seit: {date}"
+    },
+    "actions": {
+      "forceExit": "Sofort schließen",
+      "forceExitLimit": "Sofort schließen (Limit)",
+      "forceExitMarket": "Sofort schließen (Market)",
+      "forceExitPartial": "Teilweise schließen",
+      "cancelOpenOrders": "Offene Orders stornieren",
+      "increasePosition": "Position vergrößern",
+      "deleteTrade": "Trade löschen",
+      "actionsFor": "Aktionen für {pair}",
+      "actions": "Aktionen",
+      "closeMenu": "Aktionsmenü schließen"
+    },
+    "customData": {
+      "none": "Keine Zusatzdaten für diesen Trade",
+      "reload": "Zusatzdaten neu laden",
+      "title": "Zusatzdaten für Trade {id}"
+    }
+  },
+  "forceTrade": {
+    "market": "Market",
+    "limit": "Limit",
+    "long": "Long",
+    "short": "Short",
+    "orderType": "Order-Typ",
+    "entry": {
+      "available": "Verfügbar: {amount}",
+      "titleIncrease": "Position in {pair} vergrößern",
+      "title": "Sofort in einen Trade einsteigen",
+      "descIncrease": "Eine bestehende Position vergrößern",
+      "desc": "Manuell einen neuen Trade eröffnen",
+      "direction": "Richtung (long oder short)",
+      "pair": "Paar",
+      "price": "Preis (optional)",
+      "stakeAmount": "Einsatz in {currency} (optional)",
+      "useDefaultStake": "Den im Bot eingestellten Einsatz verwenden",
+      "leverage": "Hebel (optional)",
+      "entryTag": "Eigenes Einstiegs-Tag (optional)",
+      "submit": "Position eröffnen"
+    },
+    "exit": {
+      "title": "Trade sofort schließen",
+      "desc": "Sofortigen Ausstieg einstellen und bestätigen",
+      "exiting": "Trade #{id} {pair} wird geschlossen.",
+      "holding": "Aktuell im Bestand: {amount} {currency}",
+      "amount": "Menge in {currency} (optional)",
+      "estimated": "~{value} (geschätzter Wert)",
+      "price": "Preis",
+      "priceLimitOnly": "Nur bei Limit-Orders möglich",
+      "submit": "Position schließen"
+    }
+  },
+  "pairs": {
+    "live": {
+      "methods": "Whitelist-Methoden",
+      "whitelist": "Whitelist",
+      "pairCount": "{n} Paar | {n} Paare",
+      "unavailable": "Liste nicht verfügbar. Melde dich an und prüfe, ob der Bot läuft.",
+      "blacklist": "Blacklist",
+      "blacklistHint": "Blacklist: Paare auswählen, dann auf Entfernen klicken",
+      "addToBlacklist": "Paar zur Blacklist hinzufügen",
+      "pair": "Paar",
+      "removeSelected": "Ausgewählte Paare aus deiner Blacklist entfernen",
+      "noBlacklist": "Keine Blacklist verfügbar.",
+      "noBlacklistHint": "Wenn deine Blacklist Paare enthalten sollte, melde dich an und prüfe, ob der Server läuft."
+    },
+    "summary": {
+      "filter": "Filter",
+      "currentProfit": "Aktueller Gewinn: {pct}",
+      "tooltip": "{profit} - {pair} - {n} Trade | {profit} - {pair} - {n} Trades"
+    }
+  },
+  "locks": {
+    "title": "Gesperrte Paare",
+    "colPair": "Paar",
+    "colUntil": "Bis",
+    "colReason": "Grund",
+    "colActions": "Aktionen",
+    "delete": "Sperre löschen",
+    "unsupported": "Diese Version der Trading-Engine kann keine Sperren löschen."
+  },
+  "store": {
+    "lockDeleted": "Sperre {id} gelöscht.",
+    "lockDeleteFailed": "Sperre {id} konnte nicht gelöscht werden",
+    "timeout": "Zeitüberschreitung",
+    "historyError": "Fehler beim Laden des Verlaufs",
+    "bgJobStatusFailed": "Status des Hintergrund-Jobs konnte nicht geladen werden",
+    "bgJobsCleared": "Alle beendeten Hintergrund-Jobs entfernt",
+    "bgJobsClearFailed": "Hintergrund-Jobs konnten nicht entfernt werden",
+    "startError": "Fehler beim Starten des Bots.",
+    "stopError": "Fehler beim Stoppen des Bots.",
+    "stopBuyError": "Fehler beim Pausieren der Käufe.",
+    "reloadError": "Fehler beim Neuladen.",
+    "tradeDeleted": "Trade {id} gelöscht",
+    "tradeDeleteFailed": "Trade {id} konnte nicht gelöscht werden",
+    "orderCanceled": "Offene Order für {id} storniert",
+    "orderCancelFailed": "Offene Order {id} konnte nicht storniert werden",
+    "tradeReloadFailed": "Trade {id} konnte nicht neu geladen werden",
+    "customDataFailed": "Zusatzdaten für Trade {id} konnten nicht geladen werden",
+    "exitOrderCreated": "Ausstiegs-Order für {id} erstellt",
+    "exitOrderFailed": "Ausstiegs-Order für {id} konnte nicht erstellt werden",
+    "entryOrderCreated": "Order für {pair} erstellt.",
+    "entryError": "Fehler beim Einstieg: „{error}“",
+    "blacklistAddPairError": "Fehler beim Hinzufügen von {pair} zur Blacklist: {error}",
+    "blacklistAdded": "Paar {pairs} hinzugefügt.",
+    "blacklistAddError": "Fehler beim Hinzufügen zur Blacklist: „{error}“",
+    "blacklistRemovePairError": "Fehler beim Entfernen von {pair} aus der Blacklist: {error}",
+    "blacklistRemoved": "Paar {pairs} entfernt.",
+    "blacklistRemoveError": "Fehler beim Entfernen aus der Blacklist: „{error}“",
+    "backtestFailed": "Backtest fehlgeschlagen: {detail}.",
+    "wsException": "WebSocket-Fehler: {detail}"
+  },
+  "chart": {
+    "empty": "Für diesen Coin gibt es noch keinen Kursverlauf.",
+    "hint": "Ziehen zum Verschieben · Pinch oder Strg + Scrollen zum Zoomen",
+    "aiBadge": "KI",
+    "toolbar": {
+      "candleSize": "Kerzengröße",
+      "strategyTf": "Der Zeitrahmen, auf dem die Strategie handelt",
+      "timeRange": "Zeitraum",
+      "resetView": "Ansicht zurücksetzen",
+      "layers": "Ebenen",
+      "showOnChart": "Im Chart anzeigen"
+    },
+    "range": {
+      "sinceBought": "Seit Kauf",
+      "sinceEntry": "Seit Einstieg",
+      "wholeTrade": "Ganzer Trade",
+      "day": "Tag",
+      "week": "Woche",
+      "month": "Monat",
+      "d1": "1D",
+      "w1": "1W",
+      "m1": "1M"
+    },
+    "layer": {
+      "boughtAt": "Gekauft bei",
+      "averageEntry": "Durchschnittlicher Einstieg",
+      "entry": "Einstieg",
+      "breakevenAfterFees": "Break-even nach Gebühren",
+      "safetyStop": "Sicherheits-Stop",
+      "stop": "Stop",
+      "forcedSale": "Zwangsverkauf (Liquidation)",
+      "liquidation": "Liquidation",
+      "botSellsBelow": "Bot verkauft darunter (10-Kerzen-Tief)",
+      "exitSignal": "Ausstiegssignal (10-Kerzen-Tief)",
+      "breakout": "Ausbruchsniveau (20-Kerzen-Hoch)",
+      "zonesSimple": "Risiko und Gewinn schattiert",
+      "zones": "Risiko- und Gewinnzonen",
+      "buysAndSells": "Käufe und Verkäufe",
+      "fills": "Ausführungen (Käufe und Verkäufe)",
+      "sentinel": "Sentinel-Nachrichtencheck",
+      "volume": "Volumen"
+    },
+    "tag": {
+      "bought": "Gekauft",
+      "avgEntry": "Ø Einstieg",
+      "entry": "Einstieg",
+      "breakeven": "Break-even",
+      "safetyStop": "Sicherheits-Stop",
+      "stop": "Stop",
+      "manual": "manuell",
+      "forcedSale": "Zwangsverkauf",
+      "liq": "Liq.",
+      "sellsBelow": "Verkauft unter",
+      "exitSignal": "Ausstiegssignal",
+      "breakout": "Ausbruch",
+      "newStop": "Neuer Stop",
+      "now": "Jetzt",
+      "sold": "Verkauft",
+      "exit": "Ausstieg"
+    },
+    "fill": {
+      "buy": "Kauf",
+      "boughtMore": "Nachgekauft",
+      "add": "Nachkauf",
+      "soldPart": "Teilverkauf",
+      "sell": "Verkauf",
+      "byYou": "{label} (von dir)",
+      "manual": "{label} (manuell)"
+    },
+    "tooltip": {
+      "priceAtClose": "Schlusskurs",
+      "open": "Eröffnung",
+      "high": "Hoch",
+      "low": "Tief",
+      "close": "Schluss",
+      "botSellsBelow": "Bot verkauft darunter",
+      "exitSignal": "Ausstiegssignal",
+      "forming": "Kerze bildet sich noch",
+      "fill": "{what} · {amount} für {cost}",
+      "sentinel": "Sentinel-Nachrichtencheck · {n} Schlagzeile | Sentinel-Nachrichtencheck · {n} Schlagzeilen",
+      "vetoed": "Blockiert, {lev}x",
+      "allowed": "Erlaubt, {lev}x"
+    },
+    "readout": {
+      "closedSimple": "{price} liegt {pct} vom Kaufpreis entfernt",
+      "closedPro": "{price} liegt {pct} vom Einstiegspreis entfernt",
+      "openSimple": "Bei Verkauf zu {price}: {money} ({pct})",
+      "openPro": "Verkauf zu {price}: {pct} · {money}"
+    },
+    "legend": {
+      "ifSoldThere": "{price} ({money} bei Verkauf dort)",
+      "atExit": "{price} beim Ausstieg",
+      "fills": "Ausführungen"
+    },
+    "market": {
+      "long": "Long",
+      "short": "Short",
+      "longOpen": "Long (offen)",
+      "shortOpen": "Short (offen)",
+      "longEntry": "Long-Einstieg",
+      "shortEntry": "Short-Einstieg",
+      "longExit": "Long-Ausstieg",
+      "shortExit": "Short-Ausstieg",
+      "longAdjustment": "Long-Anpassung",
+      "shortAdjustment": "Short-Anpassung",
+      "enterTag": "Einstiegs-Tag: {tag}",
+      "orderPrice": "Orderpreis: {price}",
+      "orderTag": "Order-Tag: {tag}",
+      "exitTag": "Ausstiegs-Tag: {tag}",
+      "stoploss": "Stop"
+    }
+  },
+  "buy": {
+    "title": {
+      "addSimple": "{coin} nachkaufen",
+      "addPro": "{coin}-Position aufstocken",
+      "newSimple": "Selbst einen Coin kaufen",
+      "newPro": "Manuell kaufen"
+    },
+    "amount": {
+      "empty": "Gib einen Betrag ein.",
+      "min": "Die Börse verlangt mindestens {min} {currency}.",
+      "tooMuch": "Gerade sind nur {money} frei."
+    },
+    "blocked": "Diese Position wurde schon {count}-mal gekauft; erlaubt sind höchstens {max} Käufe pro Position.",
+    "summary": {
+      "add": "Der Bot kauft {coin} für {amount} zum Marktpreis nach, mit dem {lev}×-Hebel der Position. Das ist Kauf {nr} von höchstens {max}; beim Nachkaufen gibt es keinen Nachrichtencheck.",
+      "addQty": "Der Bot kauft {coin} für {amount} zum Marktpreis nach (etwa {qty} {coin} zu {price}), mit dem {lev}×-Hebel der Position. Das ist Kauf {nr} von höchstens {max}; beim Nachkaufen gibt es keinen Nachrichtencheck.",
+      "average": "Dein durchschnittlicher Kaufpreis geht von {from} auf etwa {to}.",
+      "theCoin": "den Coin",
+      "newCheck": "Zuerst liest Sentinel, der KI-Nachrichtencheck, die neuesten Schlagzeilen zu {name} und kann den Kauf blockieren. Passt alles, kauft der Bot {name} für {amount} zum Marktpreis.",
+      "levAi": "Sentinel wählt den Hebel (1× bis 3×) anhand der Nachrichten.",
+      "levUses": "Er nutzt {lev}× Hebel (eine Position über {money}).",
+      "levNone": "Er leiht sich nichts (1×).",
+      "newAfter": "Danach kümmert er sich darum wie um seine eigenen Trades: gleicher Sicherheits-Stop, gleiche Ausstiegsregeln."
+    },
+    "leverageHelp": {
+      "aiSimple": "Sentinel wählt 1× bis 3× anhand der Nachrichten. 1× heißt: nichts geliehen; 2× verdoppelt Gewinne und Verluste, 3× verdreifacht sie.",
+      "aiPro": "Isolierte Margin. Standard: Sentinel wählt 1–3× anhand des Nachrichtenchecks. Mehr Hebel rückt den Liquidationspreis näher.",
+      "lockedSimple": "Der KI-Hebel ist auf diesem Mac gesperrt, daher ist 1× (nichts geliehen) voreingestellt. Du kannst für diesen Kauf trotzdem 2× oder 3× wählen: Das verdoppelt oder verdreifacht Gewinne und Verluste.",
+      "lockedPro": "Der KI-Hebel ist auf diesem Mac gesperrt, daher ist 1× voreingestellt. Isolierte Margin; mehr Hebel rückt den Liquidationspreis näher. Der Nachrichtencheck läuft trotzdem.",
+      "offSimple": "Der KI-Hebel ist aus (Einstellungen), daher ist 1× (nichts geliehen) voreingestellt. Du kannst für diesen Kauf trotzdem 2× oder 3× wählen: Das verdoppelt oder verdreifacht Gewinne und Verluste.",
+      "offPro": "Der KI-Hebel ist aus (Einstellungen), daher ist 1× voreingestellt. Isolierte Margin; mehr Hebel rückt den Liquidationspreis näher. Der Nachrichtencheck läuft trotzdem."
+    },
+    "form": {
+      "coinSimple": "Welcher Coin?",
+      "coinPro": "Paar",
+      "heldSimple": "Coins, die der Bot schon hält, stehen hier nicht: Nutze dort stattdessen „Nachkaufen“.",
+      "heldPro": "Paare mit offener Position stehen hier nicht (nutze dort „Nachkaufen“).",
+      "search": "Coin suchen",
+      "amountSimple": "Wie viel Geld?",
+      "amountPro": "Betrag ({currency})",
+      "free": "Gerade {money} frei.",
+      "leverageSimple": "Leihen, um größer zu handeln?",
+      "leveragePro": "Hebel",
+      "levAi": "Sentinel entscheidet",
+      "levNone": "1× (nichts leihen)"
+    },
+    "averaging": {
+      "titleSimple": "Der Preis liegt unter deinem Kaufpreis",
+      "titlePro": "Verbilligen",
+      "textSimple": "Nachkaufen senkt jetzt deinen Durchschnittspreis, aber du riskierst auch mehr Geld, falls der Kurs weiter fällt. Der Bot selbst macht das nie.",
+      "textPro": "Der Preis liegt unter dem durchschnittlichen Einstieg. Das senkt den Durchschnitt, erhöht aber das Risiko gegen den Trend; die Breakout-Strategie verbilligt nie."
+    },
+    "problem": {
+      "simple": "Es wurde nichts gekauft",
+      "pro": "Kauf nicht platziert"
+    },
+    "practice": "Übungsgeld: Es steht nichts Echtes auf dem Spiel.",
+    "real": "Hier wird Echtgeld eingesetzt.",
+    "button": "{coin} für {money} kaufen",
+    "coinFallback": "Coin",
+    "toast": {
+      "addedMore": "{coin} für {money} nachgekauft (Kauf {nr} von {max}).",
+      "bought": "{coin} für {money} mit {lev}× Hebel gekauft.",
+      "boughtChecked": "{coin} für {money} mit {lev}× Hebel gekauft, nach Sentinels Nachrichtencheck.",
+      "waiting": "Die Order wartet noch auf Ausführung."
+    }
+  },
+  "stop": {
+    "title": {
+      "simple": "Sicherheits-Stop ändern",
+      "pro": "Stop verschieben"
+    },
+    "closeAria": "Stop-Editor schließen",
+    "rule": {
+      "simple": "Ein Stop kann nur nach oben, näher an den Preis. Nach unten geht es nie wieder zurück, also wähle in Ruhe.",
+      "pro": "Ein Stop kann nur nach oben (enger), nie nach unten, und muss über dem Liquidationspreis bleiben. Preise werden auf den Markt-Tick gerundet."
+    },
+    "preset": {
+      "breakeven": "Break-even",
+      "breakevenSimple": "du verlierst nichts, Gebühren inklusive",
+      "breakevenPro": "kein Verlust nach Gebühren",
+      "lockIn": "+{pct}% sichern",
+      "keeps": "sichert {money}"
+    },
+    "notInProfit": {
+      "simple": "Der Coin ist noch nicht im Gewinn, es gibt also nichts zu sichern. Unten kannst du trotzdem einen höheren Sicherheits-Stop wählen.",
+      "pro": "Noch nicht im Gewinn: keine Vorgaben für Break-even oder Gewinnsicherung. Ein eigener, höherer Stop ist trotzdem möglich."
+    },
+    "custom": {
+      "labelSimple": "Oder wähle einen Preis",
+      "labelPro": "Eigener Stop-Preis",
+      "above": "Über {price}",
+      "price": "Preis"
+    },
+    "outcome": {
+      "keep": "Der Bot würde verkaufen, wenn der Preis um {pct} auf {price} fällt. Du würdest {money} behalten.",
+      "lose": "Der Bot würde verkaufen, wenn der Preis um {pct} auf {price} fällt. Du würdest {money} verlieren.",
+      "pro": "{dist} vom aktuellen Preis · {money} ({pct}) bei Auslösung"
+    },
+    "current": {
+      "noneSimple": "Dieser Coin hat noch keinen Sicherheits-Stop.",
+      "nonePro": "Kein Stop gesetzt.",
+      "simple": "Im Moment verkauft der Bot, wenn der Preis auf {price} fällt ({pct} unter jetzt). Das wären {money}.",
+      "pro": "Aktueller Stop {price} ({dist} vom aktuellen Preis, {money} bei Auslösung)."
+    },
+    "waiting": {
+      "simple": "Warte, bis der Bot die neue Einstellung übernommen hat (bis zu 20 Sekunden).",
+      "pro": "Warte, bis die Engine es übernimmt (bis zu 20 s)."
+    },
+    "problem": "Der Stop wurde nicht geändert",
+    "apply": {
+      "setSimple": "Sicherheits-Stop auf {price} setzen",
+      "setPro": "Stop auf {price} setzen",
+      "pickSimple": "Neuen Sicherheits-Stop wählen",
+      "pickPro": "Neuen Stop wählen"
+    },
+    "remove": {
+      "button": "Eigenen Stop entfernen",
+      "titleSimple": "Der Bot kümmert sich wieder selbst um den Sicherheits-Stop",
+      "titlePro": "Der Bot verwaltet den Stop wieder; ein angehobener Stop bleibt oben"
+    },
+    "toast": {
+      "soldSimple": "Der Preis lag schon unter {price}, deshalb hat der Bot {coin} sofort verkauft.",
+      "soldPro": "{pair}: Preis lag schon unter dem neuen Stop, Position sofort verkauft.",
+      "setSimple": "Sicherheits-Stop für {coin} liegt jetzt bei {price}.",
+      "setPro": "Stop für {coin} liegt jetzt bei {price}.",
+      "removed": "Manueller Stop für {pair} entfernt. Der angehobene Stop bleibt, wo er ist."
+    }
+  },
+  "charts": {
+    "shared": {
+      "profit": "Gewinn",
+      "trades": "Trades",
+      "tradeCount": "Anzahl Trades",
+      "profitPct": "Gewinn %"
+    },
+    "balance": {
+      "title": "Guthaben",
+      "balance": "Guthaben",
+      "shareOfWallet": "{pct}% der Wallet"
+    },
+    "cumProfit": {
+      "title": "Kumulierter Gewinn",
+      "profit": "Gewinn",
+      "projected": "Prognose (inkl. unrealisiert)",
+      "projectedRow": "Prognose, inkl. unrealisiert"
+    },
+    "hourly": {
+      "title": "Gewinn pro Stunde"
+    },
+    "marketChange": {
+      "title": "Marktveränderung",
+      "series": "Marktveränderung %",
+      "average": "durchschnittliche Marktveränderung"
+    },
+    "profitDistribution": {
+      "title": "Gewinnverteilung",
+      "range": "{from} bis {to}",
+      "rangeFrom": "ab {from}",
+      "bins": "Klassen"
+    },
+    "timePeriod": {
+      "title": "Täglicher Gewinn",
+      "absProfit": "Absoluter Gewinn",
+      "relProfit": "Relativer Gewinn"
+    },
+    "tradeDuration": {
+      "title": "Trade-Dauer",
+      "all": "Alle Trades",
+      "winning": "Gewinn-Trades",
+      "losing": "Verlust-Trades",
+      "median": "Median",
+      "middleFrom": "mittlere Hälfte von",
+      "middleTo": "mittlere Hälfte bis",
+      "shortest": "kürzeste",
+      "longest": "längste",
+      "outlier": "Ausreißer",
+      "held": "gehalten"
+    },
+    "tradesLog": {
+      "title": "Trade-Protokoll"
+    },
+    "wallet": {
+      "title": "Wallet-Guthaben",
+      "startingBalance": "Startguthaben",
+      "startingBalanceBot": "Startguthaben {bot}",
+      "captureStart": "Aufzeichnungsbeginn {bot}",
+      "empty": "Noch kein Wallet-Verlauf. Eine neuere Version der Trading-Engine zeichnet ihn automatisch auf."
+    },
+    "pairTemplates": {
+      "allUsdt": "Alle USDT-Paare",
+      "allUsdtFutures": "Alle USDT-Futures-Paare"
+    }
+  },
+  "candle": {
+    "series": {
+      "candles": "Kerzen",
+      "volume": "Volumen",
+      "entry": "Einstieg",
+      "exit": "Ausstieg",
+      "trades": "Trades"
+    },
+    "lines": {
+      "entry": "Einstieg {price}",
+      "stop": "Stop {price}"
+    },
+    "signal": {
+      "longEntry": "Long-Einstieg",
+      "longExit": "Long-Ausstieg",
+      "shortEntry": "Short-Einstieg",
+      "shortExit": "Short-Ausstieg"
+    },
+    "tooltip": {
+      "open": "Eröffnung",
+      "highest": "Hoch",
+      "lowest": "Tief",
+      "close": "Schluss"
+    },
+    "measure": {
+      "start": "0 Kerzen - 0%",
+      "result": "{n} Kerze ({pct}%) \n {elapsed} | {n} Kerzen ({pct}%) \n {elapsed}"
+    },
+    "container": {
+      "selectPairs": "Paare zum Anzeigen wählen",
+      "pair": "Paar",
+      "refresh": "Chart aktualisieren",
+      "multiPair": "Mehrere Paare",
+      "showAreas": "Chart-Bereiche zeigen",
+      "plotConfigurator": "Plot-Konfigurator",
+      "configuratorDescription": "Indikatoren und Unterdiagramme des Charts einstellen",
+      "pickPair": "Wähle oben ein Paar, um seinen Chart zu sehen."
+    },
+    "single": {
+      "loading": "Lädt",
+      "notLoaded": "Der Chart lädt, sobald ein Paar gewählt ist.",
+      "loadingCandles": "Kerzen werden geladen…",
+      "noData": "Für dieses Paar und diesen Zeitrahmen gibt es keine Kerzendaten.",
+      "loadError": "Die Kerzen konnten nicht geladen werden. Versuch es mit Aktualisieren.",
+      "noDataYet": "Noch keine Kerzendaten.",
+      "slow": "Das dauert länger als erwartet. Einen Moment…",
+      "longEntrySignals": "Long-Einstiegssignale",
+      "longExitSignals": "Long-Ausstiegssignale",
+      "longEntries": "Long-Einstiege {count}",
+      "longExits": "Long-Ausstiege {count}",
+      "shortEntries": "Short-Einstiege {count}",
+      "shortExits": "Short-Ausstiege {count}"
+    },
+    "view": {
+      "title": "Chart-Einstellungen",
+      "hint": "Diese Einstellungen gelten nur für die Chart-Ansicht und ändern nichts an der Konfiguration oder am Verhalten des Bots.",
+      "customExchange": "Eigene Börse",
+      "currentExchange": "Aktuelle Börse:",
+      "strategy": "Strategie",
+      "timeframe": "Zeitrahmen",
+      "useLiveData": "Live-Daten nutzen",
+      "useLiveDataHint": "Live-Daten direkt von der Börse nutzen. Nur verwenden, wenn du die Daten nicht lokal heruntergeladen hast."
+    }
+  },
+  "plot": {
+    "editableName": "Plot-Konfiguration",
+    "abort": "Abbrechen",
+    "configurator": {
+      "configName": "Name der Plot-Konfiguration",
+      "showTags": "Tags in Tooltips zeigen",
+      "markAreaZ": "Z-Index der markierten Bereiche",
+      "markAreaZHint": "(Standard 1 – der Kerzenchart liegt bei Z=2)",
+      "targetPlot": "Ziel-Plot",
+      "indicators": "Indikatoren in diesem Plot",
+      "notAvailable": "{col} <-- in diesem Chart nicht verfügbar",
+      "removeTitle": "Indikator aus dem Plot entfernen",
+      "remove": "Indikator entfernen",
+      "fromTemplateTitle": "Indikator-Konfiguration aus Vorlage laden",
+      "fromTemplate": "Aus Vorlage",
+      "addTitle": "Indikator zum Plot hinzufügen",
+      "add": "Indikator hinzufügen",
+      "selectToAdd": "Indikator zum Hinzufügen wählen",
+      "resetTitle": "Auf zuletzt gespeicherte Konfiguration zurücksetzen",
+      "fromStrategy": "Aus Strategie",
+      "showConfigTitle": "Konfiguration anzeigen, um sie einfach in eine Strategie zu übernehmen",
+      "saveTitle": "Konfiguration speichern",
+      "loadStringTitle": "Konfiguration aus dem Textfeld unten laden",
+      "loadString": "Aus Text unten laden",
+      "noStrategy": "Keine Strategie gewählt, die Plot-Konfiguration kann nicht geladen werden.",
+      "loadFailed": "Die Plot-Konfiguration konnte nicht aus der Strategie geladen werden."
+    },
+    "template": {
+      "select": "Vorlage wählen",
+      "remap": "Indikatoren zuordnen",
+      "useTitle": "Vorlage verwenden",
+      "use": "Vorlage nutzen",
+      "applyTitle": "Vorlage anwenden",
+      "apply": "Vorlage anwenden"
+    },
+    "indicator": {
+      "type": "Typ",
+      "color": "Farbe",
+      "fillTo": "Flächenchart – füllen bis (leer lassen für Linienchart)",
+      "scatterSize": "Größe der Streupunkte"
+    }
+  },
+  "backtest": {
+    "page": {
+      "title": "Backtesting",
+      "subtitle": "Teste eine Strategie mit vergangenen Kursen und prüfe die Ergebnisse, bevor sie echt handelt.",
+      "running": "Läuft: {step} {progress}",
+      "webserverTitle": "Für Backtests muss der Bot im Webserver-Modus laufen.",
+      "webserverDescription": "Starte den Bot im Webserver-Modus, um Backtests auszuführen und gespeicherte Ergebnisse zu laden."
+    },
+    "tabs": {
+      "loadResults": "Ergebnisse laden",
+      "run": "Backtest starten",
+      "analyze": "Ergebnis analysieren",
+      "compare": "Ergebnisse vergleichen",
+      "visualizeSummary": "Übersicht als Chart",
+      "visualizeResult": "Ergebnis im Chart"
+    },
+    "loaded": {
+      "title": "Geladene Ergebnisse",
+      "show": "Geladene Ergebnisse anzeigen",
+      "hide": "Geladene Ergebnisse ausblenden",
+      "empty": "Noch keine Ergebnisse geladen. Starte einen Backtest oder lade gespeicherte Ergebnisse.",
+      "editNotes": "Notizen bearbeiten",
+      "notes": "Notizen",
+      "saveNotes": "Notizen speichern"
+    },
+    "trades": "{count} Trade | {count} Trades",
+    "graphs": {
+      "tradesLog": "Trade-Verlauf",
+      "tradesLogHint": "Gewinn jedes geschlossenen Trades, älteste zuerst.",
+      "cumProfit": "Kumulierter Gewinn",
+      "cumProfitHint": "Realisierter Gewinn, über die Zeit aufaddiert.",
+      "profitDistribution": "Gewinnverteilung",
+      "profitDistributionHint": "Wie viele Trades in welchem Gewinnbereich endeten.",
+      "tradeDurations": "Trade-Dauer",
+      "tradeDurationsHint": "Wie lange Trades gehalten wurden, nach Ergebnis.",
+      "wallet": "Wallet-Guthaben",
+      "walletHint": "Guthaben der Backtest-Wallet im Zeitverlauf.",
+      "marketChange": "Marktveränderung",
+      "marketChangeHint": "Durchschnittliche Kursänderung aller Paare im Backtest."
+    },
+    "history": {
+      "title": "Gespeicherte Ergebnisse",
+      "subtitle": "Lade frühere Backtests von der Festplatte. Klick auf eine Zeile, um sie zu laden – du kannst mehrere laden.",
+      "filterPlaceholder": "Nach Strategie oder Datei filtern",
+      "filterLabel": "Ergebnisse filtern",
+      "reload": "Liste neu laden",
+      "empty": "Noch keine gespeicherten Ergebnisse. Sie erscheinen hier, sobald du einen Backtest ausgeführt hast.",
+      "colStrategy": "Strategie",
+      "colDetails": "Details",
+      "colRunAt": "Ausgeführt am",
+      "colFile": "Datei",
+      "colActions": "Aktionen",
+      "load": "Dieses Ergebnis laden",
+      "unload": "Dieses Ergebnis entladen",
+      "unloadHint": "Ergebnis entladen (bleibt auf der Festplatte)",
+      "deleteFromDisk": "Von der Festplatte löschen",
+      "deleteFromDiskLabel": "Dieses Ergebnis von der Festplatte löschen",
+      "deleteTitle": "Dieses Ergebnis löschen?",
+      "deleteMessage": "Damit wird {file} von der Festplatte gelöscht. Das kannst du nicht rückgängig machen."
+    },
+    "analysis": {
+      "title": "Backtest-Ergebnis: {strategy}",
+      "value": "Wert",
+      "setting": "Einstellung",
+      "metric": "Kennzahl",
+      "strategySettings": "Strategie-Einstellungen",
+      "metrics": "Kennzahlen",
+      "perEntryTag": "Ergebnisse je Einstiegs-Tag",
+      "perExitReason": "Ergebnisse je Ausstiegsgrund",
+      "perEntryAndExitTag": "Ergebnisse je Einstiegs- und Ausstiegs-Tag",
+      "perPair": "Ergebnisse je Paar",
+      "entryTag": "Einstiegs-Tag",
+      "exitTag": "Ausstiegs-Tag",
+      "exitReason": "Ausstiegsgrund",
+      "pair": "Paar",
+      "periodicBreakdown": "Aufschlüsselung nach Zeitraum",
+      "singleTrades": "Einzelne Trades"
+    },
+    "chart": {
+      "showPairs": "Paarliste anzeigen",
+      "hidePairs": "Paarliste ausblenden",
+      "showTrades": "Trade-Liste anzeigen",
+      "hideTrades": "Trade-Liste ausblenden",
+      "hint": "Der Chart zeigt immer die neuesten Werte der gewählten Strategie."
+    },
+    "compare": {
+      "subtitle": "Alle geladenen Ergebnisse nebeneinander, eine Spalte pro Ergebnis."
+    },
+    "period": {
+      "label": "Zeitraum",
+      "days": "Tage",
+      "weeks": "Wochen",
+      "months": "Monate",
+      "years": "Jahre",
+      "weekday": "Wochentag"
+    },
+    "col": {
+      "date": "Datum",
+      "trades": "Trades",
+      "totalProfit": "Gesamtgewinn",
+      "profitFactor": "Profitfaktor",
+      "wins": "Gewinne",
+      "draws": "Unentschieden",
+      "losses": "Verluste",
+      "winRate": "Trefferquote",
+      "avgProfitPct": "Ø Gewinn %",
+      "totalProfitCurrency": "Gesamtgewinn {currency}",
+      "totalProfitPct": "Gesamtgewinn %",
+      "extraColumns": "Weitere Spalten"
+    },
+    "run": {
+      "strategy": "Strategie",
+      "strategyHint": "Die Strategie, die du mit vergangenen Kursen testen willst.",
+      "settings": "Einstellungen",
+      "settingsHint": "Lass ein Feld leer, um den Standardwert aus der Strategie oder der Bot-Konfiguration zu nutzen.",
+      "timeframe": "Zeitrahmen",
+      "detailTimeframe": "Detail-Zeitrahmen",
+      "detailTimeframeHint": "Simuliert, was innerhalb jeder Kerze passiert. Leer lassen, um das zu überspringen.",
+      "maxOpenTrades": "Max. offene Trades",
+      "startingCapital": "Startkapital",
+      "stakeAmount": "Einsatz pro Trade",
+      "useStrategyDefault": "Standard der Strategie",
+      "useConfigDefault": "Standard der Konfiguration",
+      "unlimitedStake": "Unbegrenzter Einsatz",
+      "enableProtections": "Schutzregeln aktivieren",
+      "enableProtectionsHint": "Nutzt die Schutzregeln, die in der Strategie festgelegt sind.",
+      "cache": "Backtest-Ergebnisse zwischenspeichern",
+      "cacheHint": "Verwendet ein früheres Ergebnis erneut, wenn die Einstellungen gleich sind.",
+      "start": "Backtest starten",
+      "load": "Backtest-Ergebnis laden",
+      "stop": "Backtest stoppen",
+      "reset": "Backtest zurücksetzen"
+    },
+    "metric": {
+      "walletSuffix": "{metric} (Wallet-Guthaben)",
+      "walletSection": "--- Kennzahlen zum Wallet-Guthaben ---",
+      "longShort": "Long / Short",
+      "totalProfitLong": "Gesamtgewinn Long",
+      "totalProfitShort": "Gesamtgewinn Short",
+      "maxDrawdown": "Max. Drawdown",
+      "maxDrawdownAbs": "Max. Drawdown (absolut)",
+      "maxDrawdownAccount": "Max. Drawdown (Konto)",
+      "drawdownDuration": "Drawdown-Dauer",
+      "profitAtDrawdown": "Gewinn bei Drawdown-Beginn {'|'} -Ende",
+      "drawdownStart": "Drawdown-Beginn",
+      "drawdownEnd": "Drawdown-Ende",
+      "totalProfit": "Gesamtgewinn",
+      "sqn": "System Quality Number (SQN)",
+      "pValue": "p-Wert des mittleren Gewinns",
+      "expectancy": "Erwartungswert",
+      "expectancyRatio": "Erwartungswert (Verhältnis)",
+      "profitFactor": "Profitfaktor",
+      "totalTrades": "Trades gesamt / Ø Trades pro Tag",
+      "bestDay": "Bester Tag",
+      "worstDay": "Schlechtester Tag",
+      "winDrawLoss": "Gewinn / unentschieden / Verlust",
+      "daysWinDrawLoss": "Tage Gewinn / unentschieden / Verlust",
+      "minDurationWinners": "Min. Dauer Gewinner",
+      "avgDurationWinners": "Ø Dauer Gewinner",
+      "maxDurationWinners": "Max. Dauer Gewinner",
+      "minDurationLosers": "Min. Dauer Verlierer",
+      "avgDurationLosers": "Ø Dauer Verlierer",
+      "maxDurationLosers": "Max. Dauer Verlierer",
+      "maxConsecutive": "Max. Gewinne / Verluste in Folge",
+      "rejectedSignals": "Abgelehnte Einstiegssignale",
+      "timeouts": "Einstiegs- / Ausstiegs-Timeouts",
+      "canceledTradeEntries": "Abgebrochene Trade-Einstiege",
+      "canceledEntryOrders": "Stornierte Einstiegsorders",
+      "replacedEntryOrders": "Ersetzte Einstiegsorders",
+      "minMaxBalanceClosed": "Min. / max. Guthaben (geschlossene Trades)",
+      "minMaxBalanceWallet": "Min. / max. Guthaben (Wallet-Guthaben)",
+      "marketChange": "Marktveränderung",
+      "bestPair": "Bestes Paar",
+      "worstPair": "Schlechtestes Paar",
+      "bestTrade": "Bester einzelner Trade",
+      "worstTrade": "Schlechtester einzelner Trade",
+      "tradingMode": "Handelsmodus",
+      "backtestingFrom": "Backtest ab",
+      "backtestingTo": "Backtest bis",
+      "runTime": "Laufzeit des Backtests",
+      "maxOpenTrades": "Max. offene Trades",
+      "timeframe": "Zeitrahmen",
+      "timeframeDetail": "Detail-Zeitrahmen",
+      "timerange": "Zeitraum",
+      "stoploss": "Stoploss",
+      "trailingStop": "Trailing-Stop",
+      "trailOnlyOffset": "Trailing erst ab erreichtem Offset",
+      "trailingStopPositive": "Trailing-Stop positiv",
+      "trailingStopPositiveOffset": "Offset für positiven Trailing-Stop",
+      "customStoploss": "Eigener Stop",
+      "useExitSignal": "Ausstiegssignal nutzen",
+      "exitProfitOnly": "Nur mit Gewinn aussteigen",
+      "exitProfitOffset": "Gewinn-Offset für Ausstieg",
+      "enableProtections": "Schutzregeln aktiv",
+      "startingBalance": "Startguthaben",
+      "finalBalance": "Endguthaben",
+      "avgStake": "Ø Einsatz",
+      "totalVolume": "Gesamtes Handelsvolumen"
+    }
+  },
+  "download": {
+    "page": {
+      "title": "Daten herunterladen",
+      "subtitle": "Lade vergangene Kurse für Backtests und Analysen herunter."
+    },
+    "main": {
+      "whatToDownload": "Was heruntergeladen wird",
+      "pairs": "Paare",
+      "pair": "Paar",
+      "pairsFromTemplate": "Paare aus einer Vorlage",
+      "usePairlist": "Paare aus der Pairlist-Konfiguration",
+      "usePairlistHint": "Übernimmt alle Paare aus der Pairlist-Konfiguration. Führe die Pairlist-Konfiguration zuerst aus.",
+      "timeframes": "Zeitrahmen",
+      "timeframe": "Zeitrahmen",
+      "timeRange": "Zeitraum",
+      "customTimeRange": "Eigenen Zeitraum verwenden",
+      "days": "Tage zum Herunterladen",
+      "advanced": "Erweiterte Optionen",
+      "advancedHint": "Erweiterte Optionen (Daten löschen, Trades herunterladen, eigene Börse) gelten nur, solange dieser Bereich geöffnet ist.",
+      "erase": "Vorhandene Daten löschen",
+      "prepend": "Ältere Daten vorne anfügen",
+      "downloadTrades": "Trades statt Kerzen (OHLCV) herunterladen",
+      "candleTypes": "Kerzentypen wählen",
+      "candleTypesHint": "Ohne Auswahl lädt der Bot die Kerzentypen, die er für den normalen Betrieb braucht.",
+      "customExchange": "Eigene Börse",
+      "start": "Download starten"
+    }
+  },
+  "pairlists": {
+    "live": {
+      "title": "Pairlist",
+      "subtitle": "Die Paare, die der Bot gerade handeln darf, und die Paare, die er auslassen muss."
+    },
+    "config": {
+      "title": "Pairlist-Konfiguration",
+      "subtitle": "Stelle die Liste der Paare zusammen, die der Bot handeln darf, und teste sie.",
+      "save": "Konfiguration speichern",
+      "evaluateTitle": "Pairlist auswerten",
+      "evaluate": "Auswerten",
+      "stakeCurrency": "Einsatzwährung:",
+      "customExchange": "Eigene Börse",
+      "invalid": "Ungültige Konfiguration",
+      "invalidHint": "Der erste Eintrag der Pairlist muss eine erzeugende Pairlist sein, z. B. StaticPairList oder VolumePairList.",
+      "dragHere": "Pairlist hierher ziehen",
+      "viewConfig": "Konfig",
+      "viewResults": "Ergebnisse"
+    },
+    "evaluationFailed": "Auswertung fehlgeschlagen",
+    "blacklist": {
+      "title": "Blacklist",
+      "copyFrom": "Kopieren aus:",
+      "pairs": "Gesperrte Paare"
+    },
+    "results": {
+      "empty": "Die Auswertung hat 0 Paare ergeben"
+    }
+  },
+  "analysis": {
+    "lookahead": {
+      "title": "Lookahead-Analyse",
+      "subtitle": "Prüfe, ob eine Strategie versehentlich auf zukünftige Kerzen schaut.",
+      "failed": "Lookahead-Analyse fehlgeschlagen",
+      "runError": "Lookahead-Analyse konnte nicht ausgeführt werden",
+      "intro": "Prüft deine Strategie auf Lookahead-Bias: Signale aus dem vollständigen Datensatz werden mit Signalen aus immer kürzeren Zeiträumen verglichen. Ändern sich Indikatoren oder Signale abhängig von zukünftigen Daten, liegt ein Lookahead-Bias vor – dann sind die Backtest-Ergebnisse unzuverlässig.",
+      "minTrades": "Mindestanzahl Trades",
+      "minTradesHint": "Mindestanzahl an Trades, die die Analyse durchläuft, bevor sie den Bias bewertet.",
+      "targetTrades": "Angestrebte Anzahl Trades",
+      "targetTradesHint": "Anzahl an Trades, die die Analyse erreichen will. Muss mindestens so groß sein wie die Mindestanzahl.",
+      "allowLimit": "Limit-Orders erlauben",
+      "allowLimitHint": "Erlaubt Limit-Orders in der Lookahead-Analyse (kann zu Fehlalarmen in den Ergebnissen führen).",
+      "start": "Lookahead-Analyse starten",
+      "colHasBias": "Bias vorhanden",
+      "colTotalSignals": "Signale gesamt",
+      "colBiasedEntry": "Verzerrte Einstiegssignale",
+      "colBiasedExit": "Verzerrte Ausstiegssignale",
+      "colBiasedIndicators": "Verzerrte Indikatoren",
+      "noBias": "Kein Lookahead-Bias gefunden",
+      "noBiasHint": "Die Strategie hat in allen untersuchten Zeiträumen gleichbleibende Signale geliefert.",
+      "bias": "Lookahead-Bias gefunden",
+      "biasHint": "Die Strategie hat je nach verfügbaren Daten unterschiedliche Signale geliefert. Backtest-Ergebnisse dieser Strategie sind wahrscheinlich unzuverlässig."
+    },
+    "recursive": {
+      "title": "Rekursive Analyse",
+      "subtitle": "Prüfe, ob Indikatorwerte davon abhängen, wie viel Historie geladen ist.",
+      "failed": "Rekursive Analyse fehlgeschlagen",
+      "runError": "Rekursive Analyse konnte nicht ausgeführt werden",
+      "intro": "Prüft die Indikatoren deiner Strategie auf Probleme mit rekursiven Formeln: Indikatorwerte werden mit unterschiedlich vielen Start-Kerzen berechnet und verglichen. Indikatoren mit Abweichungen hängen wahrscheinlich von der Menge der Startdaten ab und können zwischen Backtest und Dry-/Live-Betrieb unterschiedliche Ergebnisse liefern.",
+      "startupCandles": "Anzahl Start-Kerzen",
+      "startupCandlesHint": "Kommagetrennte Liste von Start-Kerzen-Anzahlen, die miteinander verglichen werden. Leer lassen für die Standardwerte des Backends.",
+      "startupCandlesPlaceholder": "z. B. 199,399,499,999,1999",
+      "start": "Rekursive Analyse starten",
+      "colIndicator": "Indikator",
+      "strategyLabel": "Strategie:",
+      "recommended": "Empfohlene Anzahl Start-Kerzen:",
+      "noIssues": "Keine Probleme mit rekursiven Formeln gefunden",
+      "noIssuesHint": "Keiner der Indikatoren hat sich bei unterschiedlicher Anzahl Start-Kerzen verändert.",
+      "affected": "{count} Indikator(en) von der Anzahl Start-Kerzen betroffen",
+      "affectedHint": "Die Werte unten zeigen die prozentuale Abweichung zur Analyse mit den meisten Start-Kerzen. Werte ungleich null deuten auf ein Problem mit einer rekursiven Formel hin."
+    },
+    "settings": "Einstellungen",
+    "result": "Ergebnis",
+    "strategy": "Strategie",
+    "timeframe": "Zeitrahmen"
+  },
+  "strategy": {
+    "params": {
+      "space": "Bereich {space}",
+      "none": "Diese Strategie hat keine Parameter."
+    },
+    "select": {
+      "placeholder": "Strategie wählen",
+      "reload": "Strategieliste neu laden"
+    }
+  },
+  "timerange": {
+    "startDate": "Startdatum",
+    "startDateTitle": "Startdatum (JJJJ-MM-TT, UTC)",
+    "clearStartDate": "Startdatum löschen",
+    "pickStartDate": "Startdatum wählen",
+    "startTimeTitle": "Startzeit (UTC)",
+    "clearStartTime": "Startzeit löschen",
+    "endDate": "Enddatum",
+    "endDateTitle": "Enddatum (JJJJ-MM-TT, UTC)",
+    "clearEndDate": "Enddatum löschen",
+    "pickEndDate": "Enddatum wählen",
+    "endTimeTitle": "Endzeit (UTC)",
+    "clearEndTime": "Endzeit löschen",
+    "time": "Uhrzeit",
+    "useTime": "Uhrzeit nutzen",
+    "useTimeTitle": "Zeitraum minutengenau wählen (in UTC)",
+    "timeRange": "Zeitraum",
+    "allData": "Alle verfügbaren Daten",
+    "useStrategyDefault": "Standard der Strategie"
+  },
+  "freqai": {
+    "enable": "KI-Modell aktivieren",
+    "enableHint": "Die Strategie muss ein KI-Modell unterstützen und die Bot-Konfiguration muss eines einrichten. Sonst schlägt der Backtest fehl.",
+    "identifier": "Kennung des KI-Modells",
+    "model": "KI-Modell",
+    "useConfigDefault": "Standard der Konfiguration",
+    "selectModel": "KI-Modell wählen",
+    "reload": "Liste der KI-Modelle neu laden"
+  },
+  "jobs": {
+    "list": "Hintergrundjobs",
+    "failed": "Fehlgeschlagen",
+    "clear": "Erledigte Jobs entfernen"
+  },
+  "journal": {
+    "title": "Journal",
+    "linesShown": "Zeilen angezeigt: {n}",
+    "warnings": "{n} Warnung | {n} Warnungen",
+    "errors": "{n} Fehler | {n} Fehler",
+    "live": "Live",
+    "reload": "Log neu laden",
+    "searchPlaceholder": "Log durchsuchen…",
+    "filterLevel": "Nach Stufe filtern",
+    "filterTopic": "Nach Thema filtern",
+    "level": {
+      "all": "Alle Stufen",
+      "warnings": "Ab Warnung",
+      "errors": "Fehler"
+    },
+    "topic": {
+      "clean": "Bereinigt",
+      "all": "Alles",
+      "trades": "Trades",
+      "sentinel": "Sentinel"
+    },
+    "col": {
+      "time": "Zeit",
+      "level": "Stufe",
+      "source": "Quelle",
+      "message": "Nachricht"
+    },
+    "empty": "Keine Log-Zeilen passen zu den Filtern."
+  },
+  "logs": {
+    "reload": "Logs neu laden",
+    "scrollToBottom": "Nach unten scrollen"
+  },
+  "lab": {
+    "title": "Strategie-Labor",
+    "intro": {
+      "simple": "Wie der Bot entscheidet, was wir getestet haben, um ihn besser zu machen, und ob er im echten Leben funktioniert.",
+      "pro": "Die Forschung hinter der Live-Strategie: die Regeln vorher und nachher und der Live-Abgleich mit dem Backtest."
+    },
+    "how": {
+      "title": "So entscheidet der Bot",
+      "exit": "Er verkauft, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
+    },
+    "steps": {
+      "new": "Neu",
+      "mood": {
+        "title": "Marktstimmung",
+        "text": "Er kauft nur, solange Bitcoin im Aufwärtstrend ist (über seinem 50-Tage-Durchschnitt). Sonst wartet er in Cash."
+      },
+      "breakout": {
+        "title": "Ausbruch",
+        "text": "Ein Coin muss über seinen höchsten Preis der letzten 20 Stunden steigen: ein Zeichen, dass eine Bewegung beginnt."
+      },
+      "volume": {
+        "title": "Volumen-Check",
+        "text": "Der Ausbruch zählt nur, wenn mindestens doppelt so viel Handelsvolumen wie üblich dahintersteht. Das filtert falsche Ausbrüche heraus."
+      },
+      "sentinel": {
+        "title": "Sentinel-Nachrichtencheck",
+        "text": "Vor dem Kauf liest Sentinel, unser KI-Nachrichtenmodell, aktuelle Schlagzeilen und blockiert den Kauf bei ernsten schlechten Nachrichten (Hack, Delisting, Klage). Wenn du den KI-Hebel einschaltest, kann er bei klar guten Nachrichten auch bis zu 3× Hebel nutzen."
+      }
+    },
+    "result": {
+      "before": "Vorher",
+      "nowLive": "Jetzt live",
+      "overTwoYears": "über 2 Jahre im Test",
+      "overTwoYearsSame": "über 2 Jahre im selben Test",
+      "worstDip": "Größter Einbruch",
+      "was": "(vorher {value})",
+      "disclaimer": "Vergangene Ergebnisse sind kein Versprechen. Der Test nutzt echte Kursdaten; die Zukunft kann sich anders verhalten."
+    },
+    "live": {
+      "title": "Funktioniert es im echten Leben?",
+      "closedSince": "{n} Trade geschlossen, seit die neue Strategie am {date} gestartet ist. | {n} Trades geschlossen, seit die neue Strategie am {date} gestartet ist.",
+      "enough": "Das reicht für einen Vergleich: Grün heißt, live passt zum Test.",
+      "tooEarly": "Dafür ist es noch zu früh: Erst ab etwa 30 geschlossenen Trades sagt dieser Vergleich etwas aus. Bis dahin ist es nur ein Trend."
+    },
+    "check": {
+      "winRateSimple": "Anteil der Gewinn-Trades",
+      "winRate": "Trefferquote",
+      "profitFactorSimple": "Gewinne im Verhältnis zu Verlusten",
+      "profitFactor": "Profitfaktor",
+      "tradesPerDaySimple": "Trades pro Tag",
+      "tradesPerDay": "Trades / Tag",
+      "expected": "erwartet {range}"
+    },
+    "status": {
+      "collecting": "Sammelt Daten",
+      "asExpected": "Wie erwartet",
+      "below": "Unter Erwartung",
+      "above": "Über Erwartung"
+    },
+    "tested": {
+      "title": "Vorher und nachher",
+      "simple": "Überraschung: „Gewinne früh sichern“ (Trailing- und Break-even-Stops) hat alles deutlich verschlechtert. Diese Strategie verdient an wenigen großen Bewegungen; wer sie früh abschneidet, macht genau das kaputt.",
+      "pro": "Beide Versionen wurden an zwei unabhängigen Jahren getestet (steigender und fallender Markt), die Live-Strategie zusätzlich mit echten Hyperliquid-Daten. Weitere getestete Ideen sind in docs/STRATEGY.md zusammengefasst."
+    },
+    "table": {
+      "idea": "Idee",
+      "year1Simple": "Jahr 1 (steigend)",
+      "year1": "Gewinn Y1",
+      "year2Simple": "Jahr 2 (fallend)",
+      "year2": "Gewinn Y2",
+      "maxDrawdown": "Max. DD",
+      "profitFactor": "PF Y1 / Y2",
+      "verdict": "Urteil"
+    },
+    "verdict": {
+      "chosen": "Gewählt",
+      "better": "Besser",
+      "baseline": "Basis",
+      "mixed": "Gemischt",
+      "rejected": "Verworfen"
+    },
+    "variant": {
+      "V0Base": "Vorherige Regeln (v1)",
+      "V11Vol20": "Volumenfilter 2,0x"
+    }
+  },
+  "calendar": {
+    "cellEmpty": "{date}: keine geschlossenen Trades",
+    "cell": "{date}: {profit}, {n} Trade | {date}: {profit}, {n} Trades",
+    "noTrades": "Keine geschlossenen Trades",
+    "trades": "{n} Trade | {n} Trades",
+    "loss": "Verlust",
+    "profit": "Gewinn",
+    "greenDays": "Tage im Plus: {n}",
+    "redDays": "Tage im Minus: {n}",
+    "best": "Bester Tag {value}",
+    "worst": "Schlechtester Tag {value}"
+  },
+  "excursion": {
+    "winner": "Gewinner",
+    "loser": "Verlierer",
+    "closedAt": "geschlossen bei",
+    "worstDrawdown": "größter Drawdown",
+    "bestRun": "bester Lauf",
+    "axisMae": "Größter Drawdown (MAE) %",
+    "axisMfe": "Bester Lauf (MFE) %",
+    "empty": "Erscheint nach den ersten geschlossenen Trades.",
+    "efficiency": "Exit-Effizienz: Trades haben im Schnitt {pct} ihres besten Laufs behalten."
+  },
+  "positions": {
+    "confirm": {
+      "pauseSimpleTitle": "Käufe pausieren?",
+      "pauseSimpleMessage": "Der Bot kümmert sich weiter um die Coins, die er hält (inklusive Sicherheits-Stops), kauft aber nichts Neues.",
+      "pauseProTitle": "Neue Einstiege pausieren?",
+      "pauseProMessage": "Offene Positionen werden weiter verwaltet; keine neuen Einstiege.",
+      "resumeTitle": "Käufe fortsetzen?",
+      "resumeMessage": "Der Bot sucht wieder nach neuen Coins zum Kaufen.",
+      "startTitle": "Bot starten?",
+      "startMessage": "Der Bot handelt wieder."
+    },
+    "simple": {
+      "title": "Meine Coins",
+      "holding": "Der Bot hält gerade {n} Coin (maximal {max}). | Der Bot hält gerade {n} Coins (maximal {max}).",
+      "nowLabel": "Aktuell auf diese Coins",
+      "notFinal": "erst beim Verkauf endgültig",
+      "maxLossLabel": "Höchstens möglicher Verlust",
+      "maxLossHint": "wenn jeder Coin seinen Sicherheits-Stop erreicht ({pct} deines Geldes)",
+      "buyCoin": "Coin kaufen",
+      "pauseBuying": "Käufe pausieren",
+      "resumeBuying": "Käufe fortsetzen",
+      "start": "Starten",
+      "empty": "Der Bot hält gerade keine Coins. Er wartet auf einen guten Moment zum Kaufen.",
+      "pickCoin": "Wähle links einen Coin."
+    },
+    "pro": {
+      "title": "Positionen",
+      "slotsInUse": "{open} von {max} Plätzen belegt, aktiv: {strategy}.",
+      "noStrategy": "keine Strategie",
+      "manualBuy": "Manuell kaufen",
+      "pauseEntries": "Käufe pausieren",
+      "startBot": "Bot starten",
+      "unrealized": "Unrealisiert",
+      "notFinal": "erst beim Schließen endgültig",
+      "exposure": "Exposure",
+      "exposureHint": "Nominalwert vs. Kapital",
+      "atRisk": "Im Risiko",
+      "atRiskHint": "{pct}, wenn alle Stops greifen",
+      "slots": "Plätze",
+      "slotsFree": "{n} frei",
+      "allInUse": "alle belegt",
+      "openPositions": "Offene Positionen",
+      "empty": "Keine offenen Positionen. Der Bot wartet auf ein Signal.",
+      "selectPosition": "Wähle eine Position."
+    },
+    "sort": {
+      "label": "Sortieren",
+      "aria": "Positionen sortieren",
+      "bestFirst": "Beste zuerst",
+      "newest": "Neueste",
+      "closestSafetyStop": "Nah am Sicherheits-Stop",
+      "pnl": "G/V",
+      "closestStop": "Nah am Stop"
+    },
+    "card": {
+      "aiNoNews": "KI-Check: keine Nachrichten",
+      "aiOffline": "KI-Check: offline",
+      "aiNewsOk": "KI-Check: Nachrichten OK",
+      "aiNotRecorded": "KI-Check: nicht erfasst",
+      "sentinelNoNews": "Sentinel: keine Nachrichten",
+      "sentinelOffline": "Sentinel: offline",
+      "sentinelRisk": "Sentinel: {pct}% Risiko",
+      "sentinelNoRecord": "Sentinel: kein Eintrag",
+      "hintNoRecord": "Kein Sentinel-Eintrag für diesen Trade (vor der Entscheidungsprotokollierung eröffnet)",
+      "hintNoOutlook": "keine Prognose",
+      "hintLeverage": "Hebel {lev}x ({reason})",
+      "short": "Short",
+      "rulerTitle": "Stop {stop} · Einstieg {entry} · Jetzt {now} · Bestwert {best}",
+      "safetyStop": "Sicherheits-Stop",
+      "stop": "Stop",
+      "rulerSimple": "Kauf · Bestwert · jetzt",
+      "rulerPro": "Einstieg · Bestwert · jetzt",
+      "roomToStop": "Luft bis zum Stop",
+      "toStop": "Bis Stop",
+      "lossIfStop": "Verlust bei Stop",
+      "toLiquidation": "Bis Liquidation",
+      "atStop": "Beim Stop",
+      "heldFor": "Haltedauer",
+      "funding": "Funding",
+      "bestRun": "Bester Stand"
+    },
+    "row": {
+      "distanceToStop": "Abstand zum Stop",
+      "heldFor": "Haltedauer"
+    }
+  },
+  "trades": {
+    "simple": {
+      "title": "Verlauf",
+      "count": "{n} Coin bisher gekauft und verkauft | {n} Coins bisher gekauft und verkauft",
+      "profit": "Gewinn aus verkauften Coins",
+      "soldWithProfit": "Mit Gewinn verkauft",
+      "winsOf": "{wins} von {total}",
+      "usuallyHeld": "Übliche Haltedauer",
+      "rowMeta": "verkauft {ago} · gehalten {duration}",
+      "noMatch": "Keine passenden Coins.",
+      "empty": "Bisher wurde kein Coin verkauft."
+    },
+    "pro": {
+      "title": "Trades",
+      "shown": "{shown} von {total} geschlossenen Trades angezeigt",
+      "exportCsv": "CSV exportieren",
+      "realized": "Realisiert",
+      "winRate": "Trefferquote",
+      "wonLost": "{won} gewonnen, {lost} verloren",
+      "avgWinLoss": "Ø Gewinn / Verlust",
+      "payoff": "Payoff {x}×",
+      "avgDuration": "Ø Dauer",
+      "noMatch": "Keine Trades passen zu den Filtern.",
+      "empty": "Noch keine geschlossenen Trades."
+    },
+    "filter": {
+      "allReasons": "Alle Ausstiegsgründe",
+      "pairPlaceholder": "Paar filtern…",
+      "resultAria": "Nach Ergebnis filtern",
+      "reasonAria": "Nach Ausstiegsgrund filtern",
+      "coinPlaceholder": "Coin suchen…",
+      "clearReasonAria": "Nicht mehr nur anzeigen: {reason}",
+      "winners": "Gewinner",
+      "losers": "Verlierer"
+    },
+    "table": {
+      "pair": "Paar",
+      "closed": "Ende",
+      "held": "Dauer",
+      "entryExit": "Einstieg → Ausstieg",
+      "pnl": "G/V",
+      "bestRun": "Bester Stand",
+      "exit": "Ausstieg"
+    },
+    "reasons": {
+      "simpleTitle": "Warum Coins verkauft wurden",
+      "proTitle": "Ausstiegsgründe",
+      "count": "{n} Trade | {n} Trades"
+    },
+    "detailTitle": "Trade-Details"
+  },
+  "tradeDetail": {
+    "simple": {
+      "boughtAt": "Gekauft bei",
+      "priceNow": "Preis jetzt",
+      "soldAt": "Verkauft bei",
+      "moneyPutIn": "Eingesetztes Geld",
+      "heldFor": "Haltedauer",
+      "wasHeldFor": "Haltedauer",
+      "safetyStopByYou": "Sicherheits-Stop (von dir)",
+      "safetyStop": "Sicherheits-Stop",
+      "safetyStopValue": "verkauft, wenn der Preis auf {price} fällt ({pct} unter jetzt)",
+      "whySold": "Warum verkauft",
+      "costs": "Kosten (Gebühren)"
+    },
+    "pro": {
+      "entry": "Einstieg",
+      "now": "Jetzt",
+      "exit": "Ausstieg",
+      "amount": "Menge",
+      "stake": "Einsatz",
+      "leverage": "Hebel",
+      "duration": "Dauer",
+      "stopManual": "Stop (manuell)",
+      "stop": "Stop",
+      "liquidation": "Liquidation",
+      "exitReason": "Ausstiegsgrund",
+      "bestRun": "Bester Stand (MFE)",
+      "worstDip": "Tiefster Stand (MAE)",
+      "funding": "Funding",
+      "fees": "Gebühren"
+    },
+    "close": {
+      "sellAllTitle": "Alle {coin} jetzt verkaufen?",
+      "sellHalfTitle": "Hälfte von {coin} jetzt verkaufen?",
+      "closeAllTitle": "Ganze Position schließen?",
+      "closeHalfTitle": "Halbe Position schließen?",
+      "fullPaper": "{pair}: Eine Market-Verkaufsorder über die ganze Menge geht an den Bot (Übungsgeld).",
+      "fullReal": "{pair}: Eine Market-Verkaufsorder über die ganze Menge geht an den Bot – mit ECHTGELD.",
+      "halfPaper": "{pair}: Eine Market-Verkaufsorder über 50% geht an den Bot (Übungsgeld).",
+      "halfReal": "{pair}: Eine Market-Verkaufsorder über 50% geht an den Bot – mit ECHTGELD."
+    },
+    "badge": {
+      "open": "Offen",
+      "closed": "Geschlossen",
+      "boughtByYou": "Von dir gekauft",
+      "manual": "Manuell"
+    },
+    "keptSimple": "{pct} des besten Gewinns behalten",
+    "keptPro": "{pct} vom besten Stand behalten",
+    "action": {
+      "sellHalf": "Hälfte verkaufen",
+      "closeHalf": "50% schließen",
+      "sellNow": "Jetzt verkaufen",
+      "closeAll": "Position schließen",
+      "stopSetByYou": "Sicherheits-Stop von dir gesetzt",
+      "manualStop": "Manueller Stop",
+      "hintSimple": "Du kannst den Sicherheits-Stop anheben oder mehr von diesem Coin kaufen.",
+      "hintPro": "Stop anpassen oder Position aufstocken.",
+      "changeStop": "Sicherheits-Stop ändern",
+      "moveStop": "Stop verschieben",
+      "buyMore": "Nachkaufen"
+    },
+    "sentinel": {
+      "titleSimple": "Sentinel-Nachrichtencheck vor dem Kauf",
+      "titlePro": "Sentinel-Einstiegsentscheidung",
+      "noRecordSimple": "Dieser Coin wurde gekauft, bevor der Sentinel-Nachrichtencheck eingeschaltet war.",
+      "noRecordPro": "Kein Sentinel-Eintrag: Dieser Trade wurde vor Beginn der Entscheidungsprotokollierung eröffnet.",
+      "vetoed": "Abgelehnt",
+      "allowed": "Erlaubt",
+      "leverage": "Hebel {lev} · {reason}",
+      "wouldHavePicked": "Sentinel hätte {lev} gewählt",
+      "headlines": "{n} Schlagzeile | {n} Schlagzeilen",
+      "badNewsRisk": "Risiko schlechter Nachrichten {risk} (gesperrt ab 30%)"
+    }
+  },
+  "exit": {
+    "reason": {
+      "raisedStop": "Nachgezogener Stop erreicht",
+      "manualStop": "Manueller Stop (sofort verkauft)",
+      "stopLoss": "Stop-Loss",
+      "exitSignal": "Ausstiegssignal",
+      "forceExit": "Von Hand geschlossen",
+      "roi": "ROI"
+    }
+  },
+  "position": {
+    "stopCheck": {
+      "enterPrice": "Gib einen Preis ein.",
+      "atOrAbovePrice": "Das liegt auf oder über dem aktuellen Preis und würde sofort verkaufen. Schließe stattdessen die Position.",
+      "aboveLiquidation": "Ein Stop muss über dem Liquidationspreis liegen.",
+      "onlyUp": "Ein Stop lässt sich nur nach oben verschieben (näher an den Preis), nie nach unten."
+    }
+  },
+  "kev": {
+    "reason": {
+      "offline": "Sentinel offline",
+      "noNews": "keine Nachrichten",
+      "neutral": "neutrale Nachrichten",
+      "clearlyPositive": "klar gute Nachrichten",
+      "clearlyPositiveStrongBtc": "klar gute Nachrichten und starker Bitcoin",
+      "aiLeverageOff": "KI-Hebel aus, 1×",
+      "aiLeverageLocked": "KI-Hebel auf diesem Mac gesperrt, 1×",
+      "manual": "von Hand gewählt"
+    },
+    "panel": {
+      "entriesChecked": "{n} Einstieg geprüft | {n} Einstiege geprüft",
+      "withNews": "{n} mit Nachrichten",
+      "aboveOneX": "{n} mit Hebel über 1x",
+      "vetoNote": "Abgelehnte Einstiege werden nie zu Trades; du findest sie im Journal.",
+      "empty": "Sentinels Begründung erscheint hier für jeden neuen Einstieg. Positionen, die vor der Entscheidungsprotokollierung eröffnet wurden, haben keinen Eintrag.",
+      "open": "offen",
+      "headlines": "{n} Schlagzeile | {n} Schlagzeilen",
+      "risk": "Risiko {pct}",
+      "payTitle": "Lohnt sich der Hebel?",
+      "payHint": "Geschlossene Trades nach Hebel gruppiert (von Sentinel oder von Hand gewählt).",
+      "payEmpty": "Das füllt sich, sobald Trades geschlossen sind.",
+      "trades": "{n} Trade | {n} Trades",
+      "win": "Treffer {pct}",
+      "avg": "Ø {pct}"
+    }
+  },
+  "command": {
+    "title": "Kommandozentrale",
+    "header": {
+      "heartbeat": "Heartbeat vor {age}",
+      "regime": "Regime",
+      "regimeTitle": "Regime-Filter der Strategie: BTC-Tagesschluss gegenüber seiner 50-Tage-EMA",
+      "regimeState": "{state} (BTC {pct} vs. EMA50)",
+      "pairsOn": "{n} Paar auf {exchange} | {n} Paare auf {exchange}",
+      "kbdCommands": "Befehle",
+      "kbdPrivacy": "Privatsphäre"
+    },
+    "hero": {
+      "sinceStart": "seit Start ({capital})",
+      "last7": "Letzte 7 Tage",
+      "allTime": "Gesamt",
+      "realized": "realisiert",
+      "openPositions": "{n} offene Position | {n} offene Positionen",
+      "tradesSince": "{n} Trade seit {date} | {n} Trades seit {date}",
+      "tradesSinceStart": "{n} Trade seit dem Start | {n} Trades seit dem Start"
+    },
+    "risk": {
+      "title": "Risiko",
+      "subtitle": "Überleben zuerst: Wie viel Spielraum bleibt?",
+      "drawdownNow": "Drawdown aktuell",
+      "drawdownSub": "max. {max} · Budget 25 % · Aufholen {recover}",
+      "exposureSub": "Nominalwert vs. Kontowert · Soft-Cap 1,5×",
+      "atRisk": "Risiko, wenn alle Stops greifen",
+      "atRiskSub": "{amount} · Budget 10 % des Kontowerts",
+      "slotsUsed": "Belegte Slots",
+      "leverageMix": "Hebel-Mix {mix}",
+      "noPositions": "keine offenen Positionen"
+    },
+    "edge": {
+      "title": "Edge",
+      "subtitle": "{n} geschlossener Trade. Kennzahlen werden ab etwa 100 aussagekräftig. | {n} geschlossene Trades. Kennzahlen werden ab etwa 100 aussagekräftig.",
+      "winsLosses": "{wins} gewonnen, {losses} verloren",
+      "payoffSub": "Ø Gewinn / Ø Verlust",
+      "perTrade": "pro Trade",
+      "profitFactorSub": "Break-even 1,0, gesund ab 1,5",
+      "from30": "ab 30 Trades",
+      "topWinShare": "Anteil Top-Trade",
+      "ofGrossProfit": "vom Bruttogewinn",
+      "topWinHint": "Anteil des besten einzelnen Trades am gesamten Gewinn. Hoch heißt: Das Ergebnis hängt an einem Glückstreffer."
+    },
+    "positions": {
+      "title": "Offene Positionen",
+      "subtitle": "Jede Leiste reicht vom Stop über den Einstieg bis zum aktuellen Preis, mit einer Markierung beim bisher besten Preis.",
+      "slots": "{n} von {max} Slots",
+      "empty": "Keine offenen Positionen. Der Bot wartet auf ein Signal."
+    },
+    "equity": {
+      "title": "Kontowert und Drawdown",
+      "subtitle": "Realisierter Kontowert mit dem Live-Punkt, darunter die Underwater-Kurve."
+    },
+    "pairs": {
+      "title": "Paar-Rangliste",
+      "subtitle": "Realisierter Gewinn pro Paar. Ein Punkt markiert eine offene Position."
+    },
+    "daily": {
+      "title": "Tägliche GuV",
+      "subtitle": "Die letzten 12 Wochen."
+    },
+    "excursion": {
+      "title": "MAE/MFE-Karte",
+      "subtitle": "Wie weit jeder geschlossene Trade gegen uns (MAE) und für uns (MFE) lief."
+    },
+    "sentinel": {
+      "title": "Sentinel-Entscheidungslog",
+      "subtitle": "Nachrichten-Check und Hebelwahl, bei jedem Einstieg festgehalten."
+    }
+  },
+  "cockpit": {
+    "title": "Cockpit",
+    "pauseEntries": "Einstiege pausieren",
+    "pauseTitle": "Neue Einstiege pausieren?",
+    "pauseMessage": "Der Bot verwaltet offene Trades weiter, eröffnet aber keine neuen.",
+    "fullscreen": "Vollbild",
+    "exitFullscreen": "Vollbild beenden",
+    "risk": "Risiko",
+    "dial": {
+      "atRisk": "Im Risiko",
+      "slots": "Slots",
+      "marketRegime": "Marktregime",
+      "budget": "Budget 25 %",
+      "softCap": "Soft-Cap 1,5×",
+      "ifAllStops": "wenn alle Stops greifen",
+      "positions": "Positionen",
+      "regimeDisplay": "{state} {pct}",
+      "regimeSub": "BTC {price} vs. 50-Tage-EMA"
+    },
+    "edge": "Edge",
+    "equityTitle": "Kontowert und Drawdown",
+    "closedCount": "{n} geschlossener Trade | {n} geschlossene Trades",
+    "positions": "Positionen",
+    "positionsOf": "{n} von {max}",
+    "positionsLegend": "Stop bis Kurs · Abstand zum Stop, Alter",
+    "empty": "Keine offenen Positionen. Wartet auf ein Signal.",
+    "activity": "Aktivität",
+    "activityCount": "{closed} geschlossen · {checks} Sentinel-Checks"
+  },
+  "markets": {
+    "title": "Märkte",
+    "count": "{n} Paar · {timeframe} | {n} Paare · {timeframe}",
+    "filter": "Paare filtern…",
+    "openTitle": "Offene Position",
+    "openBadge": "{leverage}x offen",
+    "trades": "{n} Trade | {n} Trades",
+    "closedTitle": "{n} geschlossener Trade | {n} geschlossene Trades",
+    "empty": "Kein Paar passt zum Filter.",
+    "legend": "Chart-Linien: {now}, {entry} und {stop}. Pfeile markieren die Ein- und Ausstiege des Bots.",
+    "legendNow": "aktuell",
+    "legendEntry": "Einstieg",
+    "legendStop": "Stop"
+  },
+  "dashboard": {
+    "profitAllBots": "Gewinn im Zeitverlauf, alle Bots",
+    "profit": "Gewinn im Zeitverlauf",
+    "botComparison": "Bot-Vergleich",
+    "openTrades": "Offene Trades",
+    "openTradesInfo": "Offene Trades aller ausgewählten Bots. Klick auf einen Trade, um ihn auf der Trade-Seite zu öffnen.",
+    "cumProfit": "Kumulierter Gewinn",
+    "walletHistory": "Wallet-Verlauf",
+    "closedTrades": "Geschlossene Trades",
+    "closedTradesInfo": "Geschlossene Trades aller ausgewählten Bots. Klick auf einen Trade, um ihn auf der Trade-Seite zu öffnen.",
+    "profitDistribution": "Gewinnverteilung",
+    "tradesLog": "Trade-Log"
+  },
+  "tradePage": {
+    "controls": "Steuerung",
+    "tabs": {
+      "pairs": "Alle Paare",
+      "general": "Allgemein",
+      "performance": "Performance",
+      "balance": "Guthaben",
+      "timeBreakdown": "Nach Zeitraum",
+      "pairlist": "Paarliste",
+      "pairLocks": "Paar-Sperren"
+    },
+    "openTrades": "Offene Trades",
+    "openTradesEmpty": "Aktuell keine offenen Trades.",
+    "closedTrades": "Geschlossene Trades",
+    "tradeHistory": "Trade-Verlauf",
+    "closedTradesEmpty": "Bisher keine geschlossenen Trades.",
+    "tradeDetail": "Trade-Details",
+    "chart": "Chart"
+  },
+  "widgets": {
+    "botState": {
+      "running": "läuft",
+      "stopped": "gestoppt",
+      "paused": "pausiert",
+      "reload_config": "Neuladen",
+      "offline": "offline",
+      "unknown": "unbekannt"
+    },
+    "mode": {
+      "paper": "Paper",
+      "live": "Live",
+      "liveReal": "Live mit Echtgeld",
+      "practice": "Übung",
+      "realMoney": "Echtgeld"
+    },
+    "metrics": {
+      "equity": "Kontowert",
+      "today": "Heute",
+      "sevenDays": "7 Tage",
+      "unrealized": "Unrealisiert",
+      "drawdown": "Drawdown",
+      "exposure": "Exposure",
+      "winRate": "Trefferquote",
+      "payoff": "Payoff",
+      "expectancy": "Erwartungswert",
+      "profitFactor": "Profitfaktor",
+      "maxDrawdown": "Max. Drawdown",
+      "closedTrades": "Geschl. Trades"
+    },
+    "sample": {
+      "early": "Frühe Daten",
+      "low": "Kleine Stichprobe",
+      "hint": "Wenige geschlossene Trades: Diese Zahlen sind nur ein Anhaltspunkt."
+    },
+    "regime": {
+      "on": "an",
+      "off": "aus"
+    },
+    "heartbeatTitle": "Letzter Heartbeat vor {age}",
+    "dial": {
+      "healthy": "Gesund",
+      "watch": "Beobachten",
+      "nearLimit": "Nahe am Limit",
+      "riskOn": "Risk-on",
+      "riskOff": "Risk-off"
+    },
+    "equityChart": {
+      "equity": "Kontowert",
+      "drawdown": "Drawdown",
+      "seriesEquity": "Kontowert ({currency})",
+      "seriesDrawdown": "Drawdown %",
+      "empty": "Die Kontowert-Kurve beginnt nach dem ersten geschlossenen Trade."
+    },
+    "feed": {
+      "bought": "{coin} gekauft · {leverage}x",
+      "boughtDetail": "zu {price} · {stake} Einsatz",
+      "kevChecked": "Sentinel hat {coin} geprüft",
+      "kevNoNews": "keine Nachrichten · Standard 1x",
+      "kevDetail": "{n} Schlagzeile · Risiko {risk} % · {reason} | {n} Schlagzeilen · Risiko {risk} % · {reason}",
+      "sold": "{coin} verkauft {pct}",
+      "empty": "Noch keine Aktivität. Käufe, Verkäufe und Sentinel-Checks erscheinen hier, sobald sie passieren."
+    },
+    "instrumentBar": {
+      "yourMoney": "Dein Geld",
+      "coinsHeld": "{n} Coin im Besitz | {n} Coins im Besitz",
+      "openOf": "Offen {open} von {max}",
+      "btcRegime": "BTC-Regime",
+      "regimeTitle": "Strategie-Regime: BTC-Tagesschluss gegenüber seiner 50-Tage-EMA",
+      "notifyOn": "Benachrichtigungen an",
+      "notifyOff": "Benachrichtigungen für Käufe, Verkäufe und Probleme einschalten",
+      "toggleNotify": "Benachrichtigungen umschalten",
+      "showBalances": "Beträge zeigen (⇧P)",
+      "hideBalances": "Beträge verbergen (⇧P)",
+      "togglePrivacy": "Privatsphäre-Modus umschalten",
+      "openPalette": "Befehlspalette öffnen"
+    },
+    "pairBoard": {
+      "empty": "Noch keine geschlossenen Trades. Jedes Paar erscheint hier nach seinem ersten Verkauf.",
+      "openChart": "{coin}-Chart öffnen",
+      "positionOpen": "Position offen",
+      "trades": "{n} Trade | {n} Trades"
+    }
+  },
+  "nav": {
+    "main": "Hauptmenü",
+    "sidebar": "Seitenleiste",
+    "view": "Ansicht",
+    "viewMode": "Ansichtsmodus",
+    "simpleHint": "Einfache Sprache, das Wichtigste",
+    "proHint": "Alle Charts, Risikozahlen und Werkzeuge",
+    "versionTitle": "NovaeonTradingAI Version {version}",
+    "expand": "Seitenleiste ausklappen",
+    "collapse": "Seitenleiste einklappen",
+    "section": {
+      "myBot": "Mein Bot",
+      "more": "Mehr",
+      "overview": "Übersicht",
+      "trading": "Trading",
+      "system": "System",
+      "engine": "Engine-Werkzeuge"
+    },
+    "item": {
+      "home": "Start",
+      "myCoins": "Meine Coins",
+      "history": "Verlauf",
+      "wallet": "Wallet",
+      "strategy": "Strategie",
+      "bots": "Bots",
+      "settings": "Einstellungen",
+      "command": "Zentrale",
+      "cockpit": "Cockpit",
+      "positions": "Positionen",
+      "markets": "Märkte",
+      "trades": "Trades",
+      "strategyLab": "Strategie-Labor",
+      "journal": "Journal",
+      "backtest": "Backtest",
+      "downloadData": "Daten laden",
+      "pairlistConfig": "Paarliste einrichten",
+      "recursiveAnalysis": "Rekursive Analyse",
+      "lookaheadAnalysis": "Lookahead-Analyse",
+      "pairlist": "Paarliste"
+    },
+    "hint": {
+      "home": "Wie läuft es mit meinem Geld?",
+      "myCoins": "Was der Bot gerade hält",
+      "history": "Alles, was der Bot gekauft und verkauft hat",
+      "wallet": "Wallet verbinden, Übungsgeld oder Echtgeld",
+      "strategy": "Wie der Bot entscheidet und wie gut das klappt",
+      "bots": "Bots verbinden und wechseln",
+      "homePro": "Zusammenfassung in einfachen Worten",
+      "command": "Risiko, Vorteil, Positionen",
+      "cockpit": "Alle Instrumente auf einem Bildschirm",
+      "positions": "Offene Positionen und Aktionen",
+      "markets": "Charts mit eingezeichneten Trades",
+      "trades": "Geschlossene Trades und Analyse",
+      "strategyLab": "Forschung, Varianten, Live vs. Backtest",
+      "walletPro": "MetaMask, Übungsgeld oder Echtgeld",
+      "journal": "Bot-Protokoll"
+    }
+  },
+  "header": {
+    "homeLink": "NovaeonTradingAI, zu den Bots",
+    "noConfirmTooltip": "Ausstiegs-Bestätigungen sind aus: Erzwungene Ausstiege laufen sofort. Schalte sie in den Einstellungen wieder ein.",
+    "noConfirmAria": "Ausstiegs-Bestätigungen sind aus. Einstellungen öffnen.",
+    "noConfirm": "Ohne Bestätigung",
+    "botConnection": "Bot-Verbindung",
+    "loginExpired": "Anmeldung abgelaufen, bitte melde dich erneut an",
+    "botOnline": "Bot ist online",
+    "botOffline": "Bot ist offline",
+    "autoRefreshOn": "Auto-Aktualisierung für {bot} ist an",
+    "autoRefreshOff": "Auto-Aktualisierung für {bot} ist aus",
+    "appMenu": "App-Menü",
+    "connectBot": "Bot verbinden",
+    "noBotSelected": "Kein Bot ausgewählt",
+    "botNotFound": "Bot nicht gefunden"
+  },
+  "menu": {
+    "open": "Menü öffnen",
+    "view": "Ansicht",
+    "bot": "Bot",
+    "autoRefresh": "Auto-Aktualisierung",
+    "allBots": "Alle Bots",
+    "logout": "Abmelden"
+  },
+  "palette": {
+    "placeholder": "Seiten, Aktionen und Paare suchen…",
+    "group": {
+      "goTo": "Gehe zu",
+      "view": "Ansicht",
+      "bot": "Bot: {name}",
+      "pairs": "Paare"
+    },
+    "showBalances": "Guthaben zeigen",
+    "hideBalances": "Guthaben verbergen",
+    "lightMode": "Zum hellen Modus wechseln",
+    "darkMode": "Zum dunklen Modus wechseln",
+    "openPosition": "offene Position",
+    "pause": {
+      "label": "Neue Einstiege pausieren",
+      "suffix": "offene Trades werden weiter verwaltet",
+      "title": "Neue Einstiege pausieren?",
+      "message": "Der Bot verwaltet offene Trades weiter, eröffnet aber keine neuen."
+    },
+    "start": {
+      "label": "Bot starten",
+      "title": "Bot starten?",
+      "message": "Der Bot nimmt das Trading wieder auf."
+    },
+    "stop": {
+      "label": "Bot stoppen",
+      "title": "Bot stoppen?",
+      "message": "Das Trading stoppt. Offene Positionen bleiben offen und werden nicht verwaltet."
+    },
+    "reload": {
+      "label": "Konfiguration neu laden",
+      "title": "Konfiguration neu laden?",
+      "message": "Der Bot lädt seine Konfiguration neu."
+    }
+  },
+  "login": {
+    "title": "Verbinde deinen Bot",
+    "titleAgain": "Erneut bei deinem Bot anmelden",
+    "intro": "Gib die Adresse deines Bots und die Zugangsdaten aus seinen API-Einstellungen ein.",
+    "url": "Bot-Adresse",
+    "urlHint": "Zum Beispiel http://127.0.0.1:8080",
+    "urlError": "Gib die Adresse deines Bots ein.",
+    "urlDuplicate": "Ein anderer Bot nutzt diese Adresse schon.",
+    "username": "Benutzername",
+    "usernameError": "Prüfe den Benutzernamen.",
+    "password": "Passwort",
+    "passwordError": "Prüfe das Passwort.",
+    "botName": "Bot-Name",
+    "optional": "Optional",
+    "botNamePlaceholder": "Zum Beispiel: Hauptbot",
+    "errorTitle": "Verbindung fehlgeschlagen",
+    "errorAuth": "Der Bot hat geantwortet, aber diesen Benutzernamen und dieses Passwort nicht akzeptiert. Prüfe beides und versuche es noch einmal.",
+    "errorUnreachable": "Unter {url} war kein Bot erreichbar. Prüfe, ob der Bot läuft, ob seine API eingeschaltet ist und ob diese Adresse von hier aus erreichbar ist. Zum Testen öffne {pingUrl} in deinem Browser.",
+    "errorCors": "Läuft der Bot unter einer anderen Adresse als diese App, prüfe auch, ob sein API-Server Anfragen von dieser App zulässt (CORS-Einstellungen).",
+    "clear": "Leeren",
+    "connect": "Verbinden"
+  },
+  "bots": {
+    "title": "Bots",
+    "intro": "Die Bots, mit denen dieser Browser verbunden ist. Klicke einen an, um ihn auszuwählen, und ziehe ihn, um die Reihenfolge zu ändern.",
+    "emptyAria": "Kein Bot verbunden",
+    "empty": "Noch ist kein Bot verbunden. Verbinde einen, um zu sehen, wie es deinem Geld geht.",
+    "connect": "Bot verbinden",
+    "aboutAria": "Über die App",
+    "about": "Beobachte und steuere deinen Trading-Bot: was er hält, was er getan hat und wie es deinem Geld geht.",
+    "logInAgain": "Erneut anmelden",
+    "autoRefreshFor": "Auto-Aktualisierung für {name}",
+    "list": {
+      "aria": "Deine Bots",
+      "drag": "Zum Sortieren ziehen",
+      "loginExpired": "{name}: Anmeldung abgelaufen",
+      "add": "Bot hinzufügen"
+    },
+    "entry": {
+      "removeTitle": "Diesen Bot entfernen?",
+      "removeMessage": "Damit wird {name} aus diesem Browser entfernt und du wirst dort abgemeldet. Der Bot selbst läuft weiter.",
+      "loginExpiredHint": "Anmeldung abgelaufen, bitte melde dich erneut an.",
+      "loginExpired": "Anmeldung abgelaufen",
+      "rename": "Bot umbenennen",
+      "remove": "Bot entfernen"
+    },
+    "rename": {
+      "name": "Bot-Name",
+      "save": "Namen speichern"
+    },
+    "select": "Bot auswählen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "intro": "Wie die App in diesem Browser aussieht und sich verhält, plus eine Einstellung dazu, wie der Bot handelt.",
+    "trading": {
+      "title": "Trading",
+      "subtitle": "Wird im Bot gespeichert und gilt so für jeden Browser und jedes Gerät."
+    },
+    "interface": {
+      "title": "Oberfläche",
+      "subtitle": "Kopfzeile, Zeit und Sicherheitsabfragen."
+    },
+    "openTrades": {
+      "label": "Offene Trades in der Kopfzeile",
+      "hint": "Wie die Zahl offener Trades in deinem Browser-Tab erscheint.",
+      "pill": "Zahl am Tab-Symbol",
+      "title": "Anzahl im Seitentitel",
+      "none": "Nicht anzeigen"
+    },
+    "timezone": {
+      "label": "Zeitzone",
+      "hint": "UTC wird empfohlen, weil Börsen meist in UTC arbeiten."
+    },
+    "confirm": {
+      "label": "Vor dem Schließen von Trades nachfragen",
+      "hint": "Fragt nach, bevor ein Trade zwangsweise geschlossen wird. Ist das aus, erscheint eine Warnung in der Kopfzeile."
+    },
+    "bgSync": {
+      "label": "Hintergrund-Sync",
+      "hint": "Andere Bots weiter synchronisieren, während ein anderer Bot ausgewählt ist."
+    },
+    "multiPane": {
+      "label": "Text auf Mehrfenster-Buttons zeigen",
+      "hint": "Ist das aus, zeigen diese Buttons nur Symbole."
+    },
+    "charts": {
+      "title": "Charts",
+      "subtitle": "Kerzen, Skalen und Farben."
+    },
+    "scaleSide": {
+      "label": "Seite der Preisskala",
+      "hint": "Wo die Preisskala im Chart sitzt.",
+      "left": "Links",
+      "right": "Rechts"
+    },
+    "heikin": {
+      "label": "Heikin-Ashi-Kerzen",
+      "hint": "Geglättete Kerzen, an denen du Trends leichter erkennst."
+    },
+    "reduced": {
+      "label": "Nur nötige Spalten abrufen",
+      "hint": "Kann die Datenmenge bei großen Datensätzen verringern. Wenn sich die Chart-Konfiguration ändert, sind eventuell zusätzliche Abrufe nötig."
+    },
+    "candles": {
+      "label": "Angezeigte Kerzen",
+      "hint": "Standardanzahl der Kerzen in einem Chart. Voreingestellt sind 250."
+    },
+    "colors": {
+      "label": "Kerzenfarben",
+      "hint": "Welche Farbe bedeutet, dass der Preis gestiegen ist.",
+      "greenUp": "Grün hoch / Rot runter",
+      "redUp": "Rot hoch / Grün runter"
+    },
+    "notifications": {
+      "title": "Benachrichtigungen",
+      "subtitle": "Meldungen in der App, solange sie offen ist.",
+      "entryFill": "Kauf ausgeführt",
+      "entryFillHint": "Wenn der Bot einen Coin kauft.",
+      "exitFill": "Verkauf ausgeführt",
+      "exitFillHint": "Wenn der Bot einen Coin verkauft.",
+      "entryCancel": "Kauf abgebrochen",
+      "entryCancelHint": "Wenn eine Kauforder abgebrochen wird, bevor sie ausgeführt ist.",
+      "exitCancel": "Verkauf abgebrochen",
+      "exitCancelHint": "Wenn eine Verkaufsorder abgebrochen wird, bevor sie ausgeführt ist."
+    },
+    "backtesting": {
+      "title": "Backtesting",
+      "subtitle": "Zusätzliche Spalten in den Tabellen pro Paar und pro Entry-Tag.",
+      "metrics": "Backtesting-Kennzahlen",
+      "metricsHint": "Wähle, welche Kennzahlen pro Paar und pro Entry-Tag erscheinen."
+    },
+    "about": {
+      "title": "Über"
+    }
+  },
+  "notFound": {
+    "label": "Fehler 404",
+    "title": "Diese Seite gibt es nicht",
+    "text": "Vielleicht ist der Link veraltet oder die Adresse enthält einen Tippfehler. Dein Bot läuft so oder so weiter.",
+    "back": "Zurück zum Start"
+  },
+  "general": {
+    "madeBy": "NovaeonTradingAI von",
+    "openSource": "Open Source unter {license}",
+    "copyToClipboard": "In die Zwischenablage kopieren",
+    "editValue": {
+      "nameAria": "Name für {name}",
+      "edit": "{name} bearbeiten",
+      "duplicate": "{name} duplizieren",
+      "delete": "{name} löschen",
+      "add": "{name} hinzufügen",
+      "copyName": "{name} (Kopie)"
+    },
+    "stringList": {
+      "delete": "Diesen Wert löschen",
+      "add": "Wert hinzufügen"
+    },
+    "multiSelect": {
+      "placeholder": "Einträge auswählen",
+      "search": "Suchen…"
+    }
+  },
+  "theme": {
+    "toDark": "Dunkles Design",
+    "toLight": "Helles Design"
+  },
+  "toasts": {
+    "notification": "Benachrichtigung",
+    "botTitle": "Bot: {bot}",
+    "entryFill": "Einstieg ausgeführt: {pair} {direction} zu {rate}",
+    "exitFill": "Ausstieg ausgeführt: {pair} {direction} {rate}",
+    "exitCancel": "Ausstiegsorder für {pair} abgebrochen, Grund: {reason}",
+    "entryCancel": "Einstiegsorder für {pair} abgebrochen, Grund: {reason}",
+    "notify": {
+      "on": "Benachrichtigungen sind an. Du erfährst von Käufen, Verkäufen und Problemen.",
+      "bought": "{coin} gekauft",
+      "boughtBody": "{amount} zu {price}",
+      "sold": "{coin} verkauft {pct}",
+      "soldProfit": "Gewinn {amount} · {reason}",
+      "soldLoss": "Verlust {amount} · {reason}",
+      "notResponding": "Bot antwortet nicht",
+      "notRespondingBody": "Der Trading-Bot hat sich seit ein paar Minuten nicht gemeldet.",
+      "back": "Bot ist wieder da",
+      "backBody": "Der Trading-Bot antwortet wieder.",
+      "brake": "Notbremse aktiv",
+      "brakeBody": "Mehrere Sicherheits-Stops in kurzer Zeit. Käufe sind für eine Weile pausiert."
+    }
+  },
+  "home": {
+    "status": {
+      "offlineTitle": "Der Bot antwortet nicht",
+      "offlineText": "Er hat sich seit ein paar Minuten nicht gemeldet. Prüf, ob der Computer, auf dem der Bot läuft, an und verbunden ist.",
+      "pausedTitle": "Käufe sind pausiert",
+      "pausedText": "Der Bot kümmert sich um die Coins, die er hält (samt Sicherheits-Stops), kauft aber nichts Neues. Drück auf „Käufe fortsetzen“, um weiterzumachen.",
+      "stoppedTitle": "Der Bot ist gestoppt",
+      "stoppedText": "Er handelt gerade nicht. Drück auf „Start“, damit er weitermacht.",
+      "brakeTitle": "Die Notbremse ist aktiv",
+      "brakeText": "Der Bot hat in kurzer Zeit mehrere Sicherheits-Stops erreicht und pausiert deshalb Käufe bis {time} Uhr. Coins, die er schon hält, bleiben geschützt.",
+      "dipTitle": "Vorsicht: Der Bot steckt in einem größeren Tief",
+      "dipText": "Dein Geld liegt {pct} unter seinem Höchststand. Überleg dir, neue Käufe zu pausieren.",
+      "riskTitle": "Läuft, aber es steht viel auf dem Spiel",
+      "riskText": "Wenn jeder Coin bis zu seinem Sicherheits-Stop fällt, verlierst du etwa {pct} deines Geldes.",
+      "goodTitle": "Alles gut: Der Bot läuft normal",
+      "goodText": "Er hält {n} Coin und beobachtet {watching} auf neue Chancen. | Er hält {n} Coins und beobachtet {watching} auf neue Chancen."
+    },
+    "actions": {
+      "resumeBuying": "Käufe fortsetzen",
+      "pauseBuying": "Käufe pausieren",
+      "start": "Start"
+    },
+    "confirm": {
+      "pauseTitle": "Käufe pausieren?",
+      "pauseMessage": "Der Bot kümmert sich weiter um die Coins, die er hält (samt Sicherheits-Stops), kauft aber nichts Neues.",
+      "resumeTitle": "Käufe fortsetzen?",
+      "resumeMessage": "Der Bot sucht wieder nach neuen Coins zum Kaufen.",
+      "startTitle": "Bot starten?",
+      "startMessage": "Der Bot fängt wieder an zu handeln."
+    },
+    "money": {
+      "title": "Dein Geld",
+      "showAmounts": "Beträge anzeigen",
+      "hideAmounts": "Beträge verbergen",
+      "practiceHint": "Der Bot handelt mit Spielgeld, es steht nichts Echtes auf dem Spiel.",
+      "addPracticeTitle": "Mehr Übungsgeld hinzufügen",
+      "addPracticeAria": "Übungsgeld hinzufügen",
+      "addMoney": "Aufladen",
+      "realHint": "Jeder Trade nutzt dein echtes Geld.",
+      "sinceStart": "seit deinem Start",
+      "practiceNote": "{label} Der Bot handelt mit Spielgeld, es steht nichts Echtes auf dem Spiel.",
+      "practiceLabel": "Übungsmodus:",
+      "realNote": "{label} Jeder Trade nutzt dein echtes Geld.",
+      "realLabel": "Echtgeld:",
+      "today": "Heute",
+      "todaySub": "aus heute verkauften Coins",
+      "holding": "In gehaltenen Coins",
+      "holdingSub": "erst beim Verkauf endgültig",
+      "chartCaption": "Dein Geld seit dem Start des Bots"
+    },
+    "coins": {
+      "title": "Deine Coins",
+      "empty": "Gerade nichts. Der Bot wartet auf einen guten Moment zum Kaufen.",
+      "bought": "{ago} gekauft"
+    },
+    "events": {
+      "title": "Was zuletzt passiert ist",
+      "empty": "Noch nichts. Die ersten Aktionen des Bots erscheinen hier.",
+      "bought": "{coin} für {amount} gekauft",
+      "newsNone": "Sentinel-Nachrichtencheck: keine Nachrichten zu {coin}, daher normal gekauft",
+      "newsRead": "Sentinel hat {n} Schlagzeile zu {coin} gelesen: nichts Beunruhigendes | Sentinel hat {n} Schlagzeilen zu {coin} gelesen: nichts Beunruhigendes",
+      "soldProfit": "{coin} mit {amount} Gewinn verkauft ({reason})",
+      "soldLoss": "{coin} mit {amount} Verlust verkauft ({reason})"
+    },
+    "verdict": {
+      "title": "Wie schlägt sich der Bot insgesamt?",
+      "none": "Es wurde noch kein Coin verkauft, also gibt es noch nichts zu bewerten.",
+      "wins": "{n} Coin verkauft, davon {wins} mit Gewinn. | {n} Coins verkauft, davon {wins} mit Gewinn.",
+      "winsBigger": "{n} Coin verkauft, davon {wins} mit Gewinn, und die Gewinne waren größer als die Verluste. | {n} Coins verkauft, davon {wins} mit Gewinn, und die Gewinne waren größer als die Verluste.",
+      "lossesBigger": "{n} Coin verkauft, davon {wins} mit Gewinn, aber die Verluste waren größer als die Gewinne, insgesamt also ein Minus. | {n} Coins verkauft, davon {wins} mit Gewinn, aber die Verluste waren größer als die Gewinne, insgesamt also ein Minus.",
+      "early": "Das ist noch zu wenig für ein Urteil (nötig sind etwa 30).",
+      "proHint": "Du willst Charts und Risikozahlen? Wechsle im Menü zu {pro}."
+    }
+  },
+  "wallet": {
+    "title": "Wallet & Echtgeld",
+    "subtitle": "Verbinde deine Wallet und entscheide, ob der Bot mit Übungsgeld oder Echtgeld handelt.",
+    "loadError": "Der Wallet-Status konnte nicht geladen werden",
+    "failed": "Das hat nicht geklappt",
+    "mode": {
+      "using": "Der Bot nutzt",
+      "upTo": "bis zu {capital} USDC aus deiner Wallet",
+      "pretend": "Spielgeld, es steht nichts Echtes auf dem Spiel.",
+      "backToPractice": "Zurück zum Üben",
+      "useReal": "Echtgeld nutzen",
+      "sellFirst": "Der Bot hält {n} Coin, der mit Echtgeld gekauft wurde. Verkauf ihn zuerst (Meine Coins → Jetzt verkaufen), bevor du zurück zum Üben wechselst. | Der Bot hält {n} Coins, die mit Echtgeld gekauft wurden. Verkauf sie zuerst (Meine Coins → Jetzt verkaufen), bevor du zurück zum Üben wechselst.",
+      "stepsLeft": "Um Echtgeld zu nutzen, fehlt unten noch {n} Schritt. | Um Echtgeld zu nutzen, fehlen unten noch {n} Schritte."
+    },
+    "liveNoPractice": "Übungsgeld gibt es nur im Übungsmodus. Solange der Bot mit Echtgeld handelt, kannst du nichts hinzufügen und nicht neu anfangen.",
+    "connect": {
+      "title": "Verbinde deine MetaMask-Wallet",
+      "connected": "Verbunden: {address}",
+      "disconnect": "Trennen",
+      "why": "Deine Wallet verwahrt dein Geld. Der Bot sieht nie dein MetaMask-Passwort oder deine geheime Wiederherstellungsphrase.",
+      "button": "MetaMask verbinden",
+      "notFound": "MetaMask wurde in diesem Browser nicht gefunden. Installiere es von {link} oder öffne diese Seite auf dem Handy im Browser der MetaMask-App.",
+      "mismatch": "MetaMask zeigt ein anderes Konto ({account}) als das, das der Bot nutzt. Der Bot nutzt weiter {wallet}, bis du dich neu verbindest."
+    },
+    "fund": {
+      "title": "USDC auf Hyperliquid einzahlen",
+      "text": "Der Bot handelt auf Hyperliquid. Zahl dort USDC aus deiner MetaMask-Wallet ein (mindestens {min} USDC). Am besten nimmst du eine Wallet, die nur für den Bot da ist, und handelst darauf nicht selbst, solange der Bot läuft.",
+      "balance": "Dein Hyperliquid-Guthaben: {balance}",
+      "open": "Hyperliquid zum Einzahlen öffnen"
+    },
+    "approve": {
+      "title": "Dem Bot das Handeln erlauben",
+      "text": "MetaMask bittet dich, eine Nachricht zu signieren. Damit darf der Bot auf deinem Hyperliquid-Konto {buySell}. Der Bot {noWithdraw}. Das Signieren kostet nichts.",
+      "buySell": "kaufen und verkaufen",
+      "noWithdraw": "kann dein Geld weder abheben noch irgendwohin senden",
+      "done": "Erledigt. Der Bot darf für {address} handeln.",
+      "sign": "In MetaMask signieren"
+    },
+    "practised": "Bisher hat der Bot mit {n} verkauften Coin geübt. | Bisher hat der Bot mit {n} verkauften Coins geübt.",
+    "tooFew": "Das ist noch zu wenig, um zu wissen, ob er wirklich Geld verdient. Wir empfehlen, mindestens 30 abzuwarten, bevor du Echtgeld nutzt.",
+    "goLive": {
+      "title": "Mit Echtgeld handeln",
+      "amountLabel": "Wie viel darf der Bot nutzen?",
+      "amountHelp": "Zwischen {min} und {max} USDC (dein Hyperliquid-Guthaben).",
+      "ackLose": "Mir ist klar, dass ich dieses Geld verlieren kann, im schlimmsten Fall komplett.",
+      "ackNoGuarantee": "Mir ist klar, dass gute Übungsergebnisse keine echten Gewinne garantieren.",
+      "ackLeverageOn": "Mir ist klar, dass Sentinel bei einem neuen Trade bis zu 3× leihen darf (größere Gewinne, größere Verluste).",
+      "ackLeverageOff": "Mir ist klar, dass der Bot nichts leiht (1×), außer ich schalte den KI-Hebel ein oder wähle einen Hebel, wenn ich einen Coin von Hand kaufe.",
+      "typePhrase": "Gib zur Bestätigung „{phrase}“ ein",
+      "note": "Coins, die der Bot beim Üben hält, bleiben im Übungsmodus. Mit Echtgeld fängt er neu an und setzt seine Sicherheits-Stops direkt auf Hyperliquid, damit sie auch greifen, wenn dieser Computer aus ist.",
+      "start": "Mit Echtgeld starten"
+    },
+    "confirm": {
+      "disconnectTitle": "Diese Wallet trennen?",
+      "disconnectMessage": "Der Bot vergisst seine Handelserlaubnis für diese Wallet. Dein Geld bleibt unangetastet auf Hyperliquid.",
+      "backTitle": "Zurück zum Übungsgeld?",
+      "backMessage": "Der Bot nutzt kein Echtgeld mehr und macht mit Spielgeld weiter. Deine USDC bleiben auf deinem Hyperliquid-Konto."
+    }
+  },
+  "practice": {
+    "subtitle": "Spielgeld, mit dem der Bot übt. Leg jederzeit etwas nach oder fang neu an.",
+    "loadError": "Dein Übungsgeld konnte gerade nicht geladen werden.",
+    "putIn": "Eingezahltes Übungsgeld",
+    "startedWith": "Gestartet mit {amount}.",
+    "startedWithOn": "Gestartet mit {amount} am {date}.",
+    "added": "Seitdem hast du {amount} hinzugefügt.",
+    "onTop": "Was der Bot gewonnen oder verloren hat, kommt noch dazu.",
+    "restartingTitle": "Der Bot startet mit deinem Übungsgeld neu",
+    "savingTitle": "Dein Übungsgeld wird gespeichert",
+    "waitText": "Das dauert etwa eine Minute. Coins, die er hält, bleiben, wo sie sind. Du kannst die Seite verlassen, es läuft von selbst zu Ende.",
+    "addTitle": "Übungsgeld hinzufügen",
+    "quickAmounts": "Schnellbeträge",
+    "otherAmount": "Anderer Betrag",
+    "amountAria": "Betrag zum Hinzufügen, in USDC",
+    "addButton": "Übungsgeld hinzufügen",
+    "cleanSlate": "Lieber ganz neu anfangen, mit einem neuen Betrag?",
+    "startOver": "Neu anfangen",
+    "problem": {
+      "enterAmount": "Gib einen Betrag in USDC ein.",
+      "atLeastOne": "Gib mindestens 1 USDC ein.",
+      "overLimit": "Das ist mehr als das Limit von {max}.",
+      "capReached": "Übungsgeld ist insgesamt auf {max} begrenzt, und das hast du erreicht.",
+      "capRoom": "Übungsgeld ist insgesamt auf {max} begrenzt. Du kannst noch bis zu {room} hinzufügen."
+    },
+    "slowBack": "Der Bot braucht länger als sonst, bis er wieder da ist. Er sollte in ein, zwei Minuten bereit sein.",
+    "addConfirmTitle": "{amount} Übungsgeld hinzufügen?",
+    "addConfirmMessage": "Dein Übungsgeld steigt von {from} auf {to}.\n\nDer Bot startet dafür etwa eine Minute lang neu. Coins, die er gerade hält, bleiben, wo sie sind. Mit mehr Übungsgeld macht der Bot größere Übungs-Trades.",
+    "addedToast": "Übungsgeld hinzugefügt. Der Bot übt jetzt mit {amount}.",
+    "resetToast": "Das Üben startet neu mit {amount}.",
+    "reset": {
+      "title": "Üben neu starten?",
+      "text": "Der Bot fängt mit einem neuen Betrag Übungsgeld wieder bei Tag eins an. Er startet dafür etwa eine Minute lang neu. Coins, die er beim Üben hält, bleiben im alten Verlauf zurück.",
+      "startWith": "Starten mit",
+      "amountPlaceholder": "Betrag in USDC",
+      "ack": "Mit einem frischen Übungsverlauf starten. Der alte bleibt gespeichert, wird aber nicht mehr angezeigt."
+    }
+  },
+  "aiLeverage": {
+    "loadError": "Die Hebel-Einstellung konnte nicht geladen werden.",
+    "label": "Sentinel den Hebel wählen lassen (bis {max}×)",
+    "statusLocked": "Gesperrt: Jeder neue Trade nutzt 1× (kein geliehenes Geld).",
+    "statusOn": "An: Sentinel wählt für jeden neuen Trade 1× bis {max}×.",
+    "statusOff": "Aus: Jeder neue Trade nutzt 1× (kein geliehenes Geld).",
+    "toastOn": "KI-Hebel ist an",
+    "toastOff": "KI-Hebel ist aus",
+    "slowBack": "Der Bot braucht länger als sonst, bis er wieder da ist; er sollte in ein, zwei Minuten bereit sein.",
+    "offTitle": "KI-Hebel ausschalten?",
+    "offMessage": "Neue Trades nutzen wieder 1× (kein geliehenes Geld). Coins, die der Bot schon hält, behalten ihren Hebel.\n\nDer Bot startet dafür etwa eine Minute lang neu.",
+    "offConfirm": "Ausschalten",
+    "explainNews": "Sentinel ist die KI, die vor jedem Kauf die Nachrichten liest. Ist das hier an, darf sie auch Geld leihen, um einen neuen Trade größer zu machen: 2×, wenn die Nachrichten zum Coin klar gut sind, 3×, wenn zusätzlich Bitcoin stark ist. Ohne klare Nachrichten bleibt es bei 1×.",
+    "explainRisk": "Geliehenes Geld macht Gewinne und Verluste größer. Bei einem schnellen Crash kann der Preis über den Sicherheits-Stop hinwegspringen, und die Börse kann einen Trade mit geliehenem Geld schließen, wobei das ganze Geld darin verloren ist (Liquidation).",
+    "compactRisk": "Geliehenes Geld macht Gewinne und Verluste größer (2× verdoppelt sie, 3× verdreifacht sie).",
+    "moreInSettings": "Mehr in den Einstellungen",
+    "newOnly": "Änderungen gelten nur für neue Trades. Coins, die der Bot schon hält, behalten ihren Hebel.",
+    "manualHint": "Wenn du einen Coin von Hand kaufst, kannst du den Hebel weiterhin selbst wählen.",
+    "restartingTitle": "Der Bot startet mit der neuen Einstellung neu",
+    "restartingText": "Das dauert etwa eine Minute. Coins, die er hält, bleiben, wo sie sind.",
+    "failed": "Das hat nicht geklappt",
+    "confirm": {
+      "title": "Sentinel bis zu 3× leihen lassen?",
+      "intro": "Bei jedem neuen Trade darf Sentinel Geld leihen, um ihn größer zu machen: 2×, wenn die Nachrichten zum Coin klar gut sind, {max}×, wenn zusätzlich Bitcoin stark ist.",
+      "bigger": "Gewinne und Verluste werden größer: 2× verdoppelt sie, 3× verdreifacht sie. Bei 3× wird aus einer Preisbewegung von 5% ein Gewinn oder Verlust von 15% auf das Geld in diesem Trade.",
+      "crash": "Bei einem schnellen Crash kann der Preis über den Sicherheits-Stop hinwegspringen. Die Börse schließt den Trade dann, und das ganze Geld darin ist verloren (Liquidation).",
+      "newOnly": "Das betrifft nur neue Trades. Du kannst es jederzeit wieder ausschalten. Der Bot startet dafür etwa eine Minute lang neu.",
+      "live": "Der Bot handelt gerade mit Echtgeld.",
+      "practice": "Der Bot nutzt gerade Übungsgeld. Die Einstellung bleibt, wenn du zu Echtgeld wechselst.",
+      "ack": "Mir ist klar, dass ich mit Hebel mehr Geld verlieren kann, bis zum gesamten Geld in einem Trade.",
+      "keep": "Bei 1× bleiben",
+      "turnOn": "KI-Hebel einschalten"
+    }
+  },
+  "control": {
+    "cancelled": "Du hast die Anfrage in MetaMask abgebrochen.",
+    "pending": "MetaMask zeigt schon eine Anfrage an. Öffne die MetaMask-Erweiterung und beantworte sie dort.",
+    "otherWallet": "Eine andere Wallet-Erweiterung in diesem Browser hat die Anfrage abgefangen. Deaktiviere die anderen Wallet-Erweiterungen (lass MetaMask an), lade die Seite neu und versuch es noch mal.",
+    "depositFirst": "Hyperliquid erlaubt das erst, nachdem du USDC auf dein Hyperliquid-Konto eingezahlt hast. Zahl zuerst ein und versuch es dann noch mal.",
+    "notFound": "MetaMask wurde in diesem Browser nicht gefunden.",
+    "noAccount": "MetaMask hat kein Konto freigegeben."
+  },
+  "plain": {
+    "exit": {
+      "signal": "Verkaufssignal der Strategie",
+      "manualStop": "Am Sicherheits-Stop verkauft, den du gesetzt hast",
+      "trailing": "Der nachgezogene Sicherheits-Stop wurde erreicht",
+      "stop": "Sicherheits-Stop wurde erreicht",
+      "roi": "Gewinnziel erreicht",
+      "force": "Von dir geschlossen",
+      "liquidation": "Liquidiert"
+    },
+    "ago": {
+      "justNow": "gerade eben",
+      "minutes": "vor {n} Min.",
+      "hours": "vor {n} Stunde | vor {n} Stunden",
+      "days": "vor {n} Tag | vor {n} Tagen"
+    },
+    "duration": {
+      "underHour": "weniger als eine Stunde",
+      "hours": "{n} Stunde | {n} Stunden",
+      "days": "{n} Tag | {n} Tage"
+    }
+  },
+  "stat": {
+    "quality": {
+      "early": "früh",
+      "low": "wenig Daten",
+      "hint": "Wenige abgeschlossene Trades: Diese Zahl ist nur ein Richtwert"
+    },
+    "gauge": {
+      "bad": "Nahe am Limit",
+      "warn": "Beobachten",
+      "ok": "Gut"
+    },
+    "sparkline": {
+      "label": "Dein Geld im Zeitverlauf",
+      "empty": "Der Chart beginnt, sobald der erste Coin verkauft ist."
+    }
+  }
+}

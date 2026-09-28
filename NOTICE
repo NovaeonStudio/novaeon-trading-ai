@@ -1,0 +1,71 @@
+NovaeonTradingAI
+Copyright (C) 2026 Novaeon Studio (https://novaeon.studio) and contributors
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, version 3 (see LICENSE).
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+
+1. The app (src/, public/, tests/, e2e/ and the build configuration)
+--------------------------------------------------------------------
+
+The app is a modified version ("fork") of FreqUI, https://github.com/freqtrade/frequi
+  Copyright (C) the FreqUI / Freqtrade contributors
+  Licensed under the GNU General Public License, version 3.
+  Forked from FreqUI release 3.1.2 (commit f76ad9e7f8b6ee8e2d1f214a484d6182393be717) on 2026-09-26.
+
+Modifications by Novaeon Studio, from 2026-09-26 on, include: product name and branding; a new
+visual design; a simple mode for non-traders; new pages (home, positions, markets, trades,
+journal, strategy, wallet, command center, cockpit); position charts with stop, break-even and
+liquidation levels; manual buys and stop changes; practice-money funding; MetaMask / Hyperliquid
+wallet connection; notifications; installable web app. The complete list of changes is in the
+version history of https://github.com/NovaeonStudio/novaeon-trading-ai.
+
+
+2. The bot (bot/)
+-----------------
+
+The strategy in bot/strategies/ is written against the Freqtrade strategy interface and runs
+inside the Freqtrade trading engine, https://github.com/freqtrade/freqtrade
+  Copyright (C) the Freqtrade contributors
+  Licensed under the GNU General Public License, version 3.
+
+installer/lib/ensure-engine-patches.sh applies a small modification to an installed copy of Freqtrade
+(it raises the database connection pool size). The modified file remains under the GNU General
+Public License, version 3. Freqtrade itself is installed from its official releases and is not
+redistributed in this repository.
+
+The strategy, the control service and the other files in bot/ are Copyright (C) 2026 Novaeon
+Studio and licensed under the GNU General Public License, version 3.
+
+
+3. Novaeon Sentinel 9B (novaeon-kev/ and the model weights)
+-----------------------------------------------------------
+
+The training and evaluation code in novaeon-kev/ is Copyright (C) 2026 Novaeon Studio, licensed
+under the GNU General Public License, version 3, like the rest of this repository.
+
+The Novaeon Sentinel 9B model weights are published separately at
+https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b under the Apache License, version 2.0.
+They are a derivative of:
+  - Kev-9B, https://huggingface.co/jaredpalmer/kev-9b, by Jared Palmer.
+    Licensed under the Apache License, version 2.0.
+  - Qwen3.5-9B-Base, https://huggingface.co/Qwen/Qwen3.5-9B-Base, by the Qwen team (Alibaba Cloud).
+    Licensed under the Apache License, version 2.0.
+Sentinel is served with code from Kev, https://github.com/jaredpalmer/kev (Apache License,
+version 2.0). Kev is installed from its own repository and is not redistributed here.
+
+
+4. Trademarks
+-------------
+
+"Freqtrade", "FreqUI", "Kev", "Qwen", "Hyperliquid" and "MetaMask" are the names of their
+respective owners and projects. NovaeonTradingAI is an independent project and is not affiliated
+with or endorsed by any of them.
+
+The Novaeon and novæon names and logos are brand assets of Novaeon Studio. They are not licensed
+under the GPL or the Apache License for use in other products. If you distribute a modified
+version, please give it a different name and logo.

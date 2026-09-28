@@ -1,0 +1,233 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* NovaeonTradingAI brand theme (novæon palette): Midnight #0A0E1C · Ink #EDF0FB · Amber #F4B25A -> Coral #FF7A63
+   · Indigo #6C7BFF · Mist #94A0C6. Green/red remain functional profit/loss colors only. */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('@/assets/fonts/manrope-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('@/assets/fonts/manrope-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme static {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-brand-50: #FFF6E9;
+  --color-brand-100: #FEE8C8;
+  --color-brand-200: #FCD49A;
+  --color-brand-300: #F9C279;
+  --color-brand-400: #F4B25A;
+  --color-brand-500: #F99A5E;
+  --color-brand-600: #FF7A63;
+  --color-brand-700: #E0604E;
+  --color-brand-800: #B84A3D;
+  --color-brand-900: #8C3A31;
+  --color-brand-950: #521F1A;
+
+  --color-midnight-50: #EDF0FB;
+  --color-midnight-100: #DCE1F2;
+  --color-midnight-200: #C3CAE3;
+  --color-midnight-300: #A5AED0;
+  --color-midnight-400: #94A0C6;
+  --color-midnight-500: #6E7899;
+  --color-midnight-600: #4A536F;
+  --color-midnight-700: #2A3150;
+  --color-midnight-800: #161C33;
+  --color-midnight-900: #0F1428;
+  --color-midnight-950: #0A0E1C;
+
+  --color-indigo-nova: #6C7BFF;
+}
+
+.dark {
+  --ui-bg: var(--color-midnight-950);
+  --ui-bg-muted: #10152A;
+  --ui-bg-elevated: #151B33;
+  --ui-bg-accented: #1F2745;
+  --ui-border: #1C2340;
+  --ui-border-muted: var(--color-midnight-800);
+  --ui-text-highlighted: var(--color-midnight-50);
+}
+
+.dark body {
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgb(108 123 255 / 0.1), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgb(244 178 90 / 0.06), transparent 60%),
+    var(--color-midnight-950);
+  background-attachment: fixed;
+}
+
+.nova-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+.nova-privacy .nova-money {
+  filter: blur(7px);
+  transition: filter 150ms ease;
+}
+.nova-privacy .nova-money:hover {
+  filter: blur(7px);
+}
+
+/* The one card surface for every view (Simple and Pro): flat, rounded-2xl, hairline border.
+   Same look as Simple mode's `rounded-2xl border border-default/70 bg-elevated/40`. */
+.nova-panel {
+  background: color-mix(in oklab, var(--ui-bg-elevated) 40%, transparent);
+  border: 1px solid color-mix(in oklab, var(--ui-border) 70%, transparent);
+  border-radius: 1rem;
+}
+:root:not(.dark) .nova-panel {
+  background: var(--ui-bg);
+  box-shadow: 0 1px 2px rgb(15 20 40 / 0.04);
+}
+
+/* Inner tile inside a card (stat tiles, grouped rows). Radius = card radius minus the gap. */
+.nova-tile {
+  background: color-mix(in oklab, var(--ui-bg) 50%, transparent);
+  border-radius: 0.75rem;
+}
+:root:not(.dark) .nova-tile {
+  background: var(--ui-bg-muted);
+}
+
+/* Segmented control (filters, sort, ranges): pill track + active pill in the accent.
+   Buttons inside set aria-pressed="true" when active. */
+.nova-seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklab, var(--ui-border) 70%, transparent);
+}
+.nova-seg > button {
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  color: var(--ui-text-muted);
+  transition:
+    color 300ms cubic-bezier(0.32, 0.72, 0, 1),
+    background-color 300ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.nova-seg > button:hover {
+  color: var(--ui-text);
+}
+.nova-seg > button:focus-visible {
+  outline: 2px solid rgb(244 178 90 / 0.6);
+  outline-offset: 1px;
+}
+.nova-seg > button[aria-pressed='true'] {
+  background: rgb(244 178 90 / 0.15);
+  color: var(--color-brand-300);
+}
+:root:not(.dark) .nova-seg > button[aria-pressed='true'] {
+  color: var(--color-brand-800);
+}
+
+/* Section label above a number or a group (sentence case, quiet; replaces uppercase micro labels). */
+.nova-label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--ui-text-muted);
+}
+
+.nova-header {
+  position: relative;
+  background: rgb(10 14 28 / 0.78);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+.nova-header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(244 178 90 / 0.55) 20%, rgb(255 122 99 / 0.55) 80%, transparent);
+}
+:root:not(.dark) .nova-header {
+  background: rgb(255 255 255 / 0.8);
+}
+
+.nova-gradient-text {
+  background: linear-gradient(135deg, var(--color-brand-400), var(--color-brand-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  /* Cursor pointer for Buttons - workaround for Tailwind v4 change */
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+}
+
+:root {
+  /* default profit loss colors, can be overridden by custom style */
+  --color-profit: #10b981;
+  --color-loss: #f43f5e;
+}
+
+body.ft-theme-transition,
+body.ft-theme-transition *,
+body.ft-theme-transition *:before,
+body.ft-theme-transition *:after {
+    transition:
+        background 750ms ease-in-out,
+        border-color 750ms ease-in-out,
+        background-color 750ms ease-in-out,
+    ;
+    transition-delay: 0 !important;
+}
+
+html {
+    /*  Set the default font size to 14px */
+    font-size: 14px;
+}
+
+.vue-grid-item {
+    /*  Fix white corners in vue-grid-item. */
+    background-color: unset !important;
+}
+
+
+/* Simple mode: phone bottom tab bar (flat, frosted like the header). */
+.nova-tabbar {
+  background: rgb(10 14 28 / 0.92);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+:root:not(.dark) .nova-tabbar {
+  background: rgb(255 255 255 / 0.92);
+}

@@ -1,0 +1,179 @@
+<script setup lang="ts">
+const newblacklistpair = ref('');
+const blacklistSelect = ref<number[]>([]);
+const { t } = useI18n();
+const botStore = useBotStore();
+
+function initBlacklist() {
+  if (botStore.activeBot.whitelist.length === 0) {
+    botStore.activeBot.getWhitelist();
+  }
+  if (botStore.activeBot.blacklist.length === 0) {
+    botStore.activeBot.getBlacklist();
+  }
+}
+
+function addBlacklistPair() {
+  if (newblacklistpair.value) {
+    botStore.activeBot.addBlacklist({ blacklist: [newblacklistpair.value] });
+    newblacklistpair.value = '';
+  }
+}
+
+function blacklistSelectClick(key: number) {
+  const index = blacklistSelect.value.indexOf(key);
+  if (index > -1) {
+    blacklistSelect.value.splice(index, 1);
+  } else {
+    blacklistSelect.value.push(key);
+  }
+}
+
+function deletePairs() {
+  if (blacklistSelect.value.length === 0) {
+    console.log('nothing to delete');
+    return;
+  }
+  // const pairlist = blacklistSelect.value;
+  const pairlist = botStore.activeBot.blacklist.filter(
+    (value, index) => blacklistSelect.value.indexOf(index) > -1,
+  );
+  console.log('Deleting pairs: ', pairlist);
+  botStore.activeBot.deleteBlacklist(pairlist);
+  blacklistSelect.value = [];
+}
+onMounted(() => {
+  initBlacklist();
+});
+</script>
+
+<template>
+  <div>
+    <div>
+      <h3 class="mb-2 text-base font-semibold text-highlighted">{{ t('pairs.live.methods') }}</h3>
+
+      <ul v-if="botStore.activeBot.pairlistMethods.length" class="list wide">
+        <li
+          v-for="(method, key) in botStore.activeBot.pairlistMethods"
+          :key="key"
+          class="pair align-middle"
+        >
+          {{ method }}
+        </li>
+      </ul>
+    </div>
+    <!-- Show Whitelist -->
+    <h3
+      class="mt-4 mb-2 text-base font-semibold text-highlighted"
+      :title="t('pairs.live.pairCount', botStore.activeBot.whitelist.length)"
+    >
+      {{ t('pairs.live.whitelist') }}
+    </h3>
+    <ul v-if="botStore.activeBot.whitelist.length" class="list">
+      <li v-for="(pair, key) in botStore.activeBot.whitelist" :key="key" class="pair">
+        {{ pair }}
+      </li>
+    </ul>
+    <p v-else class="text-sm text-muted">
+      {{ t('pairs.live.unavailable') }}
+    </p>
+    <USeparator />
+
+    <!-- Blacklsit -->
+    <div>
+      <div class="flex flex-row justify-center mb-1">
+        <label
+          class="mb-2 w-full text-base font-semibold text-highlighted"
+          :title="t('pairs.live.blacklistHint')"
+        >
+          {{ t('pairs.live.blacklist') }}
+        </label>
+        <div class="flex flex-cols items-center gap-1 pe-1">
+          <UPopover>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              icon="i-mdi-plus"
+              :aria-label="t('pairs.live.addToBlacklist')"
+            />
+            <template #content>
+              <form ref="form" @submit.prevent="addBlacklistPair" class="py-2 px-3">
+                <div class="space-y-1">
+                  <h4 class="mb-2 text-sm font-semibold text-highlighted">
+                    {{ t('pairs.live.addToBlacklist') }}
+                  </h4>
+                  <UFormField :label="t('pairs.live.pair')" class="space-x-2" required>
+                    <UInput v-model="newblacklistpair" required autofocus></UInput>
+                  </UFormField>
+                  <UButton id="blacklist-submit" class="ms-auto mb-2" type="submit">
+                    {{ t('common.add') }}
+                  </UButton>
+                </div>
+              </form>
+            </template>
+          </UPopover>
+          <UButton
+            v-if="botStore.activeBot.botFeatures.botBlacklistModify"
+            color="neutral"
+            :title="t('pairs.live.removeSelected')"
+            :disabled="blacklistSelect.length === 0"
+            icon="mdi:delete"
+            @click="deletePairs"
+          />
+        </div>
+      </div>
+    </div>
+    <ul v-if="botStore.activeBot.blacklist.length" class="list">
+      <li
+        v-for="(pair, key) in botStore.activeBot.blacklist"
+        :key="key"
+        class="pair bg-black text-white"
+        :title="pair"
+        :class="blacklistSelect.indexOf(key) > -1 ? 'active' : ''"
+        @click="blacklistSelectClick(key)"
+      >
+        <span class="check"><i-mdi-check-circle /></span>{{ pair }}
+      </li>
+    </ul>
+    <p v-else>
+      {{ t('pairs.live.noBlacklist') }} <br />
+      {{ t('pairs.live.noBlacklistHint') }}
+    </p>
+  </div>
+</template>
+
+<style scoped>
+@reference '../../styles/tailwind.css';
+
+.check {
+  /* Hidden checkbox on blacklist selection */
+  color: #41b883;
+  opacity: 0;
+  /* border-radius: 50%; */
+  z-index: 5;
+  width: 1.3em;
+  height: 1.3em;
+  top: -0.3em;
+  left: -0.3em;
+  position: absolute;
+  transition: opacity 0.2s;
+}
+
+.pair.active .check {
+  opacity: 1;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  grid-gap: 0.5rem;
+  padding-bottom: 1rem;
+}
+.wide {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+.pair {
+  @apply px-3 py-1.5 border rounded-full cursor-pointer relative border-default/70 bg-accented/40 text-sm text-ellipsis overflow-hidden;
+}
+</style>

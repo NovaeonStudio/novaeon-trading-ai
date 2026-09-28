@@ -1,0 +1,2361 @@
+{
+  "_meta": {
+    "language": "Română",
+    "review": "Corecturi de la vorbitori nativi sunt binevenite, vezi src/locales/README.md."
+  },
+  "common": {
+    "skipToContent": "Sari la conținut",
+    "language": "Limbă",
+    "cancel": "Anulează",
+    "save": "Salvează",
+    "close": "Închide",
+    "confirm": "Confirmă",
+    "back": "Înapoi",
+    "next": "Mai departe",
+    "done": "Gata",
+    "ok": "OK",
+    "yes": "Da",
+    "no": "Nu",
+    "on": "Pornit",
+    "off": "Oprit",
+    "loading": "Se încarcă…",
+    "retry": "Încearcă din nou",
+    "refresh": "Reîmprospătează",
+    "reload": "Reîncarcă",
+    "apply": "Aplică",
+    "reset": "Resetează",
+    "delete": "Șterge",
+    "remove": "Elimină",
+    "edit": "Editează",
+    "add": "Adaugă",
+    "search": "Caută",
+    "copy": "Copiază",
+    "copied": "Copiat",
+    "seeAll": "Vezi tot",
+    "more": "Mai mult",
+    "less": "Mai puțin",
+    "show": "Arată",
+    "hide": "Ascunde",
+    "buy": "Cumpără",
+    "sell": "Vinde",
+    "error": "Ceva nu a mers",
+    "unknown": "Necunoscut",
+    "none": "Niciunul",
+    "all": "Toate",
+    "simple": "Simplu",
+    "pro": "Pro",
+    "practiceMoney": "Bani de exersare",
+    "realMoney": "Bani reali",
+    "online": "Online",
+    "offline": "Offline",
+    "version": "Versiunea {version}",
+    "learnMore": "Află mai multe",
+    "languageHint": "Se aplică tuturor textelor, numerelor și datelor din acest browser."
+  },
+  "bot": {
+    "na": "N/A",
+    "balance": {
+      "titleBot": "Soldul botului",
+      "titleAccount": "Soldul contului",
+      "showingAccount": "Se afișează soldul contului",
+      "showingBot": "Se afișează soldul botului",
+      "hideSmall": "Ascunde soldurile mici",
+      "showAll": "Arată toate soldurile",
+      "colCurrency": "Monedă",
+      "colAvailable": "Disponibil",
+      "colInStake": "în {currency}",
+      "total": "Total",
+      "increaseOver": "Creștere față de capitalul inițial de {amount} {currency}"
+    },
+    "comparison": {
+      "summary": "Total",
+      "dry": "(exersare)",
+      "live": "(live)",
+      "mixed": "(exersare și live, amestecat)",
+      "colTrades": "Tranzacții",
+      "colOpenProfit": "Profit deschis",
+      "colClosedProfit": "Profit realizat",
+      "colBalance": "Sold",
+      "colWinLoss": "C/P",
+      "botName": "Numele botului",
+      "selectAll": "Apasă ca să selectezi toți boții",
+      "showInDashboard": "Arată acest bot în panou",
+      "toggleAll": "Comută toți boții",
+      "needsLogin": "Trebuie să te conectezi",
+      "selectDry": "Apasă ca să selectezi toți boții de exersare",
+      "dryBadge": "Exersare",
+      "selectLive": "Apasă ca să selectezi toți boții live",
+      "liveBadge": "Live",
+      "totalProfitDesc": "Profit total (deschis și realizat) {pct}"
+    },
+    "controls": {
+      "stopTitle": "Oprește botul",
+      "stopMessage": "Oprești bucla botului?",
+      "pauseTitle": "Pauză – fără intrări noi",
+      "pauseMessage": "Botul continuă să gestioneze tranzacțiile deschise, dar nu mai deschide tranzacții noi și nu mărește pozițiile.\nSigur oprești intrările?",
+      "reloadTitle": "Reîncarcă configurația",
+      "reloadMessage": "Reîncarci configurația (inclusiv strategia)?",
+      "forceExitAllTitle": "Închide tot imediat",
+      "forceExitAllMessage": "Sigur închizi imediat TOATE tranzacțiile?",
+      "start": "Pornește tranzacționarea",
+      "stopHint": "Oprește tranzacționarea – oprește și gestionarea tranzacțiilor deschise.",
+      "pauseHint": "Pauză (StopBuy) – botul continuă să gestioneze tranzacțiile deschise, dar nu mai deschide tranzacții noi și nu mărește pozițiile.",
+      "reloadHint": "Reîncarcă configurația – reîncarcă configurația, inclusiv strategia, și resetează toate setările schimbate din mers.",
+      "forceExitAll": "Închide tot imediat",
+      "forceEnterHint": "Intrare imediată – deschide imediat o tranzacție, opțional la un preț ales. Ieșirile urmează apoi regulile strategiei.",
+      "startTradingMode": "Pornește modul de tranzacționare"
+    },
+    "performance": {
+      "title": "Performanță",
+      "colPair": "Pereche",
+      "colEnterTag": "Etichetă intrare",
+      "colExitReason": "Motiv ieșire",
+      "colMixTag": "Etichetă mixtă",
+      "colProfitPct": "Profit %",
+      "colProfitAbs": "Profit {currency}",
+      "colCount": "Număr",
+      "optPerformance": "Performanță",
+      "optEntries": "Intrări",
+      "optExits": "Ieșiri",
+      "optMixTag": "Etichetă mixtă"
+    },
+    "profit": {
+      "roiClosed": "ROI tranzacții închise",
+      "roiAll": "ROI toate tranzacțiile",
+      "tradeCount": "Număr total de tranzacții",
+      "botStarted": "Bot pornit",
+      "firstTrade": "Prima tranzacție deschisă",
+      "latestTrade": "Ultima tranzacție deschisă",
+      "winLoss": "Câștig / Pierdere",
+      "winrate": "Rată de câștig",
+      "expectancy": "Speranță matematică (raport)",
+      "avgDuration": "Durată medie",
+      "bestPerforming": "Cea mai bună pereche",
+      "tradingVolume": "Volum tranzacționat",
+      "profitFactor": "Factor de profit",
+      "maxDrawdown": "Drawdown maxim",
+      "currentDrawdown": "Drawdown curent",
+      "fromTo": "de la {start} până la {end}",
+      "since": "din {start}",
+      "profitsFor": "Profituri pentru",
+      "trades": "tranzacții",
+      "colMetric": "Indicator",
+      "colValue": "Valoare",
+      "optLong": "Long",
+      "optShort": "Short"
+    },
+    "status": {
+      "engine": "Motor de tranzacționare {version}",
+      "runningWith": "Rulează cu {stake} pe {exchange}, pe piața {mode}, cu strategia {strategy}.",
+      "demo": "(Demo)",
+      "stoplossOnExchange": "Stopul pe bursă este {state}.",
+      "enabled": "activat",
+      "disabled": "dezactivat",
+      "currently": "Acum {state}, {forceEntry}",
+      "forceEntry": "intrare imediată: {value}",
+      "dryRun": "Dry-run (bani de exersare)",
+      "live": "Live",
+      "avgProfit": "Profit mediu {avg} (∑ {sum}) în {count} tranzacții, cu o durată medie de {duration}. Cea mai bună pereche: {pair}.",
+      "botStartDate": "Data pornirii botului:",
+      "firstTradeOpened": "Prima tranzacție deschisă:",
+      "lastTradeOpened": "Ultima tranzacție deschisă:",
+      "profitFactor": "Factor de profit:",
+      "tradingVolume": "Volum tranzacționat:",
+      "strategyParams": "Parametrii strategiei"
+    },
+    "reload": {
+      "group": "Actualizează toți boții",
+      "autoOn": "Actualizarea automată pentru toți boții este pornită",
+      "autoOff": "Actualizarea automată pentru toți boții este oprită",
+      "auto": "Actualizare automată pentru toți boții",
+      "refreshNow": "Actualizează acum toți boții"
+    },
+    "period": {
+      "days": "Zile",
+      "weeks": "Săptămâni",
+      "months": "Luni",
+      "abs": "Abs. {'$'}",
+      "rel": "Rel. %",
+      "colDay": "Zi",
+      "colProfit": "Profit",
+      "colIn": "În {currency}",
+      "colTrades": "Tranzacții",
+      "colProfitPct": "Profit %",
+      "titlePeriod": "Defalcare pe perioade",
+      "titleDaily": "Defalcare zilnică",
+      "chartUnavailable": "Graficul pe perioade e disponibil doar când e selectat un singur bot și se afișează profitul absolut."
+    },
+    "exchange": {
+      "supported": "Suportate",
+      "unsupported": "Nesuportate"
+    }
+  },
+  "tradeList": {
+    "short": "Short",
+    "long": "Long",
+    "list": {
+      "empty": "Nu există tranzacții de afișat.",
+      "emptyCustom": "Nu există tranzacții de afișat.",
+      "filter": "Filtru",
+      "filterPlaceholder": "Filtrează după pereche, etichetă sau motiv",
+      "filterAria": "Filtrează tranzacțiile"
+    },
+    "col": {
+      "bot": "Bot",
+      "id": "ID",
+      "pair": "Pereche",
+      "amount": "Cantitate",
+      "stakeAmount": "Miză",
+      "totalStakeAmount": "Miză totală",
+      "openRate": "Preț intrare",
+      "currentRate": "Preț curent",
+      "closeRate": "Preț ieșire",
+      "currentProfitPct": "Profit curent %",
+      "profitPct": "Profit %",
+      "openDate": "Deschisă",
+      "closeDate": "Închisă",
+      "exitReason": "Motiv ieșire"
+    },
+    "confirm": {
+      "forceExitTitle": "Închide imediat tranzacția",
+      "cannotUndo": "Acțiunea nu poate fi anulată.",
+      "forceExitMsgType": "Sigur închizi tranzacția {id} (perechea {pair}) cu un ordin {type}?",
+      "forceExitMsg": "Sigur închizi tranzacția {id} (perechea {pair})?",
+      "deleteTitle": "Șterge tranzacția",
+      "deleteMsg": "Sigur ștergi tranzacția {id} (perechea {pair})?",
+      "cancelOrderTitle": "Anulează ordinul deschis",
+      "cancelOrderMsg": "Sigur anulezi ordinul deschis pentru tranzacția {id} (perechea {pair})?"
+    },
+    "mobile": {
+      "openTitle": "Tranzacții deschise",
+      "historyTitle": "Istoricul tranzacțiilor",
+      "emptyOpen": "Nicio tranzacție deschisă.",
+      "emptyClosed": "Nicio tranzacție închisă până acum."
+    },
+    "entry": {
+      "amount": "Cantitate",
+      "openRate": "Preț intrare",
+      "currentRate": "Preț curent",
+      "openDate": "Deschisă",
+      "closeDate": "Închisă"
+    },
+    "nav": {
+      "sortBy": "Sortează după:",
+      "openDate": "Data deschiderii",
+      "profit": "Profit %",
+      "title": "Navigare tranzacții",
+      "orderLine": "{side} {amount} la {price}",
+      "empty": "Nu există tranzacții de afișat…"
+    },
+    "detail": {
+      "general": "General",
+      "showCustomData": "Arată datele suplimentare",
+      "tradeId": "ID tranzacție",
+      "pair": "Pereche",
+      "openDate": "Deschisă",
+      "entryTag": "Etichetă intrare",
+      "stake": "Miză",
+      "positionValue": "Valoarea poziției",
+      "totalStake": "Miză totală",
+      "amount": "Cantitate",
+      "openRate": "Preț intrare",
+      "currentRate": "Preț curent",
+      "currentValueHint": "Valoare curentă – în modul futures: garanție + profit/pierdere",
+      "closeRate": "Preț ieșire",
+      "closeDate": "Închisă",
+      "realizedProfit": "Profit realizat",
+      "totalProfit": "Profit total",
+      "currentProfit": "Profit curent",
+      "closeProfit": "Profit la închidere",
+      "details": "Detalii",
+      "minRate": "Preț minim",
+      "maxRate": "Preț maxim",
+      "openFees": "Comisioane intrare",
+      "inCurrency": "(în {currency})",
+      "feesClose": "Comisioane ieșire",
+      "stoplossTitle": "Stop",
+      "stoploss": "Stop",
+      "atRisk": "La risc",
+      "atRiskHelp": "Suma pusă în joc, calculată din miză. Atât ai pierde dacă se atinge stopul.",
+      "currentStoplossDist": "Distanța curentă până la stop",
+      "initialStoploss": "Stop inițial",
+      "stoplossUpdated": "Stop actualizat ultima dată",
+      "futures": "Futures și marjă",
+      "direction": "Direcție",
+      "short": "short",
+      "long": "long",
+      "fundingFees": "Comisioane de finanțare",
+      "fundingFeesHelp": "funding_fees pozitive -> tranzacția a câștigat din comisioane. funding_fees negative -> tranzacția a plătit comisioane.",
+      "interestRate": "Rată a dobânzii",
+      "liquidationPrice": "Preț de lichidare",
+      "orders": "Ordine",
+      "orderTitle": "Ordin {side} {type} pentru {amount} la {price}, executat {filled}",
+      "orderFor": "la {price}",
+      "remaining": "rămas",
+      "filled": "Executat"
+    },
+    "profit": {
+      "current": "Profit curent",
+      "total": "Profit total",
+      "realized": "Profit realizat",
+      "openSince": "Deschisă din: {date}"
+    },
+    "actions": {
+      "forceExit": "Închide imediat",
+      "forceExitLimit": "Închide imediat (limit)",
+      "forceExitMarket": "Închide imediat (market)",
+      "forceExitPartial": "Închide parțial",
+      "cancelOpenOrders": "Anulează ordinele deschise",
+      "increasePosition": "Mărește poziția",
+      "deleteTrade": "Șterge tranzacția",
+      "actionsFor": "Acțiuni pentru {pair}",
+      "actions": "Acțiuni",
+      "closeMenu": "Închide meniul de acțiuni"
+    },
+    "customData": {
+      "none": "Nu există date suplimentare pentru această tranzacție",
+      "reload": "Reîncarcă datele suplimentare",
+      "title": "Date suplimentare pentru tranzacția {id}"
+    }
+  },
+  "forceTrade": {
+    "market": "Market",
+    "limit": "Limit",
+    "long": "Long",
+    "short": "Short",
+    "orderType": "Tip de ordin",
+    "entry": {
+      "available": "Disponibil: {amount}",
+      "titleIncrease": "Mărești poziția pe {pair}",
+      "title": "Intră imediat într-o tranzacție",
+      "descIncrease": "Mărește o poziție existentă",
+      "desc": "Deschide manual o tranzacție nouă",
+      "direction": "Direcția ordinului (long sau short)",
+      "pair": "Pereche",
+      "price": "Preț (opțional)",
+      "stakeAmount": "Miză în {currency} (opțional)",
+      "useDefaultStake": "Folosește miza setată în bot",
+      "leverage": "Levier (opțional)",
+      "entryTag": "Etichetă de intrare proprie (opțional)",
+      "submit": "Deschide poziția"
+    },
+    "exit": {
+      "title": "Închide imediat o tranzacție",
+      "desc": "Setează și confirmă ieșirea imediată",
+      "exiting": "Se închide tranzacția #{id} {pair}.",
+      "holding": "Deții acum {amount} {currency}",
+      "amount": "Cantitate în {currency} (opțional)",
+      "estimated": "~{value} (valoare estimată)",
+      "price": "Preț",
+      "priceLimitOnly": "Disponibil doar la ordinele limit",
+      "submit": "Închide poziția"
+    }
+  },
+  "pairs": {
+    "live": {
+      "methods": "Metode pentru lista albă",
+      "whitelist": "Listă albă",
+      "pairCount": "{n} pereche | {n} perechi | {n} de perechi",
+      "unavailable": "Lista nu e disponibilă. Conectează-te și verifică dacă botul rulează.",
+      "blacklist": "Listă neagră",
+      "blacklistHint": "Listă neagră: selectează perechi, apoi apasă pe Elimină",
+      "addToBlacklist": "Adaugă o pereche în lista neagră",
+      "pair": "Pereche",
+      "removeSelected": "Elimină perechile selectate din lista neagră",
+      "noBlacklist": "Nu există o listă neagră.",
+      "noBlacklistHint": "Dacă te aștepți să ai perechi în lista neagră, conectează-te și verifică dacă serverul rulează."
+    },
+    "summary": {
+      "filter": "Filtru",
+      "currentProfit": "Profit curent: {pct}",
+      "tooltip": "{profit} - {pair} - {n} tranzacție | {profit} - {pair} - {n} tranzacții | {profit} - {pair} - {n} de tranzacții"
+    }
+  },
+  "locks": {
+    "title": "Perechi blocate",
+    "colPair": "Pereche",
+    "colUntil": "Până la",
+    "colReason": "Motiv",
+    "colActions": "Acțiuni",
+    "delete": "Șterge blocarea",
+    "unsupported": "Această versiune a motorului de tranzacționare nu poate șterge blocările."
+  },
+  "store": {
+    "lockDeleted": "Blocarea {id} a fost ștearsă.",
+    "lockDeleteFailed": "Blocarea {id} nu a putut fi ștearsă",
+    "timeout": "Timpul de așteptare a expirat",
+    "historyError": "Eroare la încărcarea istoricului",
+    "bgJobStatusFailed": "Nu s-a putut obține starea sarcinii din fundal",
+    "bgJobsCleared": "Toate sarcinile din fundal încheiate au fost șterse",
+    "bgJobsClearFailed": "Sarcinile din fundal nu au putut fi șterse",
+    "startError": "Eroare la pornirea botului.",
+    "stopError": "Eroare la oprirea botului.",
+    "stopBuyError": "Eroare la oprirea cumpărărilor.",
+    "reloadError": "Eroare la reîncărcare.",
+    "tradeDeleted": "Tranzacția {id} a fost ștearsă",
+    "tradeDeleteFailed": "Tranzacția {id} nu a putut fi ștearsă",
+    "orderCanceled": "Ordinul deschis pentru {id} a fost anulat",
+    "orderCancelFailed": "Ordinul deschis {id} nu a putut fi anulat",
+    "tradeReloadFailed": "Tranzacția {id} nu a putut fi reîncărcată",
+    "customDataFailed": "Nu s-au putut încărca datele suplimentare pentru tranzacția {id}",
+    "exitOrderCreated": "Ordinul de ieșire pentru {id} a fost creat",
+    "exitOrderFailed": "Ordinul de ieșire pentru {id} nu a putut fi creat",
+    "entryOrderCreated": "Ordinul pentru {pair} a fost creat.",
+    "entryError": "Eroare la intrare: „{error}”",
+    "blacklistAddPairError": "Eroare la adăugarea perechii {pair} în lista neagră: {error}",
+    "blacklistAdded": "Perechea {pairs} a fost adăugată.",
+    "blacklistAddError": "Eroare la adăugarea perechilor în lista neagră: „{error}”",
+    "blacklistRemovePairError": "Eroare la eliminarea perechii {pair} din lista neagră: {error}",
+    "blacklistRemoved": "Perechea {pairs} a fost eliminată.",
+    "blacklistRemoveError": "Eroare la eliminarea perechilor din lista neagră: „{error}”",
+    "backtestFailed": "Backtestul a eșuat: {detail}.",
+    "wsException": "Eroare WebSocket: {detail}"
+  },
+  "chart": {
+    "empty": "Încă nu există istoric de preț pentru această monedă.",
+    "hint": "Trage pentru a muta · ciupește sau Ctrl + derulare pentru zoom",
+    "aiBadge": "AI",
+    "toolbar": {
+      "candleSize": "Mărimea lumânării",
+      "strategyTf": "Intervalul pe care tranzacționează strategia",
+      "timeRange": "Perioadă",
+      "resetView": "Resetează vizualizarea",
+      "layers": "Straturi",
+      "showOnChart": "Afișează pe grafic"
+    },
+    "range": {
+      "sinceBought": "De la cumpărare",
+      "sinceEntry": "De la intrare",
+      "wholeTrade": "Toată tranzacția",
+      "day": "Zi",
+      "week": "Săptămână",
+      "month": "Lună",
+      "d1": "1D",
+      "w1": "1W",
+      "m1": "1M"
+    },
+    "layer": {
+      "boughtAt": "Cumpărat la",
+      "averageEntry": "Intrare medie",
+      "entry": "Intrare",
+      "breakevenAfterFees": "Break-even după comisioane",
+      "safetyStop": "Stop de siguranță",
+      "stop": "Stop",
+      "forcedSale": "Vânzare forțată (lichidare)",
+      "liquidation": "Lichidare",
+      "botSellsBelow": "Botul vinde sub (minimul pe 10 lumânări)",
+      "exitSignal": "Semnal de ieșire (minimul pe 10 lumânări)",
+      "breakout": "Nivel de breakout (maximul pe 20 de lumânări)",
+      "zonesSimple": "Risc și profit umbrite",
+      "zones": "Zone de risc și profit",
+      "buysAndSells": "Cumpărări și vânzări",
+      "fills": "Execuții (cumpărări și vânzări)",
+      "sentinel": "Verificarea știrilor Sentinel",
+      "volume": "Volum"
+    },
+    "tag": {
+      "bought": "Cumpărat",
+      "avgEntry": "Intrare medie",
+      "entry": "Intrare",
+      "breakeven": "Break-even",
+      "safetyStop": "Stop de siguranță",
+      "stop": "Stop",
+      "manual": "manual",
+      "forcedSale": "Vânzare forțată",
+      "liq": "Lichid.",
+      "sellsBelow": "Vinde sub",
+      "exitSignal": "Semnal de ieșire",
+      "breakout": "Breakout",
+      "newStop": "Stop nou",
+      "now": "Acum",
+      "sold": "Vândut",
+      "exit": "Ieșire"
+    },
+    "fill": {
+      "buy": "Cumpărare",
+      "boughtMore": "Cumpărat în plus",
+      "add": "Adăugare",
+      "soldPart": "Vândut parțial",
+      "sell": "Vânzare",
+      "byYou": "{label} (de tine)",
+      "manual": "{label} (manual)"
+    },
+    "tooltip": {
+      "priceAtClose": "preț la închidere",
+      "open": "deschidere",
+      "high": "maxim",
+      "low": "minim",
+      "close": "închidere",
+      "botSellsBelow": "botul vinde sub",
+      "exitSignal": "semnal de ieșire",
+      "forming": "Lumânarea încă se formează",
+      "fill": "{what} · {amount} pentru {cost}",
+      "sentinel": "Verificarea știrilor Sentinel · {n} titlu | Verificarea știrilor Sentinel · {n} titluri | Verificarea știrilor Sentinel · {n} de titluri",
+      "vetoed": "Blocat, {lev}x",
+      "allowed": "Permis, {lev}x"
+    },
+    "readout": {
+      "closedSimple": "{price} este la {pct} de prețul de cumpărare",
+      "closedPro": "{price} este la {pct} de prețul de intrare",
+      "openSimple": "Dacă vinzi la {price}: {money} ({pct})",
+      "openPro": "Vânzare la {price}: {pct} · {money}"
+    },
+    "legend": {
+      "ifSoldThere": "{price} ({money} dacă vinzi acolo)",
+      "atExit": "{price} la ieșire",
+      "fills": "Execuții"
+    },
+    "market": {
+      "long": "Long",
+      "short": "Short",
+      "longOpen": "Long (deschis)",
+      "shortOpen": "Short (deschis)",
+      "longEntry": "Intrare long",
+      "shortEntry": "Intrare short",
+      "longExit": "Ieșire long",
+      "shortExit": "Ieșire short",
+      "longAdjustment": "Ajustare long",
+      "shortAdjustment": "Ajustare short",
+      "enterTag": "Etichetă de intrare: {tag}",
+      "orderPrice": "Prețul ordinului: {price}",
+      "orderTag": "Etichetă ordin: {tag}",
+      "exitTag": "Etichetă de ieșire: {tag}",
+      "stoploss": "Stop"
+    }
+  },
+  "buy": {
+    "title": {
+      "addSimple": "Cumpără mai mult {coin}",
+      "addPro": "Mărește poziția {coin}",
+      "newSimple": "Cumpără tu o monedă",
+      "newPro": "Cumpărare manuală"
+    },
+    "amount": {
+      "empty": "Introdu o sumă.",
+      "min": "Bursa cere cel puțin {min} {currency}.",
+      "tooMuch": "Acum sunt libere doar {money}."
+    },
+    "blocked": "Poziția a fost deja cumpărată de {count} ori; limita este de {max} cumpărări pe poziție.",
+    "summary": {
+      "add": "Botul mai cumpără {coin} pentru {amount} la prețul pieței, cu levierul de {lev}× al poziției. Aceasta este cumpărarea {nr} din maximum {max}; la cumpărările suplimentare nu se verifică știrile.",
+      "addQty": "Botul mai cumpără {coin} pentru {amount} la prețul pieței (aproximativ {qty} {coin} la {price}), cu levierul de {lev}× al poziției. Aceasta este cumpărarea {nr} din maximum {max}; la cumpărările suplimentare nu se verifică știrile.",
+      "average": "Prețul tău mediu de cumpărare se mută de la {from} la aproximativ {to}.",
+      "theCoin": "moneda",
+      "newCheck": "Mai întâi Sentinel, verificarea AI a știrilor, citește cele mai noi titluri despre {name} și poate bloca cumpărarea. Dacă totul e în regulă, botul cumpără {name} pentru {amount} la prețul pieței.",
+      "levAi": "Sentinel alege levierul (1× până la 3×) pe baza știrilor.",
+      "levUses": "Folosește levier {lev}× (o poziție de {money}).",
+      "levNone": "Nu împrumută nimic (1×).",
+      "newAfter": "Apoi o gestionează ca pe propriile tranzacții: același stop de siguranță și aceleași reguli de ieșire."
+    },
+    "leverageHelp": {
+      "aiSimple": "Sentinel alege între 1× și 3× pe baza știrilor. 1× înseamnă fără împrumut; 2× dublează câștigurile și pierderile, 3× le triplează.",
+      "aiPro": "Marjă izolată. Implicit: Sentinel alege 1–3× pe baza verificării știrilor. Un levier mai mare aduce prețul de lichidare mai aproape.",
+      "lockedSimple": "Levierul AI este blocat pe acest Mac, așa că implicit este 1× (fără împrumut). Poți totuși alege 2× sau 3× pentru această cumpărare: asta dublează sau triplează câștigurile și pierderile.",
+      "lockedPro": "Levierul AI este blocat pe acest Mac, așa că implicit este 1×. Marjă izolată; un levier mai mare aduce prețul de lichidare mai aproape. Verificarea știrilor rulează în continuare.",
+      "offSimple": "Levierul AI este oprit (Setări), așa că implicit este 1× (fără împrumut). Poți totuși alege 2× sau 3× pentru această cumpărare: asta dublează sau triplează câștigurile și pierderile.",
+      "offPro": "Levierul AI este oprit (Setări), așa că implicit este 1×. Marjă izolată; un levier mai mare aduce prețul de lichidare mai aproape. Verificarea știrilor rulează în continuare."
+    },
+    "form": {
+      "coinSimple": "Ce monedă?",
+      "coinPro": "Pereche",
+      "heldSimple": "Monedele pe care botul le deține deja nu apar aici: folosește în schimb „Cumpără mai mult” la moneda respectivă.",
+      "heldPro": "Perechile cu o poziție deschisă nu apar aici (folosește acolo „Cumpără mai mult”).",
+      "search": "Caută o monedă",
+      "amountSimple": "Câți bani?",
+      "amountPro": "Sumă ({currency})",
+      "free": "{money} libere acum.",
+      "leverageSimple": "Împrumuți ca să tranzacționezi mai mult?",
+      "leveragePro": "Levier",
+      "levAi": "Lasă Sentinel să decidă",
+      "levNone": "1× (fără împrumut)"
+    },
+    "averaging": {
+      "titleSimple": "Prețul e sub cel plătit de tine",
+      "titlePro": "Mediere în jos",
+      "textSimple": "Dacă mai cumperi acum, prețul tău mediu scade, dar riști și mai mulți bani dacă prețul continuă să scadă. Botul nu face niciodată asta singur.",
+      "textPro": "Prețul este sub intrarea medie. Asta scade media, dar adaugă risc împotriva trendului; strategia de breakout nu mediază niciodată în jos."
+    },
+    "problem": {
+      "simple": "Nu s-a cumpărat nimic",
+      "pro": "Cumpărarea nu a fost plasată"
+    },
+    "practice": "Bani de exersare: nu riști nimic real.",
+    "real": "Aici se folosesc bani reali.",
+    "button": "Cumpără {coin} pentru {money}",
+    "coinFallback": "moneda",
+    "toast": {
+      "addedMore": "Ai mai cumpărat {coin} pentru {money} (cumpărarea {nr} din {max}).",
+      "bought": "Ai cumpărat {coin} pentru {money} cu levier {lev}×.",
+      "boughtChecked": "Ai cumpărat {coin} pentru {money} cu levier {lev}×, după verificarea știrilor de către Sentinel.",
+      "waiting": "Ordinul încă așteaptă să fie executat."
+    }
+  },
+  "stop": {
+    "title": {
+      "simple": "Schimbă stopul de siguranță",
+      "pro": "Mută stopul"
+    },
+    "closeAria": "Închide editorul de stop",
+    "rule": {
+      "simple": "Un stop se poate muta doar în sus, mai aproape de preț. Nu mai poate fi coborât niciodată, așa că alege cu calm.",
+      "pro": "Un stop se poate muta doar în sus (mai strâns), niciodată în jos, și trebuie să rămână peste prețul de lichidare. Prețurile se rotunjesc la tick-ul pieței."
+    },
+    "preset": {
+      "breakeven": "Break-even",
+      "breakevenSimple": "nu pierzi nimic, cu tot cu comisioane",
+      "breakevenPro": "fără pierdere după comisioane",
+      "lockIn": "Blochează +{pct}%",
+      "keeps": "păstrează {money}"
+    },
+    "notInProfit": {
+      "simple": "Moneda nu e încă pe profit, deci nu ai ce bloca. Poți totuși alege mai jos un stop de siguranță mai sus.",
+      "pro": "Încă nu e pe profit: nu există variante de break-even sau de blocare a profitului. Un stop propriu, mai sus, este totuși posibil."
+    },
+    "custom": {
+      "labelSimple": "Sau alege un preț",
+      "labelPro": "Preț de stop propriu",
+      "above": "Peste {price}",
+      "price": "Preț"
+    },
+    "outcome": {
+      "keep": "Botul ar vinde dacă prețul scade cu {pct}, la {price}. Ai păstra {money}.",
+      "lose": "Botul ar vinde dacă prețul scade cu {pct}, la {price}. Ai pierde {money}.",
+      "pro": "{dist} față de acum · {money} ({pct}) dacă e atins"
+    },
+    "current": {
+      "noneSimple": "Moneda aceasta nu are încă un stop de siguranță.",
+      "nonePro": "Niciun stop setat.",
+      "simple": "Acum botul vinde dacă prețul scade la {price} ({pct} sub prețul actual). Asta ar însemna {money}.",
+      "pro": "Stop actual {price} ({dist} față de acum, {money} dacă e atins)."
+    },
+    "waiting": {
+      "simple": "Așteptăm până când botul preia noua setare (până la 20 de secunde).",
+      "pro": "Așteptăm ca motorul să o aplice (până la 20 s)."
+    },
+    "problem": "Stopul nu a fost schimbat",
+    "apply": {
+      "setSimple": "Setează stopul de siguranță la {price}",
+      "setPro": "Setează stopul la {price}",
+      "pickSimple": "Alege un nou stop de siguranță",
+      "pickPro": "Alege un nou stop"
+    },
+    "remove": {
+      "button": "Elimină stopul manual",
+      "titleSimple": "Lasă botul să se ocupe din nou singur de stopul de siguranță",
+      "titlePro": "Botul gestionează din nou stopul; un stop ridicat rămâne ridicat"
+    },
+    "toast": {
+      "soldSimple": "Prețul era deja sub {price}, așa că botul a vândut {coin} imediat.",
+      "soldPro": "{pair}: prețul era deja sub noul stop, poziția a fost vândută imediat.",
+      "setSimple": "Stopul de siguranță pentru {coin} este acum {price}.",
+      "setPro": "Stopul pentru {coin} este acum {price}.",
+      "removed": "Stopul manual pentru {pair} a fost eliminat. Stopul ridicat rămâne unde este."
+    }
+  },
+  "charts": {
+    "shared": {
+      "profit": "profit",
+      "trades": "tranzacții",
+      "tradeCount": "Număr de tranzacții",
+      "profitPct": "Profit %"
+    },
+    "balance": {
+      "title": "Sold",
+      "balance": "sold",
+      "shareOfWallet": "{pct}% din portofel"
+    },
+    "cumProfit": {
+      "title": "Profit cumulat",
+      "profit": "Profit",
+      "projected": "Estimat (incl. nerealizat)",
+      "projectedRow": "estimat, incl. nerealizat"
+    },
+    "hourly": {
+      "title": "Profit pe oră"
+    },
+    "marketChange": {
+      "title": "Evoluția pieței",
+      "series": "Evoluția pieței %",
+      "average": "evoluția medie a pieței"
+    },
+    "profitDistribution": {
+      "title": "Distribuția profitului",
+      "range": "{from} până la {to}",
+      "rangeFrom": "de la {from}",
+      "bins": "Intervale"
+    },
+    "timePeriod": {
+      "title": "Profit zilnic",
+      "absProfit": "Profit absolut",
+      "relProfit": "Profit relativ"
+    },
+    "tradeDuration": {
+      "title": "Durata tranzacțiilor",
+      "all": "Toate tranzacțiile",
+      "winning": "Tranzacții câștigătoare",
+      "losing": "Tranzacții pierzătoare",
+      "median": "mediană",
+      "middleFrom": "jumătatea din mijloc de la",
+      "middleTo": "jumătatea din mijloc până la",
+      "shortest": "cea mai scurtă",
+      "longest": "cea mai lungă",
+      "outlier": "Valoare extremă",
+      "held": "deținută"
+    },
+    "tradesLog": {
+      "title": "Jurnal de tranzacții"
+    },
+    "wallet": {
+      "title": "Soldul portofelului",
+      "startingBalance": "Sold inițial",
+      "startingBalanceBot": "Sold inițial {bot}",
+      "captureStart": "Început înregistrare {bot}",
+      "empty": "Încă nu există istoric al portofelului. O versiune mai nouă a motorului de tranzacționare îl înregistrează automat."
+    },
+    "pairTemplates": {
+      "allUsdt": "Toate perechile USDT",
+      "allUsdtFutures": "Toate perechile futures USDT"
+    }
+  },
+  "candle": {
+    "series": {
+      "candles": "Lumânări",
+      "volume": "Volum",
+      "entry": "Intrare",
+      "exit": "Ieșire",
+      "trades": "Tranzacții"
+    },
+    "lines": {
+      "entry": "Intrare {price}",
+      "stop": "Stop {price}"
+    },
+    "signal": {
+      "longEntry": "Intrare long",
+      "longExit": "Ieșire long",
+      "shortEntry": "Intrare short",
+      "shortExit": "Ieșire short"
+    },
+    "tooltip": {
+      "open": "deschidere",
+      "highest": "maxim",
+      "lowest": "minim",
+      "close": "închidere"
+    },
+    "measure": {
+      "start": "0 lumânări - 0%",
+      "result": "{n} lumânare ({pct}%) \n {elapsed} | {n} lumânări ({pct}%) \n {elapsed} | {n} de lumânări ({pct}%) \n {elapsed}"
+    },
+    "container": {
+      "selectPairs": "Alege perechile pentru grafic",
+      "pair": "Pereche",
+      "refresh": "Reîmprospătează graficul",
+      "multiPair": "Mai multe perechi",
+      "showAreas": "Arată zonele graficului",
+      "plotConfigurator": "Configurator de grafic",
+      "configuratorDescription": "Configurează indicatorii și subgraficele graficului",
+      "pickPair": "Alege o pereche mai sus ca să-i vezi graficul."
+    },
+    "single": {
+      "loading": "Se încarcă",
+      "notLoaded": "Graficul se încarcă după ce alegi o pereche.",
+      "loadingCandles": "Se încarcă lumânările…",
+      "noData": "Nu există date de lumânări pentru această pereche și acest interval.",
+      "loadError": "Lumânările nu au putut fi încărcate. Încearcă să reîmprospătezi.",
+      "noDataYet": "Încă nu există date de lumânări.",
+      "slow": "Durează mai mult decât ne așteptam. Mai ai puțină răbdare…",
+      "longEntrySignals": "Semnale de intrare long",
+      "longExitSignals": "Semnale de ieșire long",
+      "longEntries": "Intrări long {count}",
+      "longExits": "Ieșiri long {count}",
+      "shortEntries": "Intrări short {count}",
+      "shortExits": "Ieșiri short {count}"
+    },
+    "view": {
+      "title": "Setări grafic",
+      "hint": "Aceste setări se aplică doar vizualizării graficului și nu schimbă configurația sau comportamentul botului.",
+      "customExchange": "Bursă personalizată",
+      "currentExchange": "Bursa curentă:",
+      "strategy": "Strategie",
+      "timeframe": "Interval",
+      "useLiveData": "Folosește date live",
+      "useLiveDataHint": "Folosește date live de la bursă. Doar dacă nu ai datele descărcate local."
+    }
+  },
+  "plot": {
+    "editableName": "configurație de grafic",
+    "abort": "Anulează",
+    "configurator": {
+      "configName": "Numele configurației de grafic",
+      "showTags": "Arată etichetele în tooltipuri",
+      "markAreaZ": "Z-index pentru zonele marcate",
+      "markAreaZHint": "(implicit 1 – graficul cu lumânări este la Z=2)",
+      "targetPlot": "Grafic țintă",
+      "indicators": "Indicatori în acest grafic",
+      "notAvailable": "{col} <-- indisponibil în acest grafic",
+      "removeTitle": "Elimină indicatorul din grafic",
+      "remove": "Elimină indicatorul",
+      "fromTemplateTitle": "Încarcă configurația indicatorilor dintr-un șablon",
+      "fromTemplate": "Din șablon",
+      "addTitle": "Adaugă indicatorul în grafic",
+      "add": "Adaugă indicator",
+      "selectToAdd": "Alege indicatorul de adăugat",
+      "resetTitle": "Revino la ultima configurație salvată",
+      "fromStrategy": "Din strategie",
+      "showConfigTitle": "Arată configurația ca s-o poți transfera ușor într-o strategie",
+      "saveTitle": "Salvează configurația",
+      "loadStringTitle": "Încarcă configurația din caseta de text de mai jos",
+      "loadString": "Încarcă din textul de mai jos",
+      "noStrategy": "Nicio strategie selectată, configurația de grafic nu poate fi încărcată.",
+      "loadFailed": "Configurația de grafic nu a putut fi încărcată din strategie."
+    },
+    "template": {
+      "select": "Alege șablonul",
+      "remap": "Reasociază indicatorii",
+      "useTitle": "Folosește șablonul",
+      "use": "Folosește șablonul",
+      "applyTitle": "Aplică șablonul",
+      "apply": "Aplică șablonul"
+    },
+    "indicator": {
+      "type": "Tip",
+      "color": "Culoare",
+      "fillTo": "Grafic de suprafață – umple până la (lasă gol pentru grafic liniar)",
+      "scatterSize": "Mărimea punctelor"
+    }
+  },
+  "backtest": {
+    "page": {
+      "title": "Backtesting",
+      "subtitle": "Testează o strategie pe prețuri din trecut și studiază rezultatele înainte să tranzacționeze pe bune.",
+      "running": "Rulează: {step} {progress}",
+      "webserverTitle": "Pentru backtesting, botul trebuie să ruleze în modul webserver.",
+      "webserverDescription": "Pornește botul în modul webserver ca să rulezi backtesturi și să încarci rezultate salvate."
+    },
+    "tabs": {
+      "loadResults": "Încarcă rezultate",
+      "run": "Rulează backtest",
+      "analyze": "Analizează rezultatul",
+      "compare": "Compară rezultatele",
+      "visualizeSummary": "Vizualizează sumarul",
+      "visualizeResult": "Vizualizează rezultatul"
+    },
+    "loaded": {
+      "title": "Rezultate încărcate",
+      "show": "Arată rezultatele încărcate",
+      "hide": "Ascunde rezultatele încărcate",
+      "empty": "Niciun rezultat încărcat încă. Rulează un backtest sau încarcă rezultate salvate.",
+      "editNotes": "Editează notițele",
+      "notes": "Notițe",
+      "saveNotes": "Salvează notițele"
+    },
+    "trades": "{count} tranzacție | {count} tranzacții | {count} de tranzacții",
+    "graphs": {
+      "tradesLog": "Istoric tranzacții",
+      "tradesLogHint": "Profitul fiecărei tranzacții închise, de la cea mai veche.",
+      "cumProfit": "Profit cumulat",
+      "cumProfitHint": "Profitul realizat, adunat în timp.",
+      "profitDistribution": "Distribuția profitului",
+      "profitDistributionHint": "Câte tranzacții s-au încheiat în fiecare interval de profit.",
+      "tradeDurations": "Durata tranzacțiilor",
+      "tradeDurationsHint": "Cât timp au fost ținute tranzacțiile, după rezultat.",
+      "wallet": "Soldul portofelului",
+      "walletHint": "Soldul portofelului de backtest în timp.",
+      "marketChange": "Evoluția pieței",
+      "marketChangeHint": "Variația medie a prețului tuturor perechilor din backtest."
+    },
+    "history": {
+      "title": "Rezultate salvate",
+      "subtitle": "Încarcă backtesturi anterioare de pe disc. Dă clic pe un rând ca să-l încarci; poți încărca mai multe.",
+      "filterPlaceholder": "Filtrează după strategie sau fișier",
+      "filterLabel": "Filtrează rezultatele",
+      "reload": "Reîncarcă lista",
+      "empty": "Încă nu ai rezultate salvate. Apar aici după ce rulezi un backtest.",
+      "colStrategy": "Strategie",
+      "colDetails": "Detalii",
+      "colRunAt": "Rulat la",
+      "colFile": "Fișier",
+      "colActions": "Acțiuni",
+      "load": "Încarcă acest rezultat",
+      "unload": "Descarcă acest rezultat din memorie",
+      "unloadHint": "Scoate rezultatul din memorie (rămâne pe disc)",
+      "deleteFromDisk": "Șterge de pe disc",
+      "deleteFromDiskLabel": "Șterge acest rezultat de pe disc",
+      "deleteTitle": "Ștergi acest rezultat?",
+      "deleteMessage": "Astfel se șterge {file} de pe disc. Nu poți anula acțiunea."
+    },
+    "analysis": {
+      "title": "Rezultat backtest: {strategy}",
+      "value": "Valoare",
+      "setting": "Setare",
+      "metric": "Indicator",
+      "strategySettings": "Setările strategiei",
+      "metrics": "Indicatori",
+      "perEntryTag": "Rezultate pe etichetă de intrare",
+      "perExitReason": "Rezultate pe motiv de ieșire",
+      "perEntryAndExitTag": "Rezultate pe etichetă de intrare și de ieșire",
+      "perPair": "Rezultate pe pereche",
+      "entryTag": "Etichetă intrare",
+      "exitTag": "Etichetă ieșire",
+      "exitReason": "Motiv ieșire",
+      "pair": "Pereche",
+      "periodicBreakdown": "Defalcare pe perioade",
+      "singleTrades": "Tranzacții individuale"
+    },
+    "chart": {
+      "showPairs": "Arată lista de perechi",
+      "hidePairs": "Ascunde lista de perechi",
+      "showTrades": "Arată lista de tranzacții",
+      "hideTrades": "Ascunde lista de tranzacții",
+      "hint": "Graficul arată mereu cele mai noi valori pentru strategia aleasă."
+    },
+    "compare": {
+      "subtitle": "Toate rezultatele încărcate unul lângă altul, câte o coloană pentru fiecare."
+    },
+    "period": {
+      "label": "Perioadă",
+      "days": "Zile",
+      "weeks": "Săptămâni",
+      "months": "Luni",
+      "years": "Ani",
+      "weekday": "Zi a săptămânii"
+    },
+    "col": {
+      "date": "Dată",
+      "trades": "Tranzacții",
+      "totalProfit": "Profit total",
+      "profitFactor": "Factor de profit",
+      "wins": "Câștiguri",
+      "draws": "Egaluri",
+      "losses": "Pierderi",
+      "winRate": "Rată de câștig",
+      "avgProfitPct": "Profit mediu %",
+      "totalProfitCurrency": "Profit total {currency}",
+      "totalProfitPct": "Profit total %",
+      "extraColumns": "Coloane extra"
+    },
+    "run": {
+      "strategy": "Strategie",
+      "strategyHint": "Strategia pe care o testezi pe prețuri din trecut.",
+      "settings": "Setări",
+      "settingsHint": "Lasă un câmp gol ca să folosești valoarea implicită din strategie sau din configurația botului.",
+      "timeframe": "Interval",
+      "detailTimeframe": "Interval detaliat",
+      "detailTimeframeHint": "Simulează ce se întâmplă în interiorul fiecărei lumânări. Lasă gol ca să sari peste.",
+      "maxOpenTrades": "Max. tranzacții deschise",
+      "startingCapital": "Capital inițial",
+      "stakeAmount": "Miză per tranzacție",
+      "useStrategyDefault": "Implicit din strategie",
+      "useConfigDefault": "Implicit din configurație",
+      "unlimitedStake": "Miză nelimitată",
+      "enableProtections": "Activează protecțiile",
+      "enableProtectionsHint": "Folosește protecțiile definite în strategie.",
+      "cache": "Păstrează rezultatele în cache",
+      "cacheHint": "Refolosește un rezultat anterior când setările sunt aceleași.",
+      "start": "Pornește backtestul",
+      "load": "Încarcă rezultatul backtestului",
+      "stop": "Oprește backtestul",
+      "reset": "Resetează backtestul"
+    },
+    "metric": {
+      "walletSuffix": "{metric} (sold portofel)",
+      "walletSection": "--- Indicatori pe soldul portofelului ---",
+      "longShort": "Long / Short",
+      "totalProfitLong": "Profit total long",
+      "totalProfitShort": "Profit total short",
+      "maxDrawdown": "Drawdown maxim",
+      "maxDrawdownAbs": "Drawdown maxim (absolut)",
+      "maxDrawdownAccount": "Drawdown maxim (cont)",
+      "drawdownDuration": "Durata drawdown-ului",
+      "profitAtDrawdown": "Profit la început {'|'} sfârșit de drawdown",
+      "drawdownStart": "Început drawdown",
+      "drawdownEnd": "Sfârșit drawdown",
+      "totalProfit": "Profit total",
+      "sqn": "System Quality Number (SQN)",
+      "pValue": "Valoarea p a profitului mediu",
+      "expectancy": "Speranță de câștig",
+      "expectancyRatio": "Speranță de câștig (raport)",
+      "profitFactor": "Factor de profit",
+      "totalTrades": "Total tranzacții / medie zilnică",
+      "bestDay": "Cea mai bună zi",
+      "worstDay": "Cea mai slabă zi",
+      "winDrawLoss": "Câștig / egal / pierdere",
+      "daysWinDrawLoss": "Zile câștig / egal / pierdere",
+      "minDurationWinners": "Durată min. câștigătoare",
+      "avgDurationWinners": "Durată medie câștigătoare",
+      "maxDurationWinners": "Durată max. câștigătoare",
+      "minDurationLosers": "Durată min. pierzătoare",
+      "avgDurationLosers": "Durată medie pierzătoare",
+      "maxDurationLosers": "Durată max. pierzătoare",
+      "maxConsecutive": "Max. câștiguri / pierderi consecutive",
+      "rejectedSignals": "Semnale de intrare respinse",
+      "timeouts": "Expirări la intrare / ieșire",
+      "canceledTradeEntries": "Intrări în tranzacții anulate",
+      "canceledEntryOrders": "Ordine de intrare anulate",
+      "replacedEntryOrders": "Ordine de intrare înlocuite",
+      "minMaxBalanceClosed": "Sold min. / max. (tranzacții închise)",
+      "minMaxBalanceWallet": "Sold min. / max. (sold portofel)",
+      "marketChange": "Evoluția pieței",
+      "bestPair": "Cea mai bună pereche",
+      "worstPair": "Cea mai slabă pereche",
+      "bestTrade": "Cea mai bună tranzacție",
+      "worstTrade": "Cea mai slabă tranzacție",
+      "tradingMode": "Mod de tranzacționare",
+      "backtestingFrom": "Backtest de la",
+      "backtestingTo": "Backtest până la",
+      "runTime": "Durata rulării backtestului",
+      "maxOpenTrades": "Max. tranzacții deschise",
+      "timeframe": "Interval",
+      "timeframeDetail": "Interval detaliat",
+      "timerange": "Perioadă",
+      "stoploss": "Stop loss",
+      "trailingStop": "Trailing stop",
+      "trailOnlyOffset": "Trailing doar după atingerea offsetului",
+      "trailingStopPositive": "Trailing stop pozitiv",
+      "trailingStopPositiveOffset": "Offset trailing stop pozitiv",
+      "customStoploss": "Stop personalizat",
+      "useExitSignal": "Folosește semnalul de ieșire",
+      "exitProfitOnly": "Ieșire doar pe profit",
+      "exitProfitOffset": "Offset profit la ieșire",
+      "enableProtections": "Protecții active",
+      "startingBalance": "Sold inițial",
+      "finalBalance": "Sold final",
+      "avgStake": "Miză medie",
+      "totalVolume": "Volum total tranzacționat"
+    }
+  },
+  "download": {
+    "page": {
+      "title": "Descarcă date",
+      "subtitle": "Descarcă prețuri din trecut pentru backtesting și analiză."
+    },
+    "main": {
+      "whatToDownload": "Ce descarci",
+      "pairs": "Perechi",
+      "pair": "Pereche",
+      "pairsFromTemplate": "Perechi dintr-un șablon",
+      "usePairlist": "Folosește perechile din configurarea listei",
+      "usePairlistHint": "Adaugă toate perechile din configurarea listei de perechi. Rulează mai întâi configurarea listei.",
+      "timeframes": "Intervale",
+      "timeframe": "Interval",
+      "timeRange": "Perioadă",
+      "customTimeRange": "Folosește o perioadă personalizată",
+      "days": "Zile de descărcat",
+      "advanced": "Opțiuni avansate",
+      "advancedHint": "Opțiunile avansate (ștergerea datelor, descărcarea tranzacțiilor și bursa personalizată) se aplică doar cât timp secțiunea e deschisă.",
+      "erase": "Șterge datele existente",
+      "prepend": "Adaugă date mai vechi la început",
+      "downloadTrades": "Descarcă tranzacții în loc de lumânări (OHLCV)",
+      "candleTypes": "Alege tipurile de lumânări",
+      "candleTypesHint": "Dacă nu alegi niciun tip, botul descarcă tipurile de care are nevoie în mod normal.",
+      "customExchange": "Bursă personalizată",
+      "start": "Pornește descărcarea"
+    }
+  },
+  "pairlists": {
+    "live": {
+      "title": "Listă de perechi",
+      "subtitle": "Perechile pe care botul le poate tranzacționa acum și perechile pe care trebuie să le evite."
+    },
+    "config": {
+      "title": "Configurare listă de perechi",
+      "subtitle": "Construiește și testează lista de perechi pe care botul le poate tranzacționa.",
+      "save": "Salvează configurația",
+      "evaluateTitle": "Evaluează lista de perechi",
+      "evaluate": "Evaluează",
+      "stakeCurrency": "Moneda mizei:",
+      "customExchange": "Bursă personalizată",
+      "invalid": "Configurație invalidă",
+      "invalidHint": "Prima intrare din listă trebuie să fie o listă generatoare, de exemplu StaticPairList sau VolumePairList.",
+      "dragHere": "Trage o listă de perechi aici",
+      "viewConfig": "Config",
+      "viewResults": "Rezultate"
+    },
+    "evaluationFailed": "Evaluarea a eșuat",
+    "blacklist": {
+      "title": "Listă neagră",
+      "copyFrom": "Copiază din:",
+      "pairs": "Perechi blocate"
+    },
+    "results": {
+      "empty": "Evaluarea a returnat 0 perechi"
+    }
+  },
+  "analysis": {
+    "lookahead": {
+      "title": "Analiză lookahead",
+      "subtitle": "Verifică dacă o strategie se uită din greșeală la lumânări viitoare.",
+      "failed": "Analiza lookahead a eșuat",
+      "runError": "Analiza lookahead nu a putut fi rulată",
+      "intro": "Verifică strategia ta pentru lookahead bias, comparând semnalele generate pe întregul set de date cu semnalele generate pe perioade tot mai scurte. Dacă indicatorii sau semnalele se schimbă în funcție de date viitoare, există un lookahead bias care face rezultatele backtestului nesigure.",
+      "minTrades": "Număr minim de tranzacții",
+      "minTradesHint": "Numărul minim de tranzacții pe care le parcurge analiza înainte să evalueze bias-ul.",
+      "targetTrades": "Număr țintă de tranzacții",
+      "targetTradesHint": "Numărul de tranzacții pe care analiza încearcă să-l atingă. Trebuie să fie cel puțin egal cu numărul minim.",
+      "allowLimit": "Permite ordine limită",
+      "allowLimitHint": "Permite ordine limită în analiza lookahead (poate produce alarme false în rezultate).",
+      "start": "Pornește analiza lookahead",
+      "colHasBias": "Are bias",
+      "colTotalSignals": "Total semnale",
+      "colBiasedEntry": "Semnale de intrare cu bias",
+      "colBiasedExit": "Semnale de ieșire cu bias",
+      "colBiasedIndicators": "Indicatori cu bias",
+      "noBias": "Nu s-a găsit lookahead bias",
+      "noBiasHint": "Strategia a generat semnale consecvente în toate perioadele analizate.",
+      "bias": "S-a găsit lookahead bias",
+      "biasHint": "Strategia a generat semnale diferite în funcție de datele disponibile. Rezultatele backtestului pentru această strategie sunt probabil nesigure."
+    },
+    "recursive": {
+      "title": "Analiză recursivă",
+      "subtitle": "Verifică dacă valorile indicatorilor depind de cât istoric este încărcat.",
+      "failed": "Analiza recursivă a eșuat",
+      "runError": "Analiza recursivă nu a putut fi rulată",
+      "intro": "Verifică indicatorii strategiei tale pentru probleme cu formule recursive, comparând valorile calculate cu un număr diferit de lumânări de pornire. Indicatorii care arată diferențe depind probabil de cantitatea de date de pornire și pot da rezultate diferite între backtesting și rularea dry/live.",
+      "startupCandles": "Număr de lumânări de pornire",
+      "startupCandlesHint": "Listă separată prin virgulă cu numere de lumânări de pornire de comparat între ele. Lasă gol ca să folosești valorile implicite ale backendului.",
+      "startupCandlesPlaceholder": "de ex. 199,399,499,999,1999",
+      "start": "Pornește analiza recursivă",
+      "colIndicator": "Indicator",
+      "strategyLabel": "Strategie:",
+      "recommended": "Număr recomandat de lumânări de pornire:",
+      "noIssues": "Nu s-au găsit probleme cu formule recursive",
+      "noIssuesHint": "Niciun indicator al strategiei nu s-a schimbat când a variat numărul de lumânări de pornire.",
+      "affected": "{count} indicator(i) afectat(i) de numărul de lumânări de pornire",
+      "affectedHint": "Valorile de mai jos arată diferența procentuală față de analiza cu cele mai multe lumânări de pornire. Valorile diferite de zero indică o problemă cu o formulă recursivă."
+    },
+    "settings": "Setări",
+    "result": "Rezultat",
+    "strategy": "Strategie",
+    "timeframe": "Interval"
+  },
+  "strategy": {
+    "params": {
+      "space": "Spațiu {space}",
+      "none": "Această strategie nu are parametri."
+    },
+    "select": {
+      "placeholder": "Alege o strategie",
+      "reload": "Reîncarcă lista de strategii"
+    }
+  },
+  "timerange": {
+    "startDate": "Data de început",
+    "startDateTitle": "Data de început (aaaa-ll-zz, UTC)",
+    "clearStartDate": "Șterge data de început",
+    "pickStartDate": "Alege data de început",
+    "startTimeTitle": "Ora de început (UTC)",
+    "clearStartTime": "Șterge ora de început",
+    "endDate": "Data de sfârșit",
+    "endDateTitle": "Data de sfârșit (aaaa-ll-zz, UTC)",
+    "clearEndDate": "Șterge data de sfârșit",
+    "pickEndDate": "Alege data de sfârșit",
+    "endTimeTitle": "Ora de sfârșit (UTC)",
+    "clearEndTime": "Șterge ora de sfârșit",
+    "time": "Ora",
+    "useTime": "Folosește ora",
+    "useTimeTitle": "Alege perioada la minut (în UTC)",
+    "timeRange": "Perioadă",
+    "allData": "Toate datele disponibile",
+    "useStrategyDefault": "Implicit din strategie"
+  },
+  "freqai": {
+    "enable": "Activează modelul AI",
+    "enableHint": "Strategia trebuie să suporte un model AI, iar configurația botului trebuie să aibă unul setat. Altfel backtestul eșuează.",
+    "identifier": "Identificatorul modelului AI",
+    "model": "Model AI",
+    "useConfigDefault": "Implicit din configurație",
+    "selectModel": "Alege un model AI",
+    "reload": "Reîncarcă lista de modele AI"
+  },
+  "jobs": {
+    "list": "Sarcini în fundal",
+    "failed": "Eșuat",
+    "clear": "Șterge sarcinile terminate"
+  },
+  "journal": {
+    "title": "Jurnal",
+    "linesShown": "Rânduri afișate: {n}",
+    "warnings": "{n} avertisment | {n} avertismente | {n} de avertismente",
+    "errors": "{n} eroare | {n} erori | {n} de erori",
+    "live": "Live",
+    "reload": "Reîncarcă log-ul",
+    "searchPlaceholder": "Caută în log…",
+    "filterLevel": "Filtrează după nivel",
+    "filterTopic": "Filtrează după subiect",
+    "level": {
+      "all": "Toate nivelurile",
+      "warnings": "De la avertisment",
+      "errors": "Erori"
+    },
+    "topic": {
+      "clean": "Curat",
+      "all": "Tot",
+      "trades": "Tranzacții",
+      "sentinel": "Sentinel"
+    },
+    "col": {
+      "time": "Ora",
+      "level": "Nivel",
+      "source": "Sursă",
+      "message": "Mesaj"
+    },
+    "empty": "Nicio linie din log nu se potrivește cu filtrele."
+  },
+  "logs": {
+    "reload": "Reîncarcă log-urile",
+    "scrollToBottom": "Derulează până jos"
+  },
+  "lab": {
+    "title": "Laborator de strategii",
+    "intro": {
+      "simple": "Cum decide botul, ce am testat ca să-l facem mai bun și dacă funcționează în realitate.",
+      "pro": "Cercetarea din spatele strategiei live: regulile înainte și după și urmărirea live față de backtest."
+    },
+    "how": {
+      "title": "Cum decide botul",
+      "exit": "Vinde când moneda scade sub cel mai mic preț din ultimele 10 ore sau când atinge stopul de siguranță. Frână de urgență: după 6 stopuri de siguranță în 24 de ore, oprește cumpărările timp de 12 ore."
+    },
+    "steps": {
+      "new": "Nou",
+      "mood": {
+        "title": "Starea pieței",
+        "text": "Cumpără doar cât timp Bitcoin e pe trend ascendent (peste media lui pe 50 de zile). Altfel așteaptă cu banii neinvestiți."
+      },
+      "breakout": {
+        "title": "Breakout",
+        "text": "O monedă trebuie să urce peste cel mai mare preț din ultimele 20 de ore: semn că începe o mișcare."
+      },
+      "volume": {
+        "title": "Verificarea volumului",
+        "text": "Breakout-ul contează doar dacă în spatele lui e cel puțin dublul volumului obișnuit de tranzacționare. Așa sunt eliminate breakout-urile false."
+      },
+      "sentinel": {
+        "title": "Verificarea știrilor cu Sentinel",
+        "text": "Înainte de cumpărare, Sentinel, modelul nostru AI de știri, citește titlurile recente și blochează cumpărarea la vești proaste serioase (hack, delistare, proces). Dacă activezi levierul AI, poate folosi și un levier de până la 3× când veștile sunt clar bune."
+      }
+    },
+    "result": {
+      "before": "Înainte",
+      "nowLive": "Acum live",
+      "overTwoYears": "în 2 ani de test",
+      "overTwoYearsSame": "în 2 ani, în același test",
+      "worstDip": "Cea mai mare scădere",
+      "was": "(înainte: {value})",
+      "disclaimer": "Rezultatele din trecut nu sunt o promisiune. Testul folosește istoricul real al prețurilor; viitorul se poate comporta altfel."
+    },
+    "live": {
+      "title": "Funcționează în realitate?",
+      "closedSince": "{n} tranzacție închisă de când a pornit noua strategie, pe {date}. | {n} tranzacții închise de când a pornit noua strategie, pe {date}. | {n} de tranzacții închise de când a pornit noua strategie, pe {date}.",
+      "enough": "E suficient pentru o comparație: verde înseamnă că rezultatele live se potrivesc cu testul.",
+      "tooEarly": "E încă prea devreme: e nevoie de aproximativ 30 de tranzacții închise ca această comparație să spună ceva. Până atunci e doar o tendință."
+    },
+    "check": {
+      "winRateSimple": "Procentul tranzacțiilor câștigătoare",
+      "winRate": "Rată de câștig",
+      "profitFactorSimple": "Câștiguri raportate la pierderi",
+      "profitFactor": "Profit factor",
+      "tradesPerDaySimple": "Tranzacții pe zi",
+      "tradesPerDay": "Tranzacții / zi",
+      "expected": "așteptat {range}"
+    },
+    "status": {
+      "collecting": "Se adună date",
+      "asExpected": "Conform așteptărilor",
+      "below": "Sub așteptări",
+      "above": "Peste așteptări"
+    },
+    "tested": {
+      "title": "Înainte și după",
+      "simple": "Surpriză: „securizarea profitului devreme” (trailing stop și stop la break-even) a înrăutățit mult rezultatele. Strategia câștigă din câteva mișcări mari; dacă le tai devreme, distrugi exact asta.",
+      "pro": "Ambele versiuni au fost testate pe doi ani independenți (piață în creștere și în scădere), iar strategia live și pe date reale Hyperliquid. Alte idei testate sunt rezumate în docs/STRATEGY.md."
+    },
+    "table": {
+      "idea": "Idee",
+      "year1Simple": "Anul 1 (creștere)",
+      "year1": "Profit Y1",
+      "year2Simple": "Anul 2 (scădere)",
+      "year2": "Profit Y2",
+      "maxDrawdown": "DD max.",
+      "profitFactor": "PF Y1 / Y2",
+      "verdict": "Verdict"
+    },
+    "verdict": {
+      "chosen": "Ales",
+      "better": "Mai bun",
+      "baseline": "Referință",
+      "mixed": "Mixt",
+      "rejected": "Respins"
+    },
+    "variant": {
+      "V0Base": "Regulile anterioare (v1)",
+      "V11Vol20": "Filtru de volum 2,0x"
+    }
+  },
+  "calendar": {
+    "cellEmpty": "{date}: nicio tranzacție închisă",
+    "cell": "{date}: {profit}, {n} tranzacție | {date}: {profit}, {n} tranzacții | {date}: {profit}, {n} de tranzacții",
+    "noTrades": "Nicio tranzacție închisă",
+    "trades": "{n} tranzacție | {n} tranzacții | {n} de tranzacții",
+    "loss": "Pierdere",
+    "profit": "Profit",
+    "greenDays": "Zile pe plus: {n}",
+    "redDays": "Zile pe minus: {n}",
+    "best": "Cea mai bună zi {value}",
+    "worst": "Cea mai slabă zi {value}"
+  },
+  "excursion": {
+    "winner": "Câștigătoare",
+    "loser": "Pierzătoare",
+    "closedAt": "închisă la",
+    "worstDrawdown": "cel mai mare drawdown",
+    "bestRun": "cel mai bun avans",
+    "axisMae": "Cel mai mare drawdown (MAE) %",
+    "axisMfe": "Cel mai bun avans (MFE) %",
+    "empty": "Apare după primele tranzacții închise.",
+    "efficiency": "Eficiența ieșirii: în medie, tranzacțiile au păstrat {pct} din cel mai bun avans."
+  },
+  "positions": {
+    "confirm": {
+      "pauseSimpleTitle": "Oprești cumpărările?",
+      "pauseSimpleMessage": "Botul are grijă în continuare de monedele pe care le deține (inclusiv de stopurile de siguranță), dar nu mai cumpără nimic nou.",
+      "pauseProTitle": "Pui pe pauză intrările noi?",
+      "pauseProMessage": "Pozițiile deschise rămân gestionate; fără intrări noi.",
+      "resumeTitle": "Reiei cumpărările?",
+      "resumeMessage": "Botul va căuta din nou monede noi de cumpărat.",
+      "startTitle": "Pornești botul?",
+      "startMessage": "Botul reia tranzacționarea."
+    },
+    "simple": {
+      "title": "Monedele mele",
+      "holding": "Botul deține acum {n} monedă (poate deține până la {max}). | Botul deține acum {n} monede (poate deține până la {max}). | Botul deține acum {n} de monede (poate deține până la {max}).",
+      "nowLabel": "Acum pe aceste monede",
+      "notFinal": "nu e final până la vânzare",
+      "maxLossLabel": "Poți pierde cel mult",
+      "maxLossHint": "dacă fiecare monedă își atinge stopul de siguranță ({pct} din banii tăi)",
+      "buyCoin": "Cumpără o monedă",
+      "pauseBuying": "Oprește cumpărările",
+      "resumeBuying": "Reia cumpărările",
+      "start": "Pornește",
+      "empty": "Botul nu deține nicio monedă acum. Așteaptă un moment bun ca să cumpere.",
+      "pickCoin": "Alege o monedă din stânga."
+    },
+    "pro": {
+      "title": "Poziții",
+      "slotsInUse": "{open} din {max} locuri ocupate, rulează {strategy}.",
+      "noStrategy": "nicio strategie",
+      "manualBuy": "Cumpărare manuală",
+      "pauseEntries": "Pauză intrări",
+      "startBot": "Pornește botul",
+      "unrealized": "Nerealizat",
+      "notFinal": "nu e final până la închidere",
+      "exposure": "Expunere",
+      "exposureHint": "valoare nominală vs. capital",
+      "atRisk": "La risc",
+      "atRiskHint": "{pct} dacă se ating toate stopurile",
+      "slots": "Locuri",
+      "slotsFree": "libere: {n}",
+      "allInUse": "toate ocupate",
+      "openPositions": "Poziții deschise",
+      "empty": "Nicio poziție deschisă. Botul așteaptă un semnal.",
+      "selectPosition": "Selectează o poziție."
+    },
+    "sort": {
+      "label": "Sortare",
+      "aria": "Sortează pozițiile",
+      "bestFirst": "Cele mai bune",
+      "newest": "Cele mai noi",
+      "closestSafetyStop": "Aproape de stop",
+      "pnl": "P/L",
+      "closestStop": "Aproape de stop"
+    },
+    "card": {
+      "aiNoNews": "Verificare AI: fără știri",
+      "aiOffline": "Verificare AI: offline",
+      "aiNewsOk": "Verificare AI: știri OK",
+      "aiNotRecorded": "Verificare AI: neînregistrată",
+      "sentinelNoNews": "Sentinel: fără știri",
+      "sentinelOffline": "Sentinel: offline",
+      "sentinelRisk": "Sentinel: risc {pct}%",
+      "sentinelNoRecord": "Sentinel: fără înregistrare",
+      "hintNoRecord": "Nicio înregistrare Sentinel pentru această tranzacție (deschisă înainte de jurnalizarea deciziilor)",
+      "hintNoOutlook": "fără prognoză",
+      "hintLeverage": "Levier {lev}x ({reason})",
+      "short": "short",
+      "rulerTitle": "Stop {stop} · Intrare {entry} · Acum {now} · Maxim {best}",
+      "safetyStop": "Stop de siguranță",
+      "stop": "Stop",
+      "rulerSimple": "Cumpărat · maxim · acum",
+      "rulerPro": "Intrare · maxim · acum",
+      "roomToStop": "Loc până la stop",
+      "toStop": "Până la stop",
+      "lossIfStop": "Pierdere la stop",
+      "toLiquidation": "Până la lichidare",
+      "atStop": "La stop",
+      "heldFor": "Durată",
+      "funding": "Finanțare",
+      "bestRun": "Maxim atins"
+    },
+    "row": {
+      "distanceToStop": "Distanța până la stop",
+      "heldFor": "Durată deținere"
+    }
+  },
+  "trades": {
+    "simple": {
+      "title": "Istoric",
+      "count": "{n} monedă cumpărată și vândută până acum | {n} monede cumpărate și vândute până acum | {n} de monede cumpărate și vândute până acum",
+      "profit": "Profit din monedele vândute",
+      "soldWithProfit": "Vândute cu profit",
+      "winsOf": "{wins} din {total}",
+      "usuallyHeld": "Durată obișnuită",
+      "rowMeta": "vândută {ago} · deținută {duration}",
+      "noMatch": "Nicio monedă nu se potrivește.",
+      "empty": "Nicio monedă n-a fost vândută încă."
+    },
+    "pro": {
+      "title": "Tranzacții",
+      "shown": "{shown} din {total} tranzacții închise afișate",
+      "exportCsv": "Exportă CSV",
+      "realized": "Realizat",
+      "winRate": "Rată de câștig",
+      "wonLost": "{won} câștigate, {lost} pierdute",
+      "avgWinLoss": "Câștig / pierdere medie",
+      "payoff": "payoff {x}×",
+      "avgDuration": "Durată medie",
+      "noMatch": "Nicio tranzacție nu corespunde filtrelor.",
+      "empty": "Încă nicio tranzacție închisă."
+    },
+    "filter": {
+      "allReasons": "Toate motivele de ieșire",
+      "pairPlaceholder": "Filtrează perechea…",
+      "resultAria": "Filtrează după rezultat",
+      "reasonAria": "Filtrează după motivul de ieșire",
+      "coinPlaceholder": "Caută o monedă…",
+      "clearReasonAria": "Nu mai afișa doar: {reason}",
+      "winners": "Câștigătoare",
+      "losers": "Pierzătoare"
+    },
+    "table": {
+      "pair": "Pereche",
+      "closed": "Închisă",
+      "held": "Durată",
+      "entryExit": "Intrare → ieșire",
+      "pnl": "P/L",
+      "bestRun": "Maxim atins",
+      "exit": "Ieșire"
+    },
+    "reasons": {
+      "simpleTitle": "De ce au fost vândute monedele",
+      "proTitle": "Motive de ieșire",
+      "count": "{n} tranzacție | {n} tranzacții | {n} de tranzacții"
+    },
+    "detailTitle": "Detalii tranzacție"
+  },
+  "tradeDetail": {
+    "simple": {
+      "boughtAt": "Cumpărată la",
+      "priceNow": "Preț acum",
+      "soldAt": "Vândută la",
+      "moneyPutIn": "Bani investiți",
+      "heldFor": "Durată",
+      "wasHeldFor": "Durată",
+      "safetyStopByYou": "Stop de siguranță (setat de tine)",
+      "safetyStop": "Stop de siguranță",
+      "safetyStopValue": "vinde dacă prețul scade la {price} (cu {pct} sub acum)",
+      "whySold": "De ce a fost vândută",
+      "costs": "Costuri (comisioane)"
+    },
+    "pro": {
+      "entry": "Intrare",
+      "now": "Acum",
+      "exit": "Ieșire",
+      "amount": "Cantitate",
+      "stake": "Miză",
+      "leverage": "Levier",
+      "duration": "Durată",
+      "stopManual": "Stop (manual)",
+      "stop": "Stop",
+      "liquidation": "Lichidare",
+      "exitReason": "Motiv ieșire",
+      "bestRun": "Maxim atins (MFE)",
+      "worstDip": "Minim atins (MAE)",
+      "funding": "Finanțare",
+      "fees": "Comisioane"
+    },
+    "close": {
+      "sellAllTitle": "Vinzi acum tot {coin}?",
+      "sellHalfTitle": "Vinzi acum jumătate din {coin}?",
+      "closeAllTitle": "Închizi toată poziția?",
+      "closeHalfTitle": "Închizi jumătate din poziție?",
+      "fullPaper": "{pair}: un ordin de ieșire la piață pentru toată cantitatea e trimis botului (bani de exersare).",
+      "fullReal": "{pair}: un ordin de ieșire la piață pentru toată cantitatea e trimis botului, cu BANI REALI.",
+      "halfPaper": "{pair}: un ordin de ieșire la piață pentru 50% e trimis botului (bani de exersare).",
+      "halfReal": "{pair}: un ordin de ieșire la piață pentru 50% e trimis botului, cu BANI REALI."
+    },
+    "badge": {
+      "open": "Deschisă",
+      "closed": "Închisă",
+      "boughtByYou": "Cumpărată de tine",
+      "manual": "Manual"
+    },
+    "keptSimple": "a păstrat {pct} din cel mai bun câștig",
+    "keptPro": "a păstrat {pct} din maximul atins",
+    "action": {
+      "sellHalf": "Vinde jumătate",
+      "closeHalf": "Închide 50%",
+      "sellNow": "Vinde acum",
+      "closeAll": "Închide poziția",
+      "stopSetByYou": "Stop de siguranță setat de tine",
+      "manualStop": "Stop manual",
+      "hintSimple": "Poți ridica stopul de siguranță sau poți cumpăra mai mult din această monedă.",
+      "hintPro": "Ajustează stopul sau mărește poziția.",
+      "changeStop": "Schimbă stopul de siguranță",
+      "moveStop": "Mută stopul",
+      "buyMore": "Cumpără mai mult"
+    },
+    "sentinel": {
+      "titleSimple": "Verificarea știrilor Sentinel înainte de cumpărare",
+      "titlePro": "Decizia de intrare Sentinel",
+      "noRecordSimple": "Această monedă a fost cumpărată înainte ca verificarea știrilor Sentinel să fie pornită.",
+      "noRecordPro": "Nicio înregistrare Sentinel: tranzacția a fost deschisă înainte de începerea jurnalizării deciziilor.",
+      "vetoed": "Respinsă",
+      "allowed": "Permisă",
+      "leverage": "levier {lev} · {reason}",
+      "wouldHavePicked": "Sentinel ar fi ales {lev}",
+      "headlines": "{n} titlu | {n} titluri | {n} de titluri",
+      "badNewsRisk": "risc de știri proaste {risk} (blocat de la 30% în sus)"
+    }
+  },
+  "exit": {
+    "reason": {
+      "raisedStop": "Stop ridicat atins",
+      "manualStop": "Stop manual (vândut imediat)",
+      "stopLoss": "Stop loss",
+      "exitSignal": "Semnal de ieșire",
+      "forceExit": "Închisă manual",
+      "roi": "ROI"
+    }
+  },
+  "position": {
+    "stopCheck": {
+      "enterPrice": "Introdu un preț.",
+      "atOrAbovePrice": "Prețul e la nivelul prețului curent sau peste, deci s-ar vinde imediat. Închide poziția în schimb.",
+      "aboveLiquidation": "Stopul trebuie să fie peste prețul de lichidare.",
+      "onlyUp": "Stopul poate fi mutat doar în sus (mai aproape de preț), niciodată în jos."
+    }
+  },
+  "kev": {
+    "reason": {
+      "offline": "Sentinel offline",
+      "noNews": "fără știri",
+      "neutral": "știri neutre",
+      "clearlyPositive": "știri clar bune",
+      "clearlyPositiveStrongBtc": "știri clar bune și Bitcoin puternic",
+      "aiLeverageOff": "levier AI oprit, 1×",
+      "aiLeverageLocked": "levier AI blocat pe acest Mac, 1×",
+      "manual": "ales manual"
+    },
+    "panel": {
+      "entriesChecked": "{n} intrare verificată | {n} intrări verificate | {n} de intrări verificate",
+      "withNews": "{n} cu știri",
+      "aboveOneX": "{n} cu levier peste 1x",
+      "vetoNote": "Intrările respinse nu devin niciodată tranzacții; le găsești în jurnal.",
+      "empty": "Raționamentul Sentinel apare aici pentru fiecare intrare nouă. Pozițiile deschise înainte de jurnalizarea deciziilor nu au înregistrare.",
+      "open": "deschisă",
+      "headlines": "{n} titlu | {n} titluri | {n} de titluri",
+      "risk": "risc {pct}",
+      "payTitle": "Merită levierul?",
+      "payHint": "Tranzacții închise grupate după levier (ales de Sentinel sau manual).",
+      "payEmpty": "Se completează după ce se închid tranzacții.",
+      "trades": "{n} tranzacție | {n} tranzacții | {n} de tranzacții",
+      "win": "câștig {pct}",
+      "avg": "medie {pct}"
+    }
+  },
+  "command": {
+    "title": "Centru de comandă",
+    "header": {
+      "heartbeat": "Heartbeat acum {age}",
+      "regime": "Regim",
+      "regimeTitle": "Filtrul de regim al strategiei: închiderea zilnică BTC față de EMA pe 50 de zile",
+      "regimeState": "{state} (BTC {pct} vs EMA50)",
+      "pairsOn": "{n} pereche pe {exchange} | {n} perechi pe {exchange} | {n} de perechi pe {exchange}",
+      "kbdCommands": "comenzi",
+      "kbdPrivacy": "confidențialitate"
+    },
+    "hero": {
+      "sinceStart": "de la start ({capital})",
+      "last7": "Ultimele 7 zile",
+      "allTime": "Total",
+      "realized": "realizat",
+      "openPositions": "{n} poziție deschisă | {n} poziții deschise | {n} de poziții deschise",
+      "tradesSince": "{n} tranzacție de la {date} | {n} tranzacții de la {date} | {n} de tranzacții de la {date}",
+      "tradesSinceStart": "{n} tranzacție de la început | {n} tranzacții de la început | {n} de tranzacții de la început"
+    },
+    "risk": {
+      "title": "Risc",
+      "subtitle": "Întâi supraviețuirea: cât spațiu a mai rămas.",
+      "drawdownNow": "Drawdown acum",
+      "drawdownSub": "max {max} · buget 25% · recuperare {recover}",
+      "exposureSub": "valoare nominală vs capital · limită soft 1,5×",
+      "atRisk": "Risc la toate stopurile",
+      "atRiskSub": "{amount} · buget 10% din capital",
+      "slotsUsed": "Sloturi ocupate",
+      "leverageMix": "mix de levier {mix}",
+      "noPositions": "nicio poziție deschisă"
+    },
+    "edge": {
+      "title": "Edge",
+      "subtitle": "{n} tranzacție închisă. Indicatorii devin relevanți de la circa 100. | {n} tranzacții închise. Indicatorii devin relevanți de la circa 100. | {n} de tranzacții închise. Indicatorii devin relevanți de la circa 100.",
+      "winsLosses": "{wins} câștigate, {losses} pierdute",
+      "payoffSub": "câștig mediu / pierdere medie",
+      "perTrade": "per tranzacție",
+      "profitFactorSub": "break-even 1,0, sănătos de la 1,5",
+      "from30": "de la 30 de tranzacții",
+      "topWinShare": "Top câștig",
+      "ofGrossProfit": "din profitul brut",
+      "topWinHint": "Ponderea celei mai bune tranzacții în tot profitul din câștiguri. Mare înseamnă că rezultatele depind de o singură tranzacție norocoasă."
+    },
+    "positions": {
+      "title": "Poziții deschise",
+      "subtitle": "Fiecare bară merge de la stop, prin prețul de intrare, până la prețul actual, cu un marcaj la cel mai bun preț de până acum.",
+      "slots": "{n} din {max} sloturi",
+      "empty": "Nicio poziție deschisă. Botul așteaptă un semnal."
+    },
+    "equity": {
+      "title": "Capital și drawdown",
+      "subtitle": "Capitalul realizat cu punctul live și, dedesubt, curba underwater."
+    },
+    "pairs": {
+      "title": "Clasamentul perechilor",
+      "subtitle": "Profit realizat pe pereche. Un punct marchează o poziție deschisă."
+    },
+    "daily": {
+      "title": "Profit/pierdere pe zi",
+      "subtitle": "Ultimele 12 săptămâni."
+    },
+    "excursion": {
+      "title": "Harta MAE/MFE",
+      "subtitle": "Cât de mult a mers fiecare tranzacție închisă împotriva noastră (MAE) și în favoarea noastră (MFE)."
+    },
+    "sentinel": {
+      "title": "Jurnalul deciziilor Sentinel",
+      "subtitle": "Verificarea știrilor și alegerea levierului, înregistrate la fiecare intrare."
+    }
+  },
+  "cockpit": {
+    "title": "Cockpit",
+    "pauseEntries": "Oprește intrările",
+    "pauseTitle": "Oprești intrările noi?",
+    "pauseMessage": "Botul continuă să gestioneze tranzacțiile deschise, dar nu mai deschide altele noi.",
+    "fullscreen": "Ecran complet",
+    "exitFullscreen": "Ieși din ecran complet",
+    "risk": "Risc",
+    "dial": {
+      "atRisk": "La risc",
+      "slots": "Sloturi",
+      "marketRegime": "Regimul pieței",
+      "budget": "buget 25%",
+      "softCap": "limită soft 1,5×",
+      "ifAllStops": "dacă se ating toate stopurile",
+      "positions": "poziții",
+      "regimeDisplay": "{state} {pct}",
+      "regimeSub": "BTC {price} vs EMA pe 50 de zile"
+    },
+    "edge": "Edge",
+    "equityTitle": "Capital și drawdown",
+    "closedCount": "{n} tranzacție închisă | {n} tranzacții închise | {n} de tranzacții închise",
+    "positions": "Poziții",
+    "positionsOf": "{n} din {max}",
+    "positionsLegend": "De la stop la preț · distanța la stop, vechime",
+    "empty": "Nicio poziție deschisă. Se așteaptă un semnal.",
+    "activity": "Activitate",
+    "activityCount": "{closed} închise · {checks} verificări Sentinel"
+  },
+  "markets": {
+    "title": "Piețe",
+    "count": "{n} pereche · {timeframe} | {n} perechi · {timeframe} | {n} de perechi · {timeframe}",
+    "filter": "Filtrează perechile…",
+    "openTitle": "Poziție deschisă",
+    "openBadge": "{leverage}x deschisă",
+    "trades": "{n} tranzacție | {n} tranzacții | {n} de tranzacții",
+    "closedTitle": "{n} tranzacție închisă | {n} tranzacții închise | {n} de tranzacții închise",
+    "empty": "Nicio pereche nu se potrivește filtrului.",
+    "legend": "Liniile graficului: {now}, {entry} și {stop}. Săgețile marchează intrările și ieșirile botului.",
+    "legendNow": "acum",
+    "legendEntry": "intrare",
+    "legendStop": "stop"
+  },
+  "dashboard": {
+    "profitAllBots": "Profit în timp, toți boții",
+    "profit": "Profit în timp",
+    "botComparison": "Comparație boți",
+    "openTrades": "Tranzacții deschise",
+    "openTradesInfo": "Tranzacțiile deschise ale tuturor boților selectați. Apasă pe o tranzacție ca s-o deschizi pe pagina de tranzacționare.",
+    "cumProfit": "Profit cumulat",
+    "walletHistory": "Istoricul portofelului",
+    "closedTrades": "Tranzacții închise",
+    "closedTradesInfo": "Tranzacțiile închise ale tuturor boților selectați. Apasă pe o tranzacție ca s-o deschizi pe pagina de tranzacționare.",
+    "profitDistribution": "Distribuția profitului",
+    "tradesLog": "Jurnal tranzacții"
+  },
+  "tradePage": {
+    "controls": "Control",
+    "tabs": {
+      "pairs": "Toate perechile",
+      "general": "General",
+      "performance": "Performanță",
+      "balance": "Sold",
+      "timeBreakdown": "Pe perioade",
+      "pairlist": "Listă perechi",
+      "pairLocks": "Perechi blocate"
+    },
+    "openTrades": "Tranzacții deschise",
+    "openTradesEmpty": "Momentan nicio tranzacție deschisă.",
+    "closedTrades": "Tranzacții închise",
+    "tradeHistory": "Istoric tranzacții",
+    "closedTradesEmpty": "Nicio tranzacție închisă până acum.",
+    "tradeDetail": "Detalii tranzacție",
+    "chart": "Grafic"
+  },
+  "widgets": {
+    "botState": {
+      "running": "rulează",
+      "stopped": "oprit",
+      "paused": "întrerupt",
+      "reload_config": "reîncărcare",
+      "offline": "offline",
+      "unknown": "necunoscut"
+    },
+    "mode": {
+      "paper": "Demo",
+      "live": "Live",
+      "liveReal": "Live cu bani reali",
+      "practice": "Exersare",
+      "realMoney": "Bani reali"
+    },
+    "metrics": {
+      "equity": "Capital",
+      "today": "Azi",
+      "sevenDays": "7 zile",
+      "unrealized": "Nerealizat",
+      "drawdown": "Drawdown",
+      "exposure": "Expunere",
+      "winRate": "Rată de câștig",
+      "payoff": "Payoff",
+      "expectancy": "Câștig așteptat",
+      "profitFactor": "Factor de profit",
+      "maxDrawdown": "Drawdown max.",
+      "closedTrades": "Tranz. închise"
+    },
+    "sample": {
+      "early": "Date inițiale",
+      "low": "Eșantion mic",
+      "hint": "Puține tranzacții închise: ia aceste cifre doar ca orientare."
+    },
+    "regime": {
+      "on": "activ",
+      "off": "inactiv"
+    },
+    "heartbeatTitle": "Ultimul heartbeat acum {age}",
+    "dial": {
+      "healthy": "Sănătos",
+      "watch": "Atenție",
+      "nearLimit": "Aproape de limită",
+      "riskOn": "Risk-on",
+      "riskOff": "Risk-off"
+    },
+    "equityChart": {
+      "equity": "Capital",
+      "drawdown": "Drawdown",
+      "seriesEquity": "Capital ({currency})",
+      "seriesDrawdown": "Drawdown %",
+      "empty": "Curba capitalului începe după prima tranzacție închisă."
+    },
+    "feed": {
+      "bought": "Cumpărat {coin} · {leverage}x",
+      "boughtDetail": "la {price} · miză {stake}",
+      "kevChecked": "Sentinel a verificat {coin}",
+      "kevNoNews": "fără știri · implicit 1x",
+      "kevDetail": "{n} titlu · risc {risk}% · {reason} | {n} titluri · risc {risk}% · {reason} | {n} de titluri · risc {risk}% · {reason}",
+      "sold": "Vândut {coin} {pct}",
+      "empty": "Nicio activitate încă. Cumpărările, vânzările și verificările Sentinel apar aici pe măsură ce au loc."
+    },
+    "instrumentBar": {
+      "yourMoney": "Banii tăi",
+      "coinsHeld": "{n} monedă deținută | {n} monede deținute | {n} de monede deținute",
+      "openOf": "Deschise {open} din {max}",
+      "btcRegime": "Regim BTC",
+      "regimeTitle": "Regimul strategiei: închiderea zilnică BTC față de EMA pe 50 de zile",
+      "notifyOn": "Notificări active",
+      "notifyOff": "Activează notificările pentru cumpărări, vânzări și probleme",
+      "toggleNotify": "Comută notificările",
+      "showBalances": "Arată sumele (⇧P)",
+      "hideBalances": "Ascunde sumele (⇧P)",
+      "togglePrivacy": "Comută modul confidențial",
+      "openPalette": "Deschide paleta de comenzi"
+    },
+    "pairBoard": {
+      "empty": "Nicio tranzacție închisă încă. Fiecare pereche apare aici după prima vânzare.",
+      "openChart": "Deschide graficul {coin}",
+      "positionOpen": "Poziție deschisă",
+      "trades": "{n} tranzacție | {n} tranzacții | {n} de tranzacții"
+    }
+  },
+  "nav": {
+    "main": "Meniu principal",
+    "sidebar": "Bară laterală",
+    "view": "Vizualizare",
+    "viewMode": "Mod de vizualizare",
+    "simpleHint": "Limbaj simplu, doar esențialul",
+    "proHint": "Toate graficele, cifrele de risc și instrumentele",
+    "versionTitle": "NovaeonTradingAI versiunea {version}",
+    "expand": "Extinde bara laterală",
+    "collapse": "Restrânge bara laterală",
+    "section": {
+      "myBot": "Botul meu",
+      "more": "Mai mult",
+      "overview": "Privire generală",
+      "trading": "Tranzacționare",
+      "system": "Sistem",
+      "engine": "Instrumente motor"
+    },
+    "item": {
+      "home": "Acasă",
+      "myCoins": "Monedele mele",
+      "history": "Istoric",
+      "wallet": "Portofel",
+      "strategy": "Strategie",
+      "bots": "Boți",
+      "settings": "Setări",
+      "command": "Control",
+      "cockpit": "Cockpit",
+      "positions": "Poziții",
+      "markets": "Piețe",
+      "trades": "Tranzacții",
+      "strategyLab": "Laborator de strategii",
+      "journal": "Jurnal",
+      "backtest": "Backtest",
+      "downloadData": "Descarcă date",
+      "pairlistConfig": "Configurare listă perechi",
+      "recursiveAnalysis": "Analiză recursivă",
+      "lookaheadAnalysis": "Analiză lookahead",
+      "pairlist": "Perechi"
+    },
+    "hint": {
+      "home": "Cum stau banii mei?",
+      "myCoins": "Ce deține botul acum",
+      "history": "Tot ce a cumpărat și a vândut botul",
+      "wallet": "Conectează portofelul, bani de exersare sau bani reali",
+      "strategy": "Cum decide botul și cât de bine merge",
+      "bots": "Conectează și schimbă boții",
+      "homePro": "Rezumat pe înțelesul tuturor",
+      "command": "Risc, avantaj, poziții",
+      "cockpit": "Toate instrumentele pe un ecran",
+      "positions": "Poziții deschise și acțiuni",
+      "markets": "Grafice cu tranzacțiile afișate",
+      "trades": "Tranzacții închise și analiză",
+      "strategyLab": "Cercetare, variante, live vs. backtest",
+      "walletPro": "MetaMask, bani de exersare sau bani reali",
+      "journal": "Jurnalul botului"
+    }
+  },
+  "header": {
+    "homeLink": "NovaeonTradingAI, mergi la boți",
+    "noConfirmTooltip": "Confirmările de ieșire sunt oprite: ieșirile forțate se execută imediat. Le poți reporni din Setări.",
+    "noConfirmAria": "Confirmările de ieșire sunt oprite. Deschide setările.",
+    "noConfirm": "Fără confirmare",
+    "botConnection": "Conexiune bot",
+    "loginExpired": "Autentificarea a expirat, conectează-te din nou",
+    "botOnline": "Botul este online",
+    "botOffline": "Botul este offline",
+    "autoRefreshOn": "Actualizarea automată pentru {bot} este pornită",
+    "autoRefreshOff": "Actualizarea automată pentru {bot} este oprită",
+    "appMenu": "Meniul aplicației",
+    "connectBot": "Conectează un bot",
+    "noBotSelected": "Niciun bot selectat",
+    "botNotFound": "Botul nu a fost găsit"
+  },
+  "menu": {
+    "open": "Deschide meniul",
+    "view": "Vizualizare",
+    "bot": "Bot",
+    "autoRefresh": "Actualizare automată",
+    "allBots": "Toți boții",
+    "logout": "Deconectează-te"
+  },
+  "palette": {
+    "placeholder": "Caută pagini, acțiuni și perechi…",
+    "group": {
+      "goTo": "Mergi la",
+      "view": "Vizualizare",
+      "bot": "Bot: {name}",
+      "pairs": "Perechi"
+    },
+    "showBalances": "Arată soldurile",
+    "hideBalances": "Ascunde soldurile",
+    "lightMode": "Treci la modul luminos",
+    "darkMode": "Treci la modul întunecat",
+    "openPosition": "poziție deschisă",
+    "pause": {
+      "label": "Pune pe pauză intrările noi",
+      "suffix": "tranzacțiile deschise rămân gestionate",
+      "title": "Pui pe pauză intrările noi?",
+      "message": "Botul gestionează în continuare tranzacțiile deschise, dar nu mai deschide altele noi."
+    },
+    "start": {
+      "label": "Pornește botul",
+      "title": "Pornești botul?",
+      "message": "Botul reia tranzacționarea."
+    },
+    "stop": {
+      "label": "Oprește botul",
+      "title": "Oprești botul?",
+      "message": "Tranzacționarea se oprește. Pozițiile deschise rămân deschise și nu mai sunt gestionate."
+    },
+    "reload": {
+      "label": "Reîncarcă configurația",
+      "title": "Reîncarci configurația?",
+      "message": "Botul își reîncarcă configurația."
+    }
+  },
+  "login": {
+    "title": "Conectează-ți botul",
+    "titleAgain": "Conectează-te din nou la bot",
+    "intro": "Introdu adresa botului și datele de autentificare setate în setările lui API.",
+    "url": "Adresa botului",
+    "urlHint": "De exemplu http://127.0.0.1:8080",
+    "urlError": "Introdu adresa botului.",
+    "urlDuplicate": "Un alt bot folosește deja această adresă.",
+    "username": "Nume de utilizator",
+    "usernameError": "Verifică numele de utilizator.",
+    "password": "Parolă",
+    "passwordError": "Verifică parola.",
+    "botName": "Numele botului",
+    "optional": "Opțional",
+    "botNamePlaceholder": "De exemplu: Bot principal",
+    "errorTitle": "Conectarea a eșuat",
+    "errorAuth": "Botul a răspuns, dar nu a acceptat acest nume de utilizator și această parolă. Verifică-le pe amândouă și încearcă din nou.",
+    "errorUnreachable": "Nu am putut contacta un bot la {url}. Verifică dacă botul rulează, dacă API-ul lui e pornit și dacă adresa e accesibilă de aici. Ca test, deschide {pingUrl} în browser.",
+    "errorCors": "Dacă botul rulează la altă adresă decât aplicația, verifică și dacă serverul lui API permite cereri de la această aplicație (setările CORS).",
+    "clear": "Golește",
+    "connect": "Conectează"
+  },
+  "bots": {
+    "title": "Boți",
+    "intro": "Boții la care e conectat acest browser. Apasă pe unul ca să-l selectezi, trage ca să schimbi ordinea.",
+    "emptyAria": "Niciun bot conectat",
+    "empty": "Încă nu e conectat niciun bot. Conectează unul ca să vezi cum stau banii tăi.",
+    "connect": "Conectează un bot",
+    "aboutAria": "Despre aplicație",
+    "about": "Urmărește și controlează-ți botul de tranzacționare: ce deține, ce a făcut și cum stau banii tăi.",
+    "logInAgain": "Conectează-te din nou",
+    "autoRefreshFor": "Actualizare automată pentru {name}",
+    "list": {
+      "aria": "Boții tăi",
+      "drag": "Trage ca să schimbi ordinea",
+      "loginExpired": "{name}: autentificarea a expirat",
+      "add": "Adaugă un bot"
+    },
+    "entry": {
+      "removeTitle": "Elimini acest bot?",
+      "removeMessage": "Astfel {name} este eliminat din acest browser și ești deconectat de la el. Botul în sine continuă să ruleze.",
+      "loginExpiredHint": "Autentificarea a expirat, conectează-te din nou.",
+      "loginExpired": "Autentificare expirată",
+      "rename": "Redenumește botul",
+      "remove": "Elimină botul"
+    },
+    "rename": {
+      "name": "Numele botului",
+      "save": "Salvează numele"
+    },
+    "select": "Selectează botul"
+  },
+  "settings": {
+    "title": "Setări",
+    "intro": "Cum arată și cum se comportă aplicația în acest browser, plus o alegere despre cum tranzacționează botul.",
+    "trading": {
+      "title": "Tranzacționare",
+      "subtitle": "Se salvează pe bot, deci se aplică în orice browser și pe orice dispozitiv."
+    },
+    "interface": {
+      "title": "Interfață",
+      "subtitle": "Antet, oră și confirmări de siguranță."
+    },
+    "openTrades": {
+      "label": "Tranzacții deschise în antet",
+      "hint": "Cum apare numărul de tranzacții deschise în fila browserului.",
+      "pill": "Insignă pe pictograma filei",
+      "title": "Număr în titlul paginii",
+      "none": "Nu afișa"
+    },
+    "timezone": {
+      "label": "Fus orar",
+      "hint": "Recomandăm UTC, pentru că bursele lucrează de obicei în UTC."
+    },
+    "confirm": {
+      "label": "Confirmare la închiderea tranzacțiilor",
+      "hint": "Întreabă înainte de a forța închiderea unei tranzacții. Când e oprit, apare un avertisment în antet."
+    },
+    "bgSync": {
+      "label": "Sincronizare în fundal",
+      "hint": "Continuă să sincronizezi ceilalți boți cât timp e selectat alt bot."
+    },
+    "multiPane": {
+      "label": "Text pe butoanele cu mai multe panouri",
+      "hint": "Când e oprit, aceste butoane arată doar pictograme."
+    },
+    "charts": {
+      "title": "Grafice",
+      "subtitle": "Lumânări, scale și culori."
+    },
+    "scaleSide": {
+      "label": "Partea scalei de preț",
+      "hint": "Unde stă scala de preț pe grafice.",
+      "left": "Stânga",
+      "right": "Dreapta"
+    },
+    "heikin": {
+      "label": "Lumânări Heikin Ashi",
+      "hint": "Lumânări netezite, care fac trendurile mai ușor de citit."
+    },
+    "reduced": {
+      "label": "Cere doar coloanele necesare",
+      "hint": "Poate reduce volumul de date transferat la seturi mari. Poate necesita apeluri în plus când se schimbă configurația graficului."
+    },
+    "candles": {
+      "label": "Lumânări afișate",
+      "hint": "Numărul implicit de lumânări pe un grafic. Implicit este 250."
+    },
+    "colors": {
+      "label": "Culorile lumânărilor",
+      "hint": "Ce culoare înseamnă că prețul a crescut.",
+      "greenUp": "Verde sus / roșu jos",
+      "redUp": "Roșu sus / verde jos"
+    },
+    "notifications": {
+      "title": "Notificări",
+      "subtitle": "Mesaje în aplicație cât timp e deschisă.",
+      "entryFill": "Cumpărare executată",
+      "entryFillHint": "Când botul cumpără o monedă.",
+      "exitFill": "Vânzare executată",
+      "exitFillHint": "Când botul vinde o monedă.",
+      "entryCancel": "Cumpărare anulată",
+      "entryCancelHint": "Când un ordin de cumpărare e anulat înainte să se execute.",
+      "exitCancel": "Vânzare anulată",
+      "exitCancelHint": "Când un ordin de vânzare e anulat înainte să se execute."
+    },
+    "backtesting": {
+      "title": "Backtesting",
+      "subtitle": "Coloane suplimentare în tabelele pe pereche și pe etichetă.",
+      "metrics": "Indicatori de backtesting",
+      "metricsHint": "Alege ce indicatori apar pe pereche și pe etichetă."
+    },
+    "about": {
+      "title": "Despre"
+    }
+  },
+  "notFound": {
+    "label": "Eroare 404",
+    "title": "Această pagină nu există",
+    "text": "Poate linkul e vechi sau adresa are o greșeală de scriere. Botul tău rulează oricum mai departe.",
+    "back": "Înapoi la început"
+  },
+  "general": {
+    "madeBy": "NovaeonTradingAI de la",
+    "openSource": "Open source sub licența {license}",
+    "copyToClipboard": "Copiază în clipboard",
+    "editValue": {
+      "nameAria": "Numele pentru {name}",
+      "edit": "Editează {name}",
+      "duplicate": "Duplică {name}",
+      "delete": "Șterge {name}",
+      "add": "Adaugă {name}",
+      "copyName": "{name} (copie)"
+    },
+    "stringList": {
+      "delete": "Șterge această valoare",
+      "add": "Adaugă o valoare"
+    },
+    "multiSelect": {
+      "placeholder": "Selectează elemente",
+      "search": "Caută…"
+    }
+  },
+  "theme": {
+    "toDark": "Temă întunecată",
+    "toLight": "Temă luminoasă"
+  },
+  "toasts": {
+    "notification": "Notificare",
+    "botTitle": "Bot: {bot}",
+    "entryFill": "Intrare executată: {pair} {direction} la {rate}",
+    "exitFill": "Ieșire executată: {pair} {direction} {rate}",
+    "exitCancel": "Ordinul de ieșire pentru {pair} a fost anulat, motiv: {reason}",
+    "entryCancel": "Ordinul de intrare pentru {pair} a fost anulat, motiv: {reason}",
+    "notify": {
+      "on": "Notificările sunt pornite. Vei afla despre cumpărări, vânzări și probleme.",
+      "bought": "Cumpărat: {coin}",
+      "boughtBody": "{amount} la {price}",
+      "sold": "Vândut: {coin} {pct}",
+      "soldProfit": "Profit {amount} · {reason}",
+      "soldLoss": "Pierdere {amount} · {reason}",
+      "notResponding": "Botul nu răspunde",
+      "notRespondingBody": "Botul de tranzacționare nu a mai dat semne de câteva minute.",
+      "back": "Botul a revenit",
+      "backBody": "Botul de tranzacționare răspunde din nou.",
+      "brake": "Frâna de urgență e activă",
+      "brakeBody": "Mai multe stopuri de siguranță într-un timp scurt. Cumpărările sunt oprite pentru o vreme."
+    }
+  },
+  "home": {
+    "status": {
+      "offlineTitle": "Botul nu răspunde",
+      "offlineText": "Nu a mai dat niciun semn de câteva minute. Verifică dacă computerul pe care rulează botul este pornit și conectat.",
+      "pausedTitle": "Cumpărările sunt oprite",
+      "pausedText": "Botul are grijă de monedele pe care le deține (inclusiv de stopurile de siguranță), dar nu mai cumpără nimic nou. Apasă „Reia cumpărările” ca să continue.",
+      "stoppedTitle": "Botul este oprit",
+      "stoppedText": "Nu tranzacționează acum. Apasă „Pornește” ca să continue.",
+      "brakeTitle": "Frâna de urgență este activă",
+      "brakeText": "Botul a atins mai multe stopuri de siguranță în scurt timp, așa că nu mai cumpără până la {time}. Monedele pe care le deține deja rămân protejate.",
+      "dipTitle": "Atenție: botul trece printr-o scădere mai mare",
+      "dipText": "Banii tăi sunt cu {pct} sub cel mai înalt nivel. Gândește-te să oprești cumpărările noi.",
+      "riskTitle": "Funcționează, dar e mult în joc",
+      "riskText": "Dacă fiecare monedă ar scădea până la stopul ei de siguranță, ai pierde aproximativ {pct} din bani.",
+      "goodTitle": "Totul e în regulă: botul funcționează normal",
+      "goodText": "Deține {n} monedă și urmărește {watching} pentru noi oportunități. | Deține {n} monede și urmărește {watching} pentru noi oportunități. | Deține {n} de monede și urmărește {watching} pentru noi oportunități."
+    },
+    "actions": {
+      "resumeBuying": "Reia cumpărările",
+      "pauseBuying": "Oprește cumpărările",
+      "start": "Pornește"
+    },
+    "confirm": {
+      "pauseTitle": "Oprești cumpărările?",
+      "pauseMessage": "Botul continuă să aibă grijă de monedele pe care le deține (inclusiv de stopurile de siguranță), dar nu mai cumpără nimic nou.",
+      "resumeTitle": "Reiei cumpărările?",
+      "resumeMessage": "Botul va căuta din nou monede noi de cumpărat.",
+      "startTitle": "Pornești botul?",
+      "startMessage": "Botul va începe din nou să tranzacționeze."
+    },
+    "money": {
+      "title": "Banii tăi",
+      "showAmounts": "Arată sumele",
+      "hideAmounts": "Ascunde sumele",
+      "practiceHint": "Botul tranzacționează cu bani fictivi, nu e nimic real în joc.",
+      "addPracticeTitle": "Adaugă mai mulți bani de exersare",
+      "addPracticeAria": "Adaugă bani de exersare",
+      "addMoney": "Adaugă bani",
+      "realHint": "Fiecare tranzacție folosește banii tăi reali.",
+      "sinceStart": "de când ai început",
+      "practiceNote": "{label} botul tranzacționează cu bani fictivi, nu e nimic real în joc.",
+      "practiceLabel": "Modul de exersare:",
+      "realNote": "{label} fiecare tranzacție folosește banii tăi reali.",
+      "realLabel": "Bani reali:",
+      "today": "Azi",
+      "todaySub": "din monedele vândute azi",
+      "holding": "Pe monedele deținute",
+      "holdingSub": "nu e final până la vânzare",
+      "chartCaption": "Banii tăi de când a pornit botul"
+    },
+    "coins": {
+      "title": "Monedele tale",
+      "empty": "Nimic deocamdată. Botul așteaptă un moment bun ca să cumpere.",
+      "bought": "cumpărată {ago}"
+    },
+    "events": {
+      "title": "Ce s-a întâmplat recent",
+      "empty": "Nimic încă. Primele acțiuni ale botului vor apărea aici.",
+      "bought": "A cumpărat {coin} cu {amount}",
+      "newsNone": "Verificarea de știri Sentinel: nicio știre despre {coin}, așa că a cumpărat normal",
+      "newsRead": "Sentinel a citit {n} titlu despre {coin}: nimic îngrijorător | Sentinel a citit {n} titluri despre {coin}: nimic îngrijorător | Sentinel a citit {n} de titluri despre {coin}: nimic îngrijorător",
+      "soldProfit": "A vândut {coin} cu un profit de {amount} ({reason})",
+      "soldLoss": "A vândut {coin} cu o pierdere de {amount} ({reason})"
+    },
+    "verdict": {
+      "title": "Cum se descurcă botul per total?",
+      "none": "Nicio monedă nu a fost vândută încă, deci nu e nimic de evaluat.",
+      "wins": "Profit la {wins} din {n} monedă vândută. | Profit la {wins} din {n} monede vândute. | Profit la {wins} din {n} de monede vândute.",
+      "winsBigger": "Profit la {wins} din {n} monedă vândută, iar câștigurile au fost mai mari decât pierderile. | Profit la {wins} din {n} monede vândute, iar câștigurile au fost mai mari decât pierderile. | Profit la {wins} din {n} de monede vândute, iar câștigurile au fost mai mari decât pierderile.",
+      "lossesBigger": "Profit la {wins} din {n} monedă vândută, dar pierderile au fost mai mari decât câștigurile, așa că per total botul a pierdut bani. | Profit la {wins} din {n} monede vândute, dar pierderile au fost mai mari decât câștigurile, așa că per total botul a pierdut bani. | Profit la {wins} din {n} de monede vândute, dar pierderile au fost mai mari decât câștigurile, așa că per total botul a pierdut bani.",
+      "early": "Sunt încă prea puține ca să tragi o concluzie (e nevoie de circa 30).",
+      "proHint": "Vrei grafice și cifre despre risc? Treci la {pro} din meniu."
+    }
+  },
+  "wallet": {
+    "title": "Portofel și bani reali",
+    "subtitle": "Conectează-ți portofelul și alege dacă botul tranzacționează cu bani de exersare sau cu bani reali.",
+    "loadError": "Nu s-a putut încărca starea portofelului",
+    "failed": "Nu a funcționat",
+    "mode": {
+      "using": "Botul folosește",
+      "upTo": "până la {capital} USDC din portofelul tău",
+      "pretend": "Bani fictivi, nu e nimic real în joc.",
+      "backToPractice": "Înapoi la exersare",
+      "useReal": "Folosește bani reali",
+      "sellFirst": "Botul deține {n} monedă cumpărată cu bani reali. Vinde-o mai întâi (Monedele mele → Vinde acum) înainte să revii la exersare. | Botul deține {n} monede cumpărate cu bani reali. Vinde-le mai întâi (Monedele mele → Vinde acum) înainte să revii la exersare. | Botul deține {n} de monede cumpărate cu bani reali. Vinde-le mai întâi (Monedele mele → Vinde acum) înainte să revii la exersare.",
+      "stepsLeft": "Ca să folosești bani reali, mai ai de făcut {n} pas mai jos. | Ca să folosești bani reali, mai ai de făcut {n} pași mai jos."
+    },
+    "liveNoPractice": "Banii de exersare există doar în modul de exersare. Cât timp botul tranzacționează cu bani reali, nu ai ce să adaugi sau să iei de la capăt.",
+    "connect": {
+      "title": "Conectează-ți portofelul MetaMask",
+      "connected": "Conectat: {address}",
+      "disconnect": "Deconectează",
+      "why": "Portofelul tău păstrează banii. Botul nu vede niciodată parola MetaMask sau fraza ta secretă.",
+      "button": "Conectează MetaMask",
+      "notFound": "MetaMask nu a fost găsit în acest browser. Instalează-l de pe {link} sau, pe telefon, deschide această pagină în browserul din aplicația MetaMask.",
+      "mismatch": "MetaMask arată alt cont ({account}) decât cel folosit de bot. Botul folosește în continuare {wallet} până când te conectezi din nou."
+    },
+    "fund": {
+      "title": "Depune USDC pe Hyperliquid",
+      "text": "Botul tranzacționează pe Hyperliquid. Depune acolo USDC din portofelul MetaMask (cel puțin {min} USDC). Cel mai bine folosești un portofel doar pentru bot și nu tranzacționezi manual din el cât timp botul rulează.",
+      "balance": "Soldul tău pe Hyperliquid: {balance}",
+      "open": "Deschide Hyperliquid pentru depunere"
+    },
+    "approve": {
+      "title": "Permite botului să tranzacționeze",
+      "text": "MetaMask îți cere să semnezi un mesaj. Prin el, botul poate să {buySell} pe contul tău Hyperliquid. Botul {noWithdraw}. Semnarea nu costă nimic.",
+      "buySell": "cumpere și să vândă",
+      "noWithdraw": "nu poate retrage banii și nici nu îi poate trimite nicăieri",
+      "done": "Gata. Botul poate tranzacționa pentru {address}.",
+      "sign": "Semnează în MetaMask"
+    },
+    "practised": "Până acum botul a exersat cu {n} monedă vândută. | Până acum botul a exersat cu {n} monede vândute. | Până acum botul a exersat cu {n} de monede vândute.",
+    "tooFew": "Sunt încă prea puține ca să știi dacă botul chiar câștigă bani. Îți recomandăm să aștepți cel puțin 30 înainte să folosești bani reali.",
+    "goLive": {
+      "title": "Tranzacționează cu bani reali",
+      "amountLabel": "Câți bani poate folosi botul?",
+      "amountHelp": "Între {min} și {max} USDC (soldul tău pe Hyperliquid).",
+      "ackLose": "Înțeleg că pot pierde acești bani, în cel mai rău caz pe toți.",
+      "ackNoGuarantee": "Înțeleg că rezultatele bune la exersare nu garantează profituri reale.",
+      "ackLeverageOn": "Înțeleg că Sentinel poate împrumuta până la 3× la o tranzacție nouă (câștiguri mai mari, pierderi mai mari).",
+      "ackLeverageOff": "Înțeleg că botul nu împrumută (1×), decât dacă activez levierul AI sau aleg un levier când cumpăr manual o monedă.",
+      "typePhrase": "Scrie „{phrase}” pentru confirmare",
+      "note": "Monedele pe care botul le deține la exersare rămân la exersare. Cu bani reali, pornește de la zero și își setează stopurile de siguranță direct pe Hyperliquid, așa că funcționează chiar dacă acest computer e oprit.",
+      "start": "Pornește cu bani reali"
+    },
+    "confirm": {
+      "disconnectTitle": "Deconectezi acest portofel?",
+      "disconnectMessage": "Botul uită permisiunea de tranzacționare pentru acest portofel. Banii tăi rămân neatinși pe Hyperliquid.",
+      "backTitle": "Înapoi la banii de exersare?",
+      "backMessage": "Botul nu mai folosește bani reali și continuă cu bani fictivi. USDC-ul tău rămâne în contul tău Hyperliquid."
+    }
+  },
+  "practice": {
+    "subtitle": "Bani fictivi cu care exersează botul. Adaugă mai mulți oricând vrei sau ia-o de la capăt.",
+    "loadError": "Banii tăi de exersare nu au putut fi încărcați acum.",
+    "putIn": "Bani de exersare puși de tine",
+    "startedWith": "Ai început cu {amount}.",
+    "startedWithOn": "Ai început cu {amount} pe {date}.",
+    "added": "De atunci ai adăugat {amount}.",
+    "onTop": "Ce a câștigat sau a pierdut botul se adaugă la asta.",
+    "restartingTitle": "Botul repornește cu banii tăi de exersare",
+    "savingTitle": "Se salvează banii tăi de exersare",
+    "waitText": "Durează cam un minut. Monedele pe care le deține rămân pe loc. Poți părăsi pagina, procesul se termină singur.",
+    "addTitle": "Adaugă bani de exersare",
+    "quickAmounts": "Sume rapide",
+    "otherAmount": "Altă sumă",
+    "amountAria": "Suma de adăugat, în USDC",
+    "addButton": "Adaugă bani de exersare",
+    "cleanSlate": "Vrei să o iei de la zero cu o sumă nouă?",
+    "startOver": "Începe din nou",
+    "problem": {
+      "enterAmount": "Introdu o sumă în USDC.",
+      "atLeastOne": "Introdu cel puțin 1 USDC.",
+      "overLimit": "Suma depășește limita de {max}.",
+      "capReached": "Banii de exersare sunt limitați la {max} în total, iar tu ai atins limita.",
+      "capRoom": "Banii de exersare sunt limitați la {max} în total. Mai poți adăuga până la {room}."
+    },
+    "slowBack": "Botul revine mai greu decât de obicei. Ar trebui să fie gata în unul-două minute.",
+    "addConfirmTitle": "Adaugi {amount} ca bani de exersare?",
+    "addConfirmMessage": "Banii tăi de exersare cresc de la {from} la {to}.\n\nBotul repornește cam un minut ca să îi preia. Monedele pe care le deține acum rămân pe loc. Cu mai mulți bani de exersare, botul face tranzacții de exersare mai mari.",
+    "addedToast": "Bani de exersare adăugați. Botul exersează acum cu {amount}.",
+    "resetToast": "Exersarea începe din nou cu {amount}.",
+    "reset": {
+      "title": "Începi exersarea din nou?",
+      "text": "Botul o ia de la capăt, din prima zi, cu o nouă sumă de bani de exersare. Repornește cam un minut. Monedele pe care le deține la exersare rămân în istoricul vechi.",
+      "startWith": "Începe cu",
+      "amountPlaceholder": "Sumă în USDC",
+      "ack": "Încep cu un istoric de exersare nou. Cel vechi se păstrează, dar nu mai este afișat."
+    }
+  },
+  "aiLeverage": {
+    "loadError": "Setarea de levier nu a putut fi încărcată.",
+    "label": "Lasă Sentinel să aleagă levierul (până la {max}×)",
+    "statusLocked": "Blocat: fiecare tranzacție nouă folosește 1× (fără împrumut).",
+    "statusOn": "Activat: Sentinel alege între 1× și {max}× pentru fiecare tranzacție nouă.",
+    "statusOff": "Dezactivat: fiecare tranzacție nouă folosește 1× (fără împrumut).",
+    "toastOn": "Levierul AI este activat",
+    "toastOff": "Levierul AI este dezactivat",
+    "slowBack": "Botul revine mai greu decât de obicei; ar trebui să fie gata în unul-două minute.",
+    "offTitle": "Dezactivezi levierul AI?",
+    "offMessage": "Tranzacțiile noi folosesc din nou 1× (fără împrumut). Monedele pe care botul le deține deja își păstrează levierul.\n\nBotul repornește cam un minut ca să aplice schimbarea.",
+    "offConfirm": "Dezactivează",
+    "explainNews": "Sentinel este AI-ul care citește știrile înainte de fiecare cumpărare. Cu opțiunea activată, poate și să împrumute ca să mărească o tranzacție nouă: 2× când știrile despre monedă sunt clar bune, 3× când și Bitcoin e puternic. Fără știri clare, rămâne la 1×.",
+    "explainRisk": "Împrumutul mărește atât câștigurile, cât și pierderile. Într-o prăbușire rapidă, prețul poate sări peste stopul de siguranță, iar bursa poate închide o tranzacție cu împrumut, cu pierderea totală a banilor din ea (lichidare).",
+    "compactRisk": "Împrumutul mărește câștigurile și pierderile (2× le dublează, 3× le triplează).",
+    "moreInSettings": "Mai multe în Setări",
+    "newOnly": "Schimbările afectează doar tranzacțiile noi. Monedele pe care botul le deține deja își păstrează levierul.",
+    "manualHint": "Poți alege în continuare singur levierul când cumperi manual o monedă.",
+    "restartingTitle": "Botul repornește cu noua setare",
+    "restartingText": "Durează cam un minut. Monedele pe care le deține rămân pe loc.",
+    "failed": "Nu a funcționat",
+    "confirm": {
+      "title": "Lași Sentinel să împrumute până la 3×?",
+      "intro": "La fiecare tranzacție nouă, Sentinel poate împrumuta ca să o mărească: 2× când știrile despre monedă sunt clar bune, {max}× când și Bitcoin e puternic.",
+      "bigger": "Câștigurile și pierderile cresc: 2× le dublează, 3× le triplează. La 3×, o mișcare de preț de 5% devine un câștig sau o pierdere de 15% din banii acelei tranzacții.",
+      "crash": "Într-o prăbușire rapidă, prețul poate sări peste stopul de siguranță. Bursa închide atunci tranzacția și toți banii din ea se pierd (lichidare).",
+      "newOnly": "Sunt afectate doar tranzacțiile noi. Poți dezactiva opțiunea oricând. Botul repornește cam un minut.",
+      "live": "Botul tranzacționează acum cu bani reali.",
+      "practice": "Botul folosește acum bani de exersare. Setarea rămâne și când treci la bani reali.",
+      "ack": "Înțeleg că, prin levier, pot pierde mai mulți bani, până la toți banii dintr-o tranzacție.",
+      "keep": "Rămâi la 1×",
+      "turnOn": "Activează levierul AI"
+    }
+  },
+  "control": {
+    "cancelled": "Ai anulat cererea în MetaMask.",
+    "pending": "MetaMask afișează deja o cerere. Deschide extensia MetaMask și răspunde acolo.",
+    "otherWallet": "O altă extensie de portofel din acest browser a interceptat cererea. Dezactivează celelalte extensii de portofel (lasă MetaMask activat), reîncarcă pagina și încearcă din nou.",
+    "depositFirst": "Hyperliquid permite asta doar după ce ai depus USDC în contul tău Hyperliquid. Fă mai întâi depunerea, apoi încearcă din nou.",
+    "notFound": "MetaMask nu a fost găsit în acest browser.",
+    "noAccount": "MetaMask nu a partajat niciun cont."
+  },
+  "plain": {
+    "exit": {
+      "signal": "Semnal de vânzare de la strategie",
+      "manualStop": "Vândută la stopul de siguranță setat de tine",
+      "trailing": "Stopul de siguranță ridicat a fost atins",
+      "stop": "Stopul de siguranță a fost atins",
+      "roi": "Ținta de profit a fost atinsă",
+      "force": "Închisă de tine",
+      "liquidation": "Lichidată"
+    },
+    "ago": {
+      "justNow": "chiar acum",
+      "minutes": "acum {n} min",
+      "hours": "acum {n} oră | acum {n} ore | acum {n} de ore",
+      "days": "acum {n} zi | acum {n} zile | acum {n} de zile"
+    },
+    "duration": {
+      "underHour": "mai puțin de o oră",
+      "hours": "{n} oră | {n} ore | {n} de ore",
+      "days": "{n} zi | {n} zile | {n} de zile"
+    }
+  },
+  "stat": {
+    "quality": {
+      "early": "prea devreme",
+      "low": "puține date",
+      "hint": "Puține tranzacții închise: consideră această cifră doar orientativă"
+    },
+    "gauge": {
+      "bad": "Aproape de limită",
+      "warn": "Atenție",
+      "ok": "În regulă"
+    },
+    "sparkline": {
+      "label": "Banii tăi în timp",
+      "empty": "Graficul începe după ce se vinde prima monedă."
+    }
+  }
+}

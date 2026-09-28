@@ -1,0 +1,57 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: wednesday
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    groups:
+      eslint:
+        dependency-type: development
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "@typescript-eslint/*"
+          - "typescript-eslint"
+          - "@vue/eslint-*"
+      vue:
+        patterns:
+          - "@vue/*"
+          - "vue"
+          - "vue-*"
+          - "pinia*"
+        exclude-patterns:
+          - "*eslint*"
+          - "vue-echarts"
+      vueuse:
+        patterns:
+          - "@vueuse/*"
+      tailwindcss:
+        patterns:
+          - "tailwind*"
+          - "@tailwindcss/*"
+      vite-vitest:
+        patterns:
+          - "vite"
+          - "vitest"
+          - "@vitejs/*"
+      date-fns:
+        patterns:
+          - "date-fns*"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: thursday
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns:
+          - "*"
