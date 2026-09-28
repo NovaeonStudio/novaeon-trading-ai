@@ -1,0 +1,13 @@
+{
+ "metrics": {
+  "n": 248,
+  "neg_positives_in_set": 19,
+  "neg_accuracy": 0.968,
+  "neg_recall": 0.684,
+  "neg_precision": 0.867,
+  "neg_brier": 0.0292,
+  "outlook_accuracy": 0.915,
+  "positive_precision": 0.773,
+  "positive_predicted": 44
+ }
+}

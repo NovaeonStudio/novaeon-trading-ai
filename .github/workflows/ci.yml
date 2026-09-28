@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Typecheck, lint, test, build (Node ${{ matrix.node }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        # package.json has no "engines" field and there is no .nvmrc; these are the versions we support.
+        node: ["24", "26"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Sets up Node and the pnpm version pinned in package.json ("packageManager").
+      - uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
+        with:
+          runtime: node@${{ matrix.node }}
+
+      - name: Install dependencies (exactly as locked)
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run lint-ci
+
+      - name: Unit tests
+        run: pnpm run test:unit --run
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload the built app
+        if: ${{ matrix.node == '26' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: novaeon-ui-dist
+          path: |
+            dist
+            !dist/**/*.map
+          retention-days: 10
+
+  shell:
+    name: Installer scripts parse with macOS bash 3.2
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: bash -n (macOS ships bash 3.2, the installer must parse with it)
+        run: |
+          for f in install.sh installer/*.sh installer/app/*.sh installer/novaeon bot/bin/*.sh; do
+            [ -f "$f" ] || continue
+            head -1 "$f" | grep -q zsh && continue
+            /bin/bash -n "$f" && echo "ok $f"
+          done

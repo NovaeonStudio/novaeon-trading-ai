@@ -1,0 +1,15 @@
+{
+    "strategy": "BreakoutRegimeKev",
+    "api_server": {
+        "enabled": true,
+        "listen_ip_address": "127.0.0.1",
+        "listen_port": 8081,
+        "verbosity": "error",
+        "enable_openapi": false,
+        "jwt_secret_key": "CHANGE-ME",
+        "ws_token": "CHANGE-ME",
+        "CORS_origins": [],
+        "username": "admin",
+        "password": "CHANGE-ME"
+    }
+}

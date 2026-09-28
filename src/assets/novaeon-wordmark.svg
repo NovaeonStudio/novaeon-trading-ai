@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="862" height="192" viewBox="398 298 862 192">
+  <!-- novæon wordmark (transparent, cropped for UI navbar; geometry = master) — custom-drawn monoline geometric letterforms (no font dependency in the mark) -->
+  <defs>
+    <linearGradient id="gae" gradientUnits="userSpaceOnUse" x1="753" y1="380" x2="953" y2="480">
+      <stop offset="0" stop-color="#f4b25a"/>
+      <stop offset="1" stop-color="#ff7a63"/>
+    </linearGradient>
+    <radialGradient id="dg">
+      <stop offset="0" stop-color="#ffe3b0" stop-opacity="0.95"/>
+      <stop offset="0.4" stop-color="#f4b25a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#f4b25a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig">
+      <stop offset="0" stop-color="#6c7bff" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#6c7bff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- letters: n o v (ink) -->
+  <g fill="none" stroke="#edf0fb" stroke-width="16" stroke-linecap="round">
+    <path d="M 415,480 L 415,380"/>
+    <path d="M 415,424 C 415,392 431,380 455,380 C 479,380 495,392 495,424 L 495,480"/>
+    <circle cx="571" cy="430" r="50"/>
+    <path d="M 647,380 L 687,480 L 727,380"/>
+  </g>
+
+  <!-- æ ligature: the aeon inside the name -->
+  <g fill="none" stroke="url(#gae)" stroke-width="16" stroke-linecap="round">
+    <circle cx="803" cy="430" r="50"/>
+    <path d="M 853,380 L 853,480"/>
+    <path d="M 953,430 A 50 50 0 1 0 941.3,462.1"/>
+    <path d="M 853,430 L 953,430"/>
+  </g>
+
+  <!-- letters: o n (ink) -->
+  <g fill="none" stroke="#edf0fb" stroke-width="16" stroke-linecap="round">
+    <circle cx="1029" cy="430" r="50"/>
+    <path d="M 1105,480 L 1105,380"/>
+    <path d="M 1105,424 C 1105,392 1121,380 1145,380 C 1169,380 1185,392 1185,424 L 1185,480"/>
+  </g>
+
+  <!-- the nova: signature position, beyond the name -->
+  <g transform="translate(1228,330)">
+    <circle r="26" fill="url(#dg)"/>
+    <circle r="7.5" fill="#ffdfae"/>
+    <line x1="-16" y1="0" x2="16" y2="0" stroke="#ffe9c9" stroke-width="1.6" opacity="0.85"/>
+    <line x1="0" y1="-16" x2="0" y2="16" stroke="#ffe9c9" stroke-width="1.6" opacity="0.85"/>
+  </g>
+
+  </svg>

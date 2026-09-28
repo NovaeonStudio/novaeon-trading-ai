@@ -1,0 +1,27 @@
+{
+ "summary": {
+  "n": 495,
+  "ref": {
+   "bad_news_caught": 23,
+   "bad_news_total": 28,
+   "false_blocks": 8,
+   "outlook_acc": 0.913,
+   "lev2_calls": 75,
+   "lev2_precision": 0.813
+  },
+  "cand": {
+   "bad_news_caught": 23,
+   "bad_news_total": 28,
+   "false_blocks": 6,
+   "outlook_acc": 0.893,
+   "lev2_calls": 91,
+   "lev2_precision": 0.725
+  },
+  "max_abs_dp_neg": 0.6372,
+  "mean_abs_dp_neg": 0.0105,
+  "veto_flips@0.3": 6,
+  "lev2_flips@0.5": 18,
+  "outlook_argmax_flips": 28,
+  "cand_sec_per_call": 0.56
+ }
+}

@@ -1,0 +1,39 @@
+{
+ "metrics": {
+  "n": 247,
+  "major_negative": {
+   "acc": 0.976,
+   "positives": 9,
+   "recall": 0.333,
+   "precision": 1.0,
+   "brier": 0.0176
+  },
+  "outlook": {
+   "acc": 0.895,
+   "positive_precision": 0.811,
+   "positive_predicted": 37
+  },
+  "event_type": {
+   "acc": 0.761
+  },
+  "impact": {
+   "acc": 0.571,
+   "within1": 0.976,
+   "mae": 0.466
+  },
+  "relevant": {
+   "acc": 0.883,
+   "positives": 227,
+   "recall": 0.881,
+   "precision": 0.99,
+   "brier": 0.0881
+  },
+  "stale": {
+   "acc": 0.988,
+   "positives": 4,
+   "recall": 0.25,
+   "precision": 1.0,
+   "brier": 0.013
+  }
+ }
+}
