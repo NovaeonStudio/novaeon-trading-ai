@@ -119,6 +119,22 @@ its news filter is on par with the reference. Its 2× signal is less precise, so
 with AI leverage locked off. Memory for `mlx-4bit`: about 5 GB idle; about 7.6 GB peak with 495 checks back to back. Speed on an Apple M5 Max: about 0.5 s
 per request for either build.
 
+### What the veto did to the bot (replay over a year of trades)
+
+Agreement with teacher labels is not the same as being useful for trading, so we also replayed the bot's news check
+over a year of backtest entries (Binance perpetuals, 2025-10-01 to 2026-09-23, 20 coins, 1×, fees and funding
+included), with archived headlines instead of the live feeds. Date-only timestamps count as known 24 hours later.
+
+| | Entries | Avg. trade | Winners | 72 h after entry |
+|---|---|---|---|---|
+| Blocked by Sentinel (P ≥ 0.30) | 10 | −2.1% | 1 of 10 | −2.8% |
+| Allowed | 606 | +1.0% | 38% | +0.9% |
+
+Blocked entries did worse (−3.0 points per trade, one-sided permutation p ≈ 0.05), but the 10 blocks come from about
+five events, so this is weak evidence. The portfolio result was unchanged (+61.4% with the news check, +61.5%
+without; the strategy's stop-loss already limits these trades). Read: a guard against hack-type events, not a source
+of returns. Code and details: [research/veto-eval](https://github.com/NovaeonStudio/novaeon-trading-ai/tree/main/research/veto-eval).
+
 ### Extra questions (not trained, not used by the bot)
 
 On test set B we also asked four questions Sentinel was not trained on. Zero-shot: event type (10 classes)
