@@ -19,6 +19,12 @@ const busy = ref(false);
 /** Stop editor (inline under the chart) with a live preview line, and the buy-more dialog. */
 const editingStop = ref(false);
 const previewStop = ref<number | null>(null);
+/** Price picked in the chart's right-click menu: pre-fills the stop editor. */
+const stopSeed = ref<number | null>(null);
+function openStopEditor(price?: number) {
+  stopSeed.value = price ?? null;
+  editingStop.value = true;
+}
 const buyOpen = ref(false);
 const manual = computed(() => {
   const m = manualStops.value[String(props.trade.trade_id)];
@@ -51,12 +57,14 @@ watch(
   },
 );
 function toggleStopEditor() {
+  stopSeed.value = null;
   editingStop.value = !editingStop.value;
   if (!editingStop.value) previewStop.value = null;
 }
 function closeStopEditor() {
   editingStop.value = false;
   previewStop.value = null;
+  stopSeed.value = null;
 }
 
 watch(
@@ -273,7 +281,7 @@ function outlookRows(k: KevRecord) {
         :manual-stop="!!manual"
         :engine-levels="levels"
         :editable-stop="!!openTrade"
-        @edit-stop="editingStop = true"
+        @edit-stop="openStopEditor"
       />
       <!-- Position actions right under the chart -->
       <div
@@ -322,6 +330,7 @@ function outlookRows(k: KevRecord) {
         v-if="openTrade && editingStop"
         v-model:preview="previewStop"
         :trade="openTrade"
+        :initial-price="stopSeed"
         :currency="currency"
         :manual-stop="manual"
         :engine-levels="levels"

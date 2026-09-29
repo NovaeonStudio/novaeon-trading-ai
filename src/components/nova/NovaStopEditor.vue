@@ -20,6 +20,8 @@ const props = defineProps<{
   manualStop: NovaManualStop | null;
   /** Engine-side levels (break-even incl. funding, liquidation, price tick) when the control service has them. */
   engineLevels?: NovaTradeLevels | null;
+  /** Price picked on the chart (right-click "set stop here"): starts the editor on a custom price. */
+  initialPrice?: number | null;
 }>();
 const preview = defineModel<number | null>('preview', { default: null });
 const emit = defineEmits<{ close: [] }>();
@@ -94,6 +96,15 @@ watch(
   { immediate: true },
 );
 onBeforeUnmount(() => (preview.value = null));
+watch(
+  () => props.initialPrice,
+  (p) => {
+    if (!p) return;
+    custom.value = toTick(p);
+    choice.value = 'custom';
+  },
+  { immediate: true },
+);
 
 function pick(key: string) {
   choice.value = key;

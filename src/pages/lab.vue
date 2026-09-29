@@ -27,7 +27,7 @@ const variantLabel = (v: Variant) =>
   te(`lab.variant.${v.id}`) ? tr(`lab.variant.${v.id}`) : v.label;
 const twoYear = (v: Variant) => ((1 + v.y1.profit / 100) * (1 + v.y2.profit / 100) - 1) * 100;
 
-// ---- live vs expectation (closed trades since v2 went live) ----
+// ---- live vs expectation (closed trades since the current strategy version went live) ----
 const liveSince = new Date(research.live_since).getTime();
 const liveTrades = computed<ClosedTrade[]>(() =>
   (bot.value?.closedTrades ?? []).filter((t) => t.open_timestamp >= liveSince),

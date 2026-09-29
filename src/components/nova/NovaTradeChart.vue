@@ -4,11 +4,13 @@
  * - readable candles on the strategy timeframe (4h / 1d built from them), range presets, drag to pan,
  *   pinch or Ctrl + scroll to zoom;
  * - average entry, break-even after fees, stop (with a live preview while it is being edited), liquidation,
- *   the strategy's exit trigger (10-candle low) and breakout level (20-candle high) as step lines;
+ *   the strategy's exit trigger (10-hour low) and breakout level (20-hour high) as step lines;
  * - risk zone (entry → stop) and open-profit zone (entry → now), every fill, the Sentinel news check at entry;
  * - price tags on the right as HTML (stacked so they never overlap), a legend that doubles as the
  *   table view, and an "if sold at this price" readout under the pointer.
  * Layers are switchable and remembered per browser (separately for Simple and Pro).
+ * Right-click (long-press on touch) opens a menu at the pointer: set the stop there, draw an own price line
+ * (remembered per coin), copy the price, candle size, time range, layers, reset view, save as image.
  */
 import type {
   BarSeriesOption,
@@ -20,6 +22,7 @@ import type {
   ScatterSeriesOption,
 } from 'echarts';
 import type { ElementEvent } from 'echarts';
+import type { ContextMenuItem } from '@nuxt/ui';
 import ECharts from 'vue-echarts';
 import { BarChart, CandlestickChart, LineChart, ScatterChart } from 'echarts/charts';
 import {
@@ -90,7 +93,8 @@ const props = withDefaults(
     engineLevels: null,
   },
 );
-const emit = defineEmits<{ editStop: [] }>();
+/** editStop: open the stop editor, optionally pre-filled with a price (from the right-click menu). */
+const emit = defineEmits<{ editStop: [price?: number] }>();
 
 const H = 3_600_000;
 const D = 24 * H;
@@ -130,7 +134,7 @@ const nowRate = computed(() =>
 const baseTf = computed(() => botStore.activeBot.botState?.timeframe ?? '1h');
 const tfOptions = computed(() => {
   const base = TF_MS[baseTf.value] ?? H;
-  return [baseTf.value, '4h', '1d'].filter(
+  return [baseTf.value, '30m', '1h', '4h', '1d'].filter(
     (tf, i, all) =>
       all.indexOf(tf) === i && (i === 0 || ((TF_MS[tf] ?? 0) > base && TF_MS[tf]! % base === 0)),
   );
@@ -270,6 +274,18 @@ const simpleLayers = useStorage<Record<LayerKey, boolean>>(
 const layers = computed(() => (simple.value ? simpleLayers.value : proLayers.value));
 function toggleLayer(key: LayerKey, on: boolean) {
   (simple.value ? simpleLayers : proLayers).value[key] = on;
+}
+
+// ---------- Own price lines (right-click), remembered per coin ----------
+const marksStore = useStorage<Record<string, number[]>>('nova-trade-chart-marks', {}, localStorage);
+const marks = computed(() => marksStore.value[t.value.pair] ?? []);
+function addMark(price: number) {
+  marksStore.value = { ...marksStore.value, [t.value.pair]: [...marks.value, price].slice(-8) };
+}
+function clearMarks() {
+  const rest = { ...marksStore.value };
+  delete rest[t.value.pair];
+  marksStore.value = rest;
 }
 
 const tc = computed(() => novaTradeColors(tokens.value));
@@ -478,6 +494,16 @@ const levels = computed<Level[]>(() => {
       dash: 'solid',
     });
   }
+  marks.value.forEach((price, i) =>
+    out.push({
+      key: `mark-${i}`,
+      name: tr('chart.tag.myLine'),
+      price,
+      color: k.warn,
+      dash: 'dashed',
+      note: distNote(price),
+    }),
+  );
   return out;
 });
 
@@ -1036,6 +1062,126 @@ const readoutUp = computed(() => {
   return r ? profitAtPrice(t.value, r.price).abs >= 0 : true;
 });
 
+// ---------- Right-click menu ----------
+/** Price (and time) under the pointer when the menu opened; null outside the price pane. */
+const ctxAt = ref<{ price: number } | null>(null);
+function onContext(e: MouseEvent) {
+  const ch = chartEl.value;
+  const el = ch?.$el as HTMLElement | undefined;
+  ctxAt.value = null;
+  if (!ch?.chart || !el) return;
+  const r = el.getBoundingClientRect();
+  const x = e.clientX - r.left;
+  const y = e.clientY - r.top;
+  if (x <= 8 || x >= plotRight.value || y <= GRID_TOP || y >= plotBottom.value) return;
+  const price = Number(ch.convertFromPixel({ yAxisIndex: 0 }, y));
+  if (Number.isFinite(price) && price > 0) ctxAt.value = { price };
+}
+const toast = useToast();
+const { copy } = useClipboard({ legacy: true });
+async function copyPrice(price: number) {
+  await copy(priceText(price));
+  toast.add({ title: tr('chart.menu.copied', { price: priceText(price) }), duration: 1500 });
+}
+function saveImage() {
+  const url = chartEl.value?.getDataURL({
+    type: 'png',
+    pixelRatio: 2,
+    backgroundColor: tokens.value.surface,
+  });
+  if (!url) return;
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${t.value.pair.split('/')[0]}-${activeTf.value}-${timestampms(Date.now()).slice(0, 10)}.png`;
+  a.click();
+}
+const ctxItems = computed<ContextMenuItem[][]>(() => {
+  const at = ctxAt.value;
+  const x = t.value;
+  const s = simple.value;
+  const groups: ContextMenuItem[][] = [];
+  if (at) {
+    const here: ContextMenuItem[] = [
+      { type: 'label', label: tr('chart.menu.at', { price: priceText(at.price) }) },
+    ];
+    // Stops only move up and must stay below the price: offer it only where a stop can go.
+    if (x.is_open && props.editableStop && nowRate.value && at.price < nowRate.value)
+      here.push({
+        label: s ? tr('chart.menu.stopHereSimple') : tr('chart.menu.stopHere'),
+        icon: 'i-mdi-shield-edit-outline',
+        onSelect: () => emit('editStop', at.price),
+      });
+    here.push(
+      {
+        label: tr('chart.menu.lineHere'),
+        icon: 'i-mdi-ray-start-end',
+        onSelect: () => addMark(at.price),
+      },
+      {
+        label: tr('chart.menu.copyPrice'),
+        icon: 'i-mdi-content-copy',
+        onSelect: () => copyPrice(at.price),
+      },
+    );
+    groups.push(here);
+  }
+  const view: ContextMenuItem[] = [];
+  if (!s && tfOptions.value.length > 1)
+    view.push({
+      label: tr('chart.toolbar.candleSize'),
+      icon: 'i-mdi-chart-bar',
+      children: tfOptions.value.map((tf) => ({
+        type: 'checkbox' as const,
+        label: tf === tfOptions.value[0] ? tr('chart.menu.strategyTf', { tf }) : tf,
+        checked: activeTf.value === tf,
+        onUpdateChecked: () => setTf(tf),
+      })),
+    });
+  view.push(
+    {
+      label: tr('chart.toolbar.timeRange'),
+      icon: 'i-mdi-calendar-range',
+      children: rangeOptions.value.map((r) => ({
+        type: 'checkbox' as const,
+        label: r.label,
+        checked: range.value === r.key && !zoomed.value,
+        onUpdateChecked: () => setRange(r.key),
+      })),
+    },
+    {
+      label: tr('chart.toolbar.layers'),
+      icon: 'i-mdi-layers-outline',
+      children: layerDefs.value.map((d) => ({
+        type: 'checkbox' as const,
+        label: d.label,
+        checked: layers.value[d.key],
+        onUpdateChecked: (v: boolean) => toggleLayer(d.key, v),
+      })),
+    },
+  );
+  if (zoomed.value)
+    view.push({
+      label: tr('chart.toolbar.resetView'),
+      icon: 'i-mdi-fit-to-screen-outline',
+      onSelect: resetZoom,
+    });
+  groups.push(view);
+  const more: ContextMenuItem[] = [];
+  if (marks.value.length)
+    more.push({
+      label: tr('chart.menu.clearLines', marks.value.length),
+      icon: 'i-mdi-eraser',
+      onSelect: clearMarks,
+    });
+  more.push({
+    label: tr('chart.menu.saveImage'),
+    icon: 'i-mdi-image-outline',
+    onSelect: saveImage,
+  });
+  groups.push(more);
+  return groups;
+});
+
 // ---------- Legend (doubles as the table view) ----------
 const legend = computed(() => {
   const x = t.value;
@@ -1050,7 +1196,7 @@ const legend = computed(() => {
     mark?: string;
   }[] = [];
   for (const l of levels.value) {
-    if (l.key === 'now' || l.key === 'exit') continue;
+    if (l.key === 'now' || l.key === 'exit' || l.key.startsWith('mark-')) continue;
     let value = priceText(l.price);
     if (x.is_open && ['stop', 'preview', 'liq', 'exitSignal'].includes(l.key)) {
       const res = profitAtPrice(x, l.price);
@@ -1209,106 +1355,112 @@ const plotStyle = computed(() => (props.height ? { height: props.height } : unde
       </div>
     </div>
 
-    <!-- Plot -->
-    <div
-      class="relative"
-      :class="height ? '' : 'h-[23rem] sm:h-[30rem] xl:h-[34rem]'"
-      :style="plotStyle"
-    >
-      <USkeleton v-if="!option && !loaded" class="h-full w-full rounded-xl" />
+    <!-- Plot (right-click / long-press: menu at the pointer) -->
+    <UContextMenu :items="ctxItems" :disabled="!option">
       <div
-        v-else-if="!option"
-        class="flex h-full flex-col items-center justify-center gap-3 text-center"
+        class="relative"
+        :class="height ? '' : 'h-[23rem] sm:h-[30rem] xl:h-[34rem]'"
+        :style="plotStyle"
+        data-testid="nova-trade-chart-plot"
+        @contextmenu="onContext"
       >
-        <span class="flex size-10 items-center justify-center rounded-full bg-accented">
-          <UIcon name="i-mdi-chart-box-outline" class="size-5 text-muted" />
-        </span>
-        <p class="text-sm text-pretty text-muted">{{ tr('chart.empty') }}</p>
-      </div>
-      <template v-else>
-        <ECharts
-          ref="chartEl"
-          :option="option"
-          :theme="chartTheme"
-          :update-options="{ notMerge: true }"
-          autoresize
-          class="h-full w-full transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
-          :class="{ 'opacity-60': loading }"
-          @finished="layoutTags"
-          @datazoom="onDataZoom"
-          @zr:mousemove="onMove"
-          @zr:globalout="readout = null"
-        />
-        <!-- Price tags (HTML, stacked so they never overlap) -->
-        <div class="pointer-events-none absolute inset-0" aria-hidden="false">
-          <svg class="absolute inset-0 h-full w-full overflow-visible">
-            <line
-              v-for="tg in tags.filter((x) => !x.off && Math.abs(x.y - x.lineY) > 2)"
-              :key="`l-${tg.key}`"
-              :x1="plotRight"
-              :y1="tg.lineY"
-              :x2="plotRight + 6"
-              :y2="tg.y"
-              :stroke="tg.color"
-              stroke-width="1"
-            />
-          </svg>
-          <span
-            v-for="l in axisLabels"
-            :key="`a-${l.v}`"
-            class="nova-num absolute text-xs text-muted"
-            :style="{ top: `${l.y - 8}px`, left: `${plotRight + 10}px` }"
-            >{{ priceText(l.v) }}</span
-          >
-          <div
-            v-for="tg in tags"
-            :key="tg.key"
-            class="absolute flex h-5 items-center"
-            :style="{ top: `${tg.y - 10}px`, left: '0px', right: '0px' }"
-          >
-            <button
-              v-if="tg.key === 'stop' && editableStop"
-              type="button"
-              class="pointer-events-auto absolute flex h-5 items-center gap-1 rounded-md border border-default/70 bg-default/90 px-1.5 text-xs font-medium whitespace-nowrap text-default shadow-sm transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accented focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 active:scale-[0.98]"
-              :style="nameStyle"
-              :title="simple ? tr('stop.title.simple') : tr('stop.title.pro')"
-              @click="emit('editStop')"
-            >
-              <UIcon name="i-mdi-pencil-outline" class="size-3.5 text-muted" />
-              {{ tg.name }}<span v-if="tg.note" class="nova-num text-muted">{{ tg.note }}</span>
-            </button>
-            <span
-              v-else
-              class="absolute flex h-5 items-center gap-1 rounded-md bg-default/80 px-1.5 text-xs font-medium whitespace-nowrap text-default"
-              :style="nameStyle"
-            >
-              {{ tg.name }}<span v-if="tg.note" class="nova-num text-muted">{{ tg.note }}</span>
-            </span>
-            <span
-              class="nova-num absolute flex h-5 items-center gap-0.5 rounded-md px-1.5 text-xs font-semibold whitespace-nowrap"
-              :style="{
-                left: `${plotRight + 6}px`,
-                background: tg.color,
-                color: tokens.onColor,
-                outline: tg.key === 'preview' ? `2px solid ${tokens.surface}` : undefined,
-              }"
-            >
-              <UIcon v-if="tg.off === 'up'" name="i-mdi-arrow-up" class="size-3" />
-              <UIcon v-else-if="tg.off === 'down'" name="i-mdi-arrow-down" class="size-3" />
-              {{ priceText(tg.price) }}
-            </span>
-          </div>
-          <!-- "If sold at this price" readout -->
-          <div
-            v-if="readoutText"
-            class="nova-num nova-money absolute top-3 left-3 rounded-lg border border-default/70 bg-default/90 px-2 py-1 text-xs font-semibold shadow-sm"
-            :class="t.is_open ? (readoutUp ? 'text-emerald-400' : 'text-rose-400') : 'text-default'"
-          >
-            {{ readoutText }}
-          </div>
+        <USkeleton v-if="!option && !loaded" class="h-full w-full rounded-xl" />
+        <div
+          v-else-if="!option"
+          class="flex h-full flex-col items-center justify-center gap-3 text-center"
+        >
+          <span class="flex size-10 items-center justify-center rounded-full bg-accented">
+            <UIcon name="i-mdi-chart-box-outline" class="size-5 text-muted" />
+          </span>
+          <p class="text-sm text-pretty text-muted">{{ tr('chart.empty') }}</p>
         </div>
-      </template>
-    </div>
+        <template v-else>
+          <ECharts
+            ref="chartEl"
+            :option="option"
+            :theme="chartTheme"
+            :update-options="{ notMerge: true }"
+            autoresize
+            class="h-full w-full transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+            :class="{ 'opacity-60': loading }"
+            @finished="layoutTags"
+            @datazoom="onDataZoom"
+            @zr:mousemove="onMove"
+            @zr:globalout="readout = null"
+          />
+          <!-- Price tags (HTML, stacked so they never overlap) -->
+          <div class="pointer-events-none absolute inset-0" aria-hidden="false">
+            <svg class="absolute inset-0 h-full w-full overflow-visible">
+              <line
+                v-for="tg in tags.filter((x) => !x.off && Math.abs(x.y - x.lineY) > 2)"
+                :key="`l-${tg.key}`"
+                :x1="plotRight"
+                :y1="tg.lineY"
+                :x2="plotRight + 6"
+                :y2="tg.y"
+                :stroke="tg.color"
+                stroke-width="1"
+              />
+            </svg>
+            <span
+              v-for="l in axisLabels"
+              :key="`a-${l.v}`"
+              class="nova-num absolute text-xs text-muted"
+              :style="{ top: `${l.y - 8}px`, left: `${plotRight + 10}px` }"
+              >{{ priceText(l.v) }}</span
+            >
+            <div
+              v-for="tg in tags"
+              :key="tg.key"
+              class="absolute flex h-5 items-center"
+              :style="{ top: `${tg.y - 10}px`, left: '0px', right: '0px' }"
+            >
+              <button
+                v-if="tg.key === 'stop' && editableStop"
+                type="button"
+                class="pointer-events-auto absolute flex h-5 items-center gap-1 rounded-md border border-default/70 bg-default/90 px-1.5 text-xs font-medium whitespace-nowrap text-default shadow-sm transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accented focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 active:scale-[0.98]"
+                :style="nameStyle"
+                :title="simple ? tr('stop.title.simple') : tr('stop.title.pro')"
+                @click="emit('editStop')"
+              >
+                <UIcon name="i-mdi-pencil-outline" class="size-3.5 text-muted" />
+                {{ tg.name }}<span v-if="tg.note" class="nova-num text-muted">{{ tg.note }}</span>
+              </button>
+              <span
+                v-else
+                class="absolute flex h-5 items-center gap-1 rounded-md bg-default/80 px-1.5 text-xs font-medium whitespace-nowrap text-default"
+                :style="nameStyle"
+              >
+                {{ tg.name }}<span v-if="tg.note" class="nova-num text-muted">{{ tg.note }}</span>
+              </span>
+              <span
+                class="nova-num absolute flex h-5 items-center gap-0.5 rounded-md px-1.5 text-xs font-semibold whitespace-nowrap"
+                :style="{
+                  left: `${plotRight + 6}px`,
+                  background: tg.color,
+                  color: tokens.onColor,
+                  outline: tg.key === 'preview' ? `2px solid ${tokens.surface}` : undefined,
+                }"
+              >
+                <UIcon v-if="tg.off === 'up'" name="i-mdi-arrow-up" class="size-3" />
+                <UIcon v-else-if="tg.off === 'down'" name="i-mdi-arrow-down" class="size-3" />
+                {{ priceText(tg.price) }}
+              </span>
+            </div>
+            <!-- "If sold at this price" readout -->
+            <div
+              v-if="readoutText"
+              class="nova-num nova-money absolute top-3 left-3 rounded-lg border border-default/70 bg-default/90 px-2 py-1 text-xs font-semibold shadow-sm"
+              :class="
+                t.is_open ? (readoutUp ? 'text-emerald-400' : 'text-rose-400') : 'text-default'
+              "
+            >
+              {{ readoutText }}
+            </div>
+          </div>
+        </template>
+      </div>
+    </UContextMenu>
 
     <!-- Legend: every drawn level with its value (and what selling there would give) -->
     <div

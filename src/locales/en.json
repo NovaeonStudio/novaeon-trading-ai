@@ -413,7 +413,7 @@
   },
   "chart": {
     "empty": "No price history for this coin yet.",
-    "hint": "Drag to move · pinch or Ctrl + scroll to zoom",
+    "hint": "Drag to move · pinch or Ctrl + scroll to zoom · right-click for more",
     "aiBadge": "AI",
     "toolbar": {
       "candleSize": "Candle size",
@@ -443,9 +443,9 @@
       "stop": "Stop",
       "forcedSale": "Forced sale (liquidation)",
       "liquidation": "Liquidation",
-      "botSellsBelow": "Bot sells below (10-candle low)",
-      "exitSignal": "Exit signal (10-candle low)",
-      "breakout": "Breakout level (20-candle high)",
+      "botSellsBelow": "Bot sells below (10-hour low)",
+      "exitSignal": "Exit signal (10-hour low)",
+      "breakout": "Breakout level (20-hour high)",
       "zonesSimple": "Shaded risk and profit",
       "zones": "Risk and profit zones",
       "buysAndSells": "Buys and sells",
@@ -469,7 +469,8 @@
       "newStop": "New stop",
       "now": "Now",
       "sold": "Sold",
-      "exit": "Exit"
+      "exit": "Exit",
+      "myLine": "My line"
     },
     "fill": {
       "buy": "Buy",
@@ -521,6 +522,17 @@
       "orderTag": "Order-Tag: {tag}",
       "exitTag": "Exit-Tag: {tag}",
       "stoploss": "Stoploss"
+    },
+    "menu": {
+      "at": "At {price}",
+      "stopHere": "Set stop here…",
+      "stopHereSimple": "Set safety stop here…",
+      "lineHere": "Draw my line here",
+      "copyPrice": "Copy price",
+      "copied": "Copied {price}",
+      "strategyTf": "{tf} (strategy)",
+      "clearLines": "Remove my line | Remove my {n} lines",
+      "saveImage": "Save chart as image"
     }
   },
   "buy": {

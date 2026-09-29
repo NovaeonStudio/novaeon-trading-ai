@@ -413,7 +413,7 @@
   },
   "chart": {
     "empty": "Încă nu există istoric de preț pentru această monedă.",
-    "hint": "Trage pentru a muta · ciupește sau Ctrl + derulare pentru zoom",
+    "hint": "Trage pentru a muta · ciupește sau Ctrl + derulare pentru zoom · clic dreapta pentru mai mult",
     "aiBadge": "AI",
     "toolbar": {
       "candleSize": "Mărimea lumânării",
@@ -443,9 +443,9 @@
       "stop": "Stop",
       "forcedSale": "Vânzare forțată (lichidare)",
       "liquidation": "Lichidare",
-      "botSellsBelow": "Botul vinde sub (minimul pe 10 lumânări)",
-      "exitSignal": "Semnal de ieșire (minimul pe 10 lumânări)",
-      "breakout": "Nivel de breakout (maximul pe 20 de lumânări)",
+      "botSellsBelow": "Botul vinde sub (minimul pe 10 ore)",
+      "exitSignal": "Semnal de ieșire (minimul pe 10 ore)",
+      "breakout": "Nivel de breakout (maximul pe 20 de ore)",
       "zonesSimple": "Risc și profit umbrite",
       "zones": "Zone de risc și profit",
       "buysAndSells": "Cumpărări și vânzări",
@@ -469,7 +469,8 @@
       "newStop": "Stop nou",
       "now": "Acum",
       "sold": "Vândut",
-      "exit": "Ieșire"
+      "exit": "Ieșire",
+      "myLine": "Linia mea"
     },
     "fill": {
       "buy": "Cumpărare",
@@ -521,6 +522,17 @@
       "orderTag": "Etichetă ordin: {tag}",
       "exitTag": "Etichetă de ieșire: {tag}",
       "stoploss": "Stop"
+    },
+    "menu": {
+      "at": "La {price}",
+      "stopHere": "Setează stopul aici…",
+      "stopHereSimple": "Setează stopul de siguranță aici…",
+      "lineHere": "Desenează linia mea aici",
+      "copyPrice": "Copiază prețul",
+      "copied": "{price} copiat",
+      "strategyTf": "{tf} (strategie)",
+      "clearLines": "Șterge linia mea | Șterge cele {n} linii ale mele | Șterge cele {n} de linii ale mele",
+      "saveImage": "Salvează graficul ca imagine"
     }
   },
   "buy": {

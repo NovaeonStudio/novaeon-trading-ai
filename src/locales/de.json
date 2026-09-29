@@ -413,7 +413,7 @@
   },
   "chart": {
     "empty": "Für diesen Coin gibt es noch keinen Kursverlauf.",
-    "hint": "Ziehen zum Verschieben · Pinch oder Strg + Scrollen zum Zoomen",
+    "hint": "Ziehen zum Verschieben · Pinch oder Strg + Scrollen zum Zoomen · Rechtsklick für mehr",
     "aiBadge": "KI",
     "toolbar": {
       "candleSize": "Kerzengröße",
@@ -443,9 +443,9 @@
       "stop": "Stop",
       "forcedSale": "Zwangsverkauf (Liquidation)",
       "liquidation": "Liquidation",
-      "botSellsBelow": "Bot verkauft darunter (10-Kerzen-Tief)",
-      "exitSignal": "Ausstiegssignal (10-Kerzen-Tief)",
-      "breakout": "Ausbruchsniveau (20-Kerzen-Hoch)",
+      "botSellsBelow": "Bot verkauft darunter (10-Stunden-Tief)",
+      "exitSignal": "Ausstiegssignal (10-Stunden-Tief)",
+      "breakout": "Ausbruchsniveau (20-Stunden-Hoch)",
       "zonesSimple": "Risiko und Gewinn schattiert",
       "zones": "Risiko- und Gewinnzonen",
       "buysAndSells": "Käufe und Verkäufe",
@@ -469,7 +469,8 @@
       "newStop": "Neuer Stop",
       "now": "Jetzt",
       "sold": "Verkauft",
-      "exit": "Ausstieg"
+      "exit": "Ausstieg",
+      "myLine": "Meine Linie"
     },
     "fill": {
       "buy": "Kauf",
@@ -521,6 +522,17 @@
       "orderTag": "Order-Tag: {tag}",
       "exitTag": "Ausstiegs-Tag: {tag}",
       "stoploss": "Stop"
+    },
+    "menu": {
+      "at": "Bei {price}",
+      "stopHere": "Stop hier setzen …",
+      "stopHereSimple": "Sicherheitsstopp hier setzen …",
+      "lineHere": "Eigene Linie hier zeichnen",
+      "copyPrice": "Preis kopieren",
+      "copied": "{price} kopiert",
+      "strategyTf": "{tf} (Strategie)",
+      "clearLines": "Eigene Linie entfernen | Eigene {n} Linien entfernen",
+      "saveImage": "Chart als Bild speichern"
     }
   },
   "buy": {
