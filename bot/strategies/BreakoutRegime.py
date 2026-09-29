@@ -1,6 +1,9 @@
 # Breakout, but only while BTC's daily close is above its 50-day EMA (otherwise stay in cash).
 # Exchange-neutral: uses BTC/<stake> on spot (Binance) and BTC/<stake>:<stake> on perps (Hyperliquid).
 # Long-only, leverage 1x. Runs on 1h candles.
+from datetime import timedelta
+
+from freqtrade.persistence import Trade
 from freqtrade.strategy import merge_informative_pair
 from pandas import DataFrame
 
@@ -24,6 +27,13 @@ class BreakoutRegime(Breakout):
     position_adjustment_enable = True
     take_profit_move = 0.20
     take_profit_fraction = 0.5
+    # v4 (2026-09-29): entry clustering cap. At most 2 new trades per hour and 4 per 24h. When the whole market breaks
+    # out, the bot used to buy several coins at once, and they pulled back together. Research (phase 2, 12 variants +
+    # 2 combos, see docs/STRATEGY.md): the only change with a better return/drawdown in all three periods; drawdown
+    # 16.1/17.7/8.8% -> 10.9/9.1/3.5%, return 66.8/62.4/72.8% -> 46.8/62.3/58.6%. Waiting for a pullback after the
+    # breakout was worse in every variant (the best breakouts never come back). Manual buys count but are not blocked.
+    max_entries_1h = 2
+    max_entries_24h = 4
 
     @property
     def protections(self):
@@ -70,6 +80,16 @@ class BreakoutRegime(Breakout):
         if min_stake and part < min_stake:
             return None
         return -part, "take_profit_half"
+
+    def confirm_trade_entry(self, pair, order_type, amount, rate, time_in_force, current_time, entry_tag, side,
+                            **kwargs) -> bool:
+        """Entry clustering cap (v4): skip a signal if `max_entries_1h` / `max_entries_24h` trades already opened."""
+        if entry_tag == "force_entry":
+            return True
+        trades = Trade.get_trades_proxy()
+        recent1 = sum(1 for t in trades if t.open_date_utc >= current_time - timedelta(hours=1))
+        recent24 = sum(1 for t in trades if t.open_date_utc >= current_time - timedelta(hours=24))
+        return recent1 < self.max_entries_1h and recent24 < self.max_entries_24h
 
     def leverage(self, pair, current_time, current_rate, proposed_leverage, max_leverage, entry_tag,
                  side, **kwargs) -> float:

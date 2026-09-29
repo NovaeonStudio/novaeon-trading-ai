@@ -29,6 +29,7 @@ and the `Breakout` base class they extend.
 | Trend filter | New trades only while Bitcoin's daily close is at or above its 50-day EMA | `btc_close_1d < btc_ema50_1d` → no entry |
 | Entry | Hourly close above the highest high of the previous 20 candles | `hi20 = high.rolling(20).max().shift(1)` |
 | Volume filter | Entry candle volume at least 2× the 20-candle average | `volume_mult = 2.0` |
+| Entry cap | At most 2 new trades per hour and 4 per 24 hours; further signals are skipped (manual buys count, but are never blocked) | `max_entries_1h = 2`, `max_entries_24h = 4` |
 | News check | Blocked if Sentinel's P(major negative news) ≥ 0.30 | `VETO_THRESHOLD = 0.3` |
 | Exit | Hourly close below the lowest low of the previous 10 candles | `lo10 = low.rolling(10).min().shift(1)` |
 | Trend exit | Sell when Bitcoin's daily close falls below its 50-day EMA | `exit_long = 1` |
@@ -107,9 +108,9 @@ positions keep a stop.
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor | Longest losing streak |
 |---|---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance | +66.8% | 16.1% | 663 | 40% | 1.34 | 16 trades |
-| 2025-09-24 to 2026-09-25 | Binance | +62.4% | 17.7% | 397 | 37% | 1.87 | 24 trades |
-| 2025-01-01 to 2026-09-26 | Hyperliquid | +72.8% | 8.8% | 340 | 38% | 2.14 | 14 trades |
+| 2024-11-01 to 2025-09-24 | Binance | +46.8% | 10.9% | 471 | 41% | 1.37 | 16 trades |
+| 2025-09-24 to 2026-09-25 | Binance | +62.3% | 9.1% | 265 | 40% | 2.34 | 18 trades |
+| 2025-01-01 to 2026-09-26 | Hyperliquid | +58.6% | 3.5% | 230 | 37% | 2.28 | 14 trades |
 
 Read these together with the bad parts:
 
@@ -143,6 +144,20 @@ Read these together with the bad parts:
   least (+66.8% vs +64.9%, +62.4% vs +72.1% and +72.8% vs +82.9% on the same data) at the same drawdown, and it
   banks half of every big winner. We chose it on purpose: a steadier path is worth those points to us. Before this
   change the results table read +64.9% / +74.5% / +82.9% (the second Binance period is +72.1% on today's data).
+- **Entry cap: at most 2 new trades per hour and 4 per 24 hours** (added 2026-09-29, version 1.3). The bot buys
+  at the close of the breakout candle, which is usually the local top: in our entry analysis the entry candle was
+  already up about 2.5% (median), and in the next 6 hours the price fell about 2.1% at worst but rose only 1.3% at
+  best (medians). When the whole market breaks out, the bot bought several coins in the same hour, and they
+  pulled back together. We tested 13 entry variants and 12 exit and risk variants on all three periods, plus two
+  combinations, and judged them by return divided by maximum drawdown:
+  - **Waiting for a pullback** after the breakout (−1%, −2%, back to the breakout level, to the candle middle) or
+    for a second confirming candle was **worse in every variant**: the best breakouts never come back and are missed.
+  - Wider exits (20/40-candle low), chandelier and ATR stops, a time stop, volatility sizing and a 40-candle
+    breakout filter were mixed or worse.
+  - **Only the entry cap was better in all three periods**: drawdown 16.1% → 10.9%, 17.7% → 9.1% and 8.8% → 3.5%;
+    return +66.8% → +46.8%, +62.4% → +62.3% and +72.8% → +58.6%. It gives up return in two of three periods for
+    a much steadier path, and we chose that on purpose. Before this change the results table read +66.8% / +62.4% /
+    +72.8% with drawdowns of 16.1% / 17.7% / 8.8%.
 - **No trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends on
   letting winners run through normal pullbacks.
 - **The emergency brake** never triggered in the test periods; it exists for crash cascades that the tests did not

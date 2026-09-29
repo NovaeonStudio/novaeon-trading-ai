@@ -361,6 +361,11 @@ class BreakoutRegimeKev(BreakoutRegime):
 
     def confirm_trade_entry(self, pair, order_type, amount, rate, time_in_force, current_time,
                             entry_tag, side, **kwargs) -> bool:
+        # Clustering cap first: a capped signal costs no news check and leaves no Sentinel record.
+        if not super().confirm_trade_entry(pair, order_type, amount, rate, time_in_force, current_time,
+                                           entry_tag, side, **kwargs):
+            log.info("Entry cap: skip %s (max %d/1h, %d/24h)", pair, self.max_entries_1h, self.max_entries_24h)
+            return False
         a = self._assess(pair)
         rec = {"time": current_time.isoformat(), "pair": pair, "rate": rate, "headlines": len(a["headlines"]),
                "leverage": a.get("leverage", 1.0), "leverage_reason": a.get("leverage_reason"),
