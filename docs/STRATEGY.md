@@ -33,7 +33,7 @@ and the `Breakout` base class they extend.
 | Exit | Hourly close below the lowest low of the previous 10 candles | `lo10 = low.rolling(10).min().shift(1)` |
 | Trend exit | Sell when Bitcoin's daily close falls below its 50-day EMA | `exit_long = 1` |
 | Stop-loss | 10% of the position's margin: a 10% price drop at 1×, about 3.3% at 3× | `stoploss = -0.10` |
-| Take-profit | None (winners run until an exit rule fires) | `minimal_roi = {"0": 10}` |
+| Take-profit | Half the position once the price is 20% above the entry (measured on the price, not the leveraged profit); the other half runs until an exit rule fires | `take_profit_move = 0.20`, `take_profit_fraction = 0.5` |
 | Emergency brake | After 6 stop-losses within 24 candles, no new entries for 12 candles | `StoplossGuard` |
 | Orders | Limit orders at the best bid/ask; fees 0.045% per side on Hyperliquid | `order_types`, `fee` |
 
@@ -107,9 +107,9 @@ positions keep a stop.
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor | Longest losing streak |
 |---|---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance | +64.9% | 16.1% | 663 | 40% | 1.34 | 16 trades |
-| 2025-09-24 to 2026-09-25 | Binance | +74.5% | 17.5% | 397 | 37% | 2.00 | 24 trades |
-| 2025-01-01 to 2026-09-26 | Hyperliquid | +82.9% | 9.1% | 340 | 38% | 2.27 | 14 trades |
+| 2024-11-01 to 2025-09-24 | Binance | +66.8% | 16.1% | 663 | 40% | 1.34 | 16 trades |
+| 2025-09-24 to 2026-09-25 | Binance | +62.4% | 17.7% | 397 | 37% | 1.87 | 24 trades |
+| 2025-01-01 to 2026-09-26 | Hyperliquid | +72.8% | 8.8% | 340 | 38% | 2.14 | 14 trades |
 
 Read these together with the bad parts:
 
@@ -132,6 +132,17 @@ Read these together with the bad parts:
   is far less often a false start. Compared with the same rules without it, it improved the return and reduced
   the maximum drawdown in both Binance periods. Every threshold between 1.5× and 3× reduced the drawdown in both
   periods, so the effect does not hinge on one lucky value; 2× gave the best balance of return and drawdown.
+- **Take-profit on half, at +20%** (added 2026-09-29, version 1.2): winners often gave a large part of their
+  peak gain back before the 10-candle-low exit fired (on trades that were at least +10% at their best, only about
+  55–60% of the peak gain was kept). We tested 15 exit variants on all three periods
+  ([`bot/research/ExitVariants.py`](../bot/research/ExitVariants.py), results in
+  [`exit-results.json`](../bot/research/exit-results.json)): fixed take-profits at +10/15/20/30%, selling a
+  part at +8/10/15/20%, a faster exit once a trade was +10/15% up, a cap on how much gain may be given back, and
+  wide trailing stops. **None beat the plain rules on return**, and none lowered the drawdown noticeably: the
+  strategy lives on a few long trends, and every take-profit cuts some of them. Selling half at +20% cost the
+  least (+66.8% vs +64.9%, +62.4% vs +72.1% and +72.8% vs +82.9% on the same data) at the same drawdown, and it
+  banks half of every big winner. We chose it on purpose: a steadier path is worth those points to us. Before this
+  change the results table read +64.9% / +74.5% / +82.9% (the second Binance period is +72.1% on today's data).
 - **No trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends on
   letting winners run through normal pullbacks.
 - **The emergency brake** never triggered in the test periods; it exists for crash cascades that the tests did not
