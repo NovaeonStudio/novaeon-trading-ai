@@ -23,19 +23,19 @@ and the `Breakout` base class they extend.
 |---|---|---|
 | Exchange | Hyperliquid, USDC perpetual futures, isolated margin | `bot/config/exchange-hyperliquid.json` |
 | Coins | BTC, ETH, SOL, BNB, XRP, ADA, DOGE, AVAX, LINK, NEAR, ZEC, ONDO, ENA, LTC, TAO, SUI, UNI, ARB, WLD, AAVE | `pair_whitelist` |
-| Candles | 1 hour | `timeframe = "1h"` |
+| Candles | 15 minutes (all windows below are in hours, so the rules keep the same time horizon as on 1h candles) | `timeframe = "15m"` |
 | Direction | Long only | `can_short = False` |
 | Positions | At most 8 at a time; the available balance is split across the free slots | `max_open_trades: 8`, `stake_amount: "unlimited"` |
 | Trend filter | New trades only while Bitcoin's daily close is at or above its 50-day EMA | `btc_close_1d < btc_ema50_1d` → no entry |
-| Entry | Hourly close above the highest high of the previous 20 candles | `hi20 = high.rolling(20).max().shift(1)` |
-| Volume filter | Entry candle volume at least 2× the 20-candle average | `volume_mult = 2.0` |
+| Entry | 15-minute close above the highest high of the previous 20 hours (80 candles) | `entry_hours = 20` |
+| Volume filter | Entry candle volume at least 2× the average of the previous 20 hours | `volume_mult = 2.0`, `volume_hours = 20` |
 | Entry cap | Off: no limit on new trades per hour or day beyond the 8 slots. Optional: e.g. at most 2 per hour and 5 per 24 hours (manual buys count, but are never blocked) | `max_entries_1h = None`, `max_entries_24h = None` |
 | News check | Blocked if Sentinel's P(major negative news) ≥ 0.30 | `VETO_THRESHOLD = 0.3` |
-| Exit | Hourly close below the lowest low of the previous 10 candles | `lo10 = low.rolling(10).min().shift(1)` |
+| Exit | 15-minute close below the lowest low of the previous 10 hours (40 candles) | `exit_hours = 10` |
 | Trend exit | Sell when Bitcoin's daily close falls below its 50-day EMA | `exit_long = 1` |
 | Stop-loss | 10% of the position's margin: a 10% price drop at 1×, about 3.3% at 3× | `stoploss = -0.10` |
 | Take-profit | Half the position once the price is 20% above the entry (measured on the price, not the leveraged profit); the other half runs until an exit rule fires | `take_profit_move = 0.20`, `take_profit_fraction = 0.5` |
-| Emergency brake | After 6 stop-losses within 24 candles, no new entries for 12 candles | `StoplossGuard` |
+| Emergency brake | After 6 stop-losses within 24 hours, no new entries for 12 hours | `StoplossGuard` |
 | Orders | Limit orders at the best bid/ask; fees 0.045% per side on Hyperliquid | `order_types`, `fee` |
 
 ### Leverage
@@ -108,9 +108,13 @@ positions keep a stop.
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor | Longest losing streak |
 |---|---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance | +66.8% | 16.1% | 663 | 40% | 1.34 | 16 trades |
-| 2025-09-24 to 2026-09-25 | Binance | +62.4% | 17.7% | 397 | 37% | 1.87 | 24 trades |
-| 2025-01-01 to 2026-09-26 | Hyperliquid | +72.8% | 8.8% | 340 | 38% | 2.14 | 14 trades |
+| 2024-11-01 to 2025-09-24 | Binance | +53.1% | 21.8% | 941 | 37% | 1.23 | 22 trades |
+| 2025-09-24 to 2026-09-25 | Binance | +101.5% | 10.8% | 494 | 39% | 2.25 | 19 trades |
+
+On 15-minute candles there is no Hyperliquid row: Hyperliquid serves only about 5,000 candles per coin, which is
+about 50 days at 15 minutes. The same rules on 1-hour candles (version 1.3.2 and earlier) gave +66.8% / 16.1%,
++62.4% / 17.7% and, on Hyperliquid from 2025-01-01, +72.8% / 8.8%. The notes below on drawdown periods refer to the
+1-hour runs.
 
 Read these together with the bad parts:
 
@@ -167,6 +171,23 @@ Read these together with the bad parts:
   - **Cap switched off again** (version 1.3.2, same day): we run the uncapped rules on purpose, for the highest
     backtest return, and accept the deeper drawdowns and the clustered entries on strong breakout days. The cap
     stays in the code as an option; the results table above is for the uncapped rules.
+- **15-minute candles, same time horizon** (added 2026-09-29, version 1.4): the rules still buy a 20-hour high and
+  sell below a 10-hour low, but the bot checks every 15 minutes instead of every hour, so it gets in and out earlier.
+  Tested on both Binance periods and on four half-years:
+
+  | Half-year | 1 hour | 15 minutes |
+  |---|---|---|
+  | Nov 2024 – Apr 2025 | +25.2% / 14.6% | +7.7% / 21.6% |
+  | May – Sep 2025 | +34.3% / 15.6% | +41.7% / 16.7% |
+  | Sep 2025 – Mar 2026 | −4.2% / 11.7% | +1.0% / 9.6% |
+  | Mar – Sep 2026 | +68.4% / 7.3% | +99.2% / 8.3% |
+
+  15 minutes did better in three of four half-years, most in trends, and clearly worse in the choppy first half
+  (Nov 2024 – Apr 2025). Over both Binance years together it turned 2,000 into about 6,170 instead of 5,420, with a
+  deeper worst drawdown (21.8% instead of 17.7%). We chose it for the higher return. Not tested on Hyperliquid
+  (too little 15-minute history). The same rules with the 1-hour candle counts on shorter candles (20/10 candles =
+  5 h / 2.5 h on 15m, 100 / 50 minutes on 5m) lost money: −7.5% and −48.4% in the first Binance period, from noise
+  and fees on 4 to 12 times as many trades. Five-minute candles with the same time horizon were worse than one hour.
 - **No trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends on
   letting winners run through normal pullbacks.
 - **The emergency brake** never triggered in the test periods; it exists for crash cascades that the tests did not
@@ -186,8 +207,8 @@ and downloaded data. For Binance, use a small config overlay `binance-futures-20
 20 coins as `BTC/USDT:USDT` … `AAVE/USDT:USDT`.
 
 ```bash
-# Binance futures, 1h + 1d (the engine also fetches funding rates and mark prices for futures)
-freqtrade download-data -c config.json -c binance-futures-20.json -t 1h 1d --timerange 20240901-
+# Binance futures, 15m + 1d (the engine also fetches funding rates and mark prices for futures)
+freqtrade download-data -c config.json -c binance-futures-20.json -t 15m 1d --timerange 20240901-
 freqtrade backtesting  -c config.json -c binance-futures-20.json -s BreakoutRegime \
   --timerange 20241101-20250924 --max-open-trades 8 --dry-run-wallet 2000
 

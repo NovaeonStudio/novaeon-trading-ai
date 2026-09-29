@@ -102,7 +102,7 @@ export interface NovaTradeLevels {
   manual_stop_active?: boolean;
   entries?: number;
   enter_tag?: string | null;
-  /** Per-trade endpoint only: a 1h close below this = the bot sells (lowest low of the last 10 closed candles). */
+  /** Per-trade endpoint only: a candle close (15m) below this = the bot sells (lowest low of the last 10 hours). */
   exit_level?: number | null;
   /** Per-trade endpoint only: the 20-candle high. */
   entry_level?: number | null;

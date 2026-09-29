@@ -1,9 +1,10 @@
 # Breakout, but only while BTC's daily close is above its 50-day EMA (otherwise stay in cash).
 # Exchange-neutral: uses BTC/<stake> on spot (Binance) and BTC/<stake>:<stake> on perps (Hyperliquid).
-# Long-only, leverage 1x. Runs on 1h candles.
+# Long-only, leverage 1x. Runs on 15m candles (v5); all windows are set in hours, so it runs on any timeframe.
 from datetime import timedelta
 
 from freqtrade.persistence import Trade
+from freqtrade.exchange import timeframe_to_minutes
 from freqtrade.strategy import merge_informative_pair
 from pandas import DataFrame
 
@@ -11,8 +12,16 @@ from Breakout import Breakout
 
 
 class BreakoutRegime(Breakout):
-    timeframe = "1h"
-    startup_candle_count = 30
+    # v5 (2026-09-29): 15-minute candles instead of 1h, same time horizon: buy a close above the 20-hour high on 2x the
+    # 20-hour average volume, sell below the 10-hour low. Only the timing gets four times finer. Research (Binance,
+    # see docs/STRATEGY.md): +53.1% / +101.5% (drawdown 21.8% / 10.8%) vs 1h +66.8% / +62.4% (16.1% / 17.7%); better
+    # in 3 of 4 half-years, clearly worse in the choppy Nov 2024 - Apr 2025 half. The same rules on 15m or 5m with the
+    # 1h candle counts (5 h / 100 min windows) lost money: noise and fees. Set timeframe = "1h" for the old behaviour.
+    timeframe = "15m"
+    entry_hours = 20      # breakout above the highest high of the last 20 hours
+    exit_hours = 10       # exit below the lowest low of the last 10 hours
+    volume_hours = 20     # volume filter: entry candle vs. the average of the last 20 hours
+    startup_candle_count = 100
     can_short = False
     # v2 (2026-09-26): only take breakouts on at least 2x the 20-candle average volume.
     # Research (see docs/STRATEGY.md): better in both Binance years and on Hyperliquid 2026,
@@ -42,12 +51,16 @@ class BreakoutRegime(Breakout):
 
     @property
     def protections(self):
-        # Last-resort risk brake for crash cascades: after 6 stop-losses within 24 candles, pause new
-        # entries for 12 candles. A drawdown-based brake was tested and rejected (cost ~4%/yr, no DD gain).
+        # Last-resort risk brake for crash cascades: after 6 stop-losses within 24 hours, pause new
+        # entries for 12 hours. A drawdown-based brake was tested and rejected (cost ~4%/yr, no DD gain).
         return [
-            {"method": "StoplossGuard", "lookback_period_candles": 24, "trade_limit": 6,
-             "stop_duration_candles": 12, "only_per_pair": False},
+            {"method": "StoplossGuard", "lookback_period_candles": 24 * self._cph(), "trade_limit": 6,
+             "stop_duration_candles": 12 * self._cph(), "only_per_pair": False},
         ]
+
+    def _cph(self) -> int:
+        """Candles per hour for the current timeframe (15m -> 4, 1h -> 1)."""
+        return max(1, 60 // timeframe_to_minutes(self.timeframe))
 
     def _btc_pair(self) -> str:
         stake = self.config["stake_currency"]
@@ -58,6 +71,8 @@ class BreakoutRegime(Breakout):
 
     def populate_indicators(self, df: DataFrame, metadata: dict) -> DataFrame:
         df = super().populate_indicators(df, metadata)
+        df["hi20"] = df["high"].rolling(self.entry_hours * self._cph()).max().shift(1)   # names kept for the app
+        df["lo10"] = df["low"].rolling(self.exit_hours * self._cph()).min().shift(1)
         btc = self.dp.get_pair_dataframe(self._btc_pair(), "1d")[["date", "close"]].copy()
         btc["ema50"] = btc["close"].ewm(span=50, adjust=False).mean()
         btc = btc.rename(columns={"close": "btc_close", "ema50": "btc_ema50"})
@@ -66,7 +81,7 @@ class BreakoutRegime(Breakout):
     def populate_entry_trend(self, df: DataFrame, metadata: dict) -> DataFrame:
         df = super().populate_entry_trend(df, metadata)
         df.loc[df["btc_close_1d"] < df["btc_ema50_1d"], "enter_long"] = 0
-        df.loc[df["volume"] < self.volume_mult * df["volume"].rolling(20).mean(), "enter_long"] = 0
+        df.loc[df["volume"] < self.volume_mult * df["volume"].rolling(self.volume_hours * self._cph()).mean(), "enter_long"] = 0
         return df
 
     def populate_exit_trend(self, df: DataFrame, metadata: dict) -> DataFrame:
