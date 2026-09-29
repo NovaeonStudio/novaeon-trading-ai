@@ -29,7 +29,7 @@ and the `Breakout` base class they extend.
 | Trend filter | New trades only while Bitcoin's daily close is at or above its 50-day EMA | `btc_close_1d < btc_ema50_1d` → no entry |
 | Entry | Hourly close above the highest high of the previous 20 candles | `hi20 = high.rolling(20).max().shift(1)` |
 | Volume filter | Entry candle volume at least 2× the 20-candle average | `volume_mult = 2.0` |
-| Entry cap | At most 2 new trades per hour and 4 per 24 hours; further signals are skipped (manual buys count, but are never blocked) | `max_entries_1h = 2`, `max_entries_24h = 4` |
+| Entry cap | Off: no limit on new trades per hour or day beyond the 8 slots. Optional: e.g. at most 2 per hour and 5 per 24 hours (manual buys count, but are never blocked) | `max_entries_1h = None`, `max_entries_24h = None` |
 | News check | Blocked if Sentinel's P(major negative news) ≥ 0.30 | `VETO_THRESHOLD = 0.3` |
 | Exit | Hourly close below the lowest low of the previous 10 candles | `lo10 = low.rolling(10).min().shift(1)` |
 | Trend exit | Sell when Bitcoin's daily close falls below its 50-day EMA | `exit_long = 1` |
@@ -108,9 +108,9 @@ positions keep a stop.
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor | Longest losing streak |
 |---|---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance | +46.8% | 10.9% | 471 | 41% | 1.37 | 16 trades |
-| 2025-09-24 to 2026-09-25 | Binance | +62.3% | 9.1% | 265 | 40% | 2.34 | 18 trades |
-| 2025-01-01 to 2026-09-26 | Hyperliquid | +58.6% | 3.5% | 230 | 37% | 2.28 | 14 trades |
+| 2024-11-01 to 2025-09-24 | Binance | +66.8% | 16.1% | 663 | 40% | 1.34 | 16 trades |
+| 2025-09-24 to 2026-09-25 | Binance | +62.4% | 17.7% | 397 | 37% | 1.87 | 24 trades |
+| 2025-01-01 to 2026-09-26 | Hyperliquid | +72.8% | 8.8% | 340 | 38% | 2.14 | 14 trades |
 
 Read these together with the bad parts:
 
@@ -158,6 +158,15 @@ Read these together with the bad parts:
     return +66.8% → +46.8%, +62.4% → +62.3% and +72.8% → +58.6%. It gives up return in two of three periods for
     a much steadier path, and we chose that on purpose. Before this change the results table read +66.8% / +62.4% /
     +72.8% with drawdowns of 16.1% / 17.7% / 8.8%.
+  - **5 per 24 hours instead of 4** (version 1.3.1, same day): more return where the bot trades, at a moderate
+    drawdown cost: +56.1% / +61.3% / +63.3% with drawdowns of 14.0% / 10.8% / 6.9% (4 per day: +46.8% / +62.3% /
+    +58.6%, 10.9% / 9.1% / 3.5%). Looser settings were worse: 6 per day (+64.2% / +49.1% / +59.2%, drawdown up to
+    15.3%), 2 per hour with no daily limit, and more slots without a cap (12 slots: +62.5% / +44.5% / +60.2%;
+    20 slots: +46.8% / +28.0% / +34.8%). More slots split the balance into smaller stakes, so the few big winners
+    earn less while many more small losers are added.
+  - **Cap switched off again** (version 1.3.2, same day): we run the uncapped rules on purpose, for the highest
+    backtest return, and accept the deeper drawdowns and the clustered entries on strong breakout days. The cap
+    stays in the code as an option; the results table above is for the uncapped rules.
 - **No trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends on
   letting winners run through normal pullbacks.
 - **The emergency brake** never triggered in the test periods; it exists for crash cascades that the tests did not

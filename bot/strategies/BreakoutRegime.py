@@ -32,8 +32,13 @@ class BreakoutRegime(Breakout):
     # 2 combos, see docs/STRATEGY.md): the only change with a better return/drawdown in all three periods; drawdown
     # 16.1/17.7/8.8% -> 10.9/9.1/3.5%, return 66.8/62.4/72.8% -> 46.8/62.3/58.6%. Waiting for a pullback after the
     # breakout was worse in every variant (the best breakouts never come back). Manual buys count but are not blocked.
-    max_entries_1h = 2
-    max_entries_24h = 4
+    # v4.1 (same day): 5 per 24h instead of 4, for more return at a moderate drawdown cost: return 56.1/61.3/63.3%,
+    # drawdown 14.0/10.8/6.9%. 6 per 24h was worse than 5 in two periods; 12 or 20 slots without a cap were worse too
+    # (smaller stake per trade, many more small losers).
+    # v4.2 (same day): cap OFF by choice, for the highest backtest return (+66.8/62.4/72.8%) at the higher drawdown
+    # (16.1/17.7/8.8%). Behaviour is exactly v3. Set both values (e.g. 2 and 5) to switch the cap back on.
+    max_entries_1h: int | None = None
+    max_entries_24h: int | None = None
 
     @property
     def protections(self):
@@ -84,7 +89,7 @@ class BreakoutRegime(Breakout):
     def confirm_trade_entry(self, pair, order_type, amount, rate, time_in_force, current_time, entry_tag, side,
                             **kwargs) -> bool:
         """Entry clustering cap (v4): skip a signal if `max_entries_1h` / `max_entries_24h` trades already opened."""
-        if entry_tag == "force_entry":
+        if entry_tag == "force_entry" or self.max_entries_1h is None or self.max_entries_24h is None:
             return True
         trades = Trade.get_trades_proxy()
         recent1 = sum(1 for t in trades if t.open_date_utc >= current_time - timedelta(hours=1))
