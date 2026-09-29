@@ -112,7 +112,7 @@ positions keep a stop.
 | 2025-09-24 to 2026-09-25 | Binance | +101.5% | 10.8% | 494 | 39% | 2.25 | 19 trades |
 
 On 15-minute candles there is no Hyperliquid row: Hyperliquid serves only about 5,000 candles per coin, which is
-about 50 days at 15 minutes. The same rules on 1-hour candles (version 1.3.2 and earlier) gave +66.8% / 16.1%,
+about 50 days at 15 minutes. The same rules on 1-hour candles (1.1.2 used 1-hour candles, without the take-profit) gave +66.8% / 16.1%,
 +62.4% / 17.7% and, on Hyperliquid from 2025-01-01, +72.8% / 8.8%. The notes below on drawdown periods refer to the
 1-hour runs.
 
@@ -137,8 +137,8 @@ Read these together with the bad parts:
   is far less often a false start. Compared with the same rules without it, it improved the return and reduced
   the maximum drawdown in both Binance periods. Every threshold between 1.5× and 3× reduced the drawdown in both
   periods, so the effect does not hinge on one lucky value; 2× gave the best balance of return and drawdown.
-- **Take-profit on half, at +20%** (added 2026-09-29, version 1.2): winners often gave a large part of their
-  peak gain back before the 10-candle-low exit fired (on trades that were at least +10% at their best, only about
+- **Take-profit on half, at +20%** (added in 1.2.0): winners often gave a large part of their
+  peak gain back before the 10-hour-low exit fired (on trades that were at least +10% at their best, only about
   55–60% of the peak gain was kept). We tested 15 exit variants on all three periods
   ([`bot/research/ExitVariants.py`](../bot/research/ExitVariants.py), results in
   [`exit-results.json`](../bot/research/exit-results.json)): fixed take-profits at +10/15/20/30%, selling a
@@ -148,7 +148,7 @@ Read these together with the bad parts:
   least (+66.8% vs +64.9%, +62.4% vs +72.1% and +72.8% vs +82.9% on the same data) at the same drawdown, and it
   banks half of every big winner. We chose it on purpose: a steadier path is worth those points to us. Before this
   change the results table read +64.9% / +74.5% / +82.9% (the second Binance period is +72.1% on today's data).
-- **Entry cap: at most 2 new trades per hour and 4 per 24 hours** (added 2026-09-29, version 1.3). The bot buys
+- **Entry cap: at most 2 new trades per hour and 4 per 24 hours** (tested for 1.2.0, now optional and off). The bot buys
   at the close of the breakout candle, which is usually the local top: in our entry analysis the entry candle was
   already up about 2.5% (median), and in the next 6 hours the price fell about 2.1% at worst but rose only 1.3% at
   best (medians). When the whole market breaks out, the bot bought several coins in the same hour, and they
@@ -162,16 +162,16 @@ Read these together with the bad parts:
     return +66.8% → +46.8%, +62.4% → +62.3% and +72.8% → +58.6%. It gives up return in two of three periods for
     a much steadier path, and we chose that on purpose. Before this change the results table read +66.8% / +62.4% /
     +72.8% with drawdowns of 16.1% / 17.7% / 8.8%.
-  - **5 per 24 hours instead of 4** (version 1.3.1, same day): more return where the bot trades, at a moderate
+  - **5 per 24 hours instead of 4** (tested the same day): more return where the bot trades, at a moderate
     drawdown cost: +56.1% / +61.3% / +63.3% with drawdowns of 14.0% / 10.8% / 6.9% (4 per day: +46.8% / +62.3% /
     +58.6%, 10.9% / 9.1% / 3.5%). Looser settings were worse: 6 per day (+64.2% / +49.1% / +59.2%, drawdown up to
     15.3%), 2 per hour with no daily limit, and more slots without a cap (12 slots: +62.5% / +44.5% / +60.2%;
     20 slots: +46.8% / +28.0% / +34.8%). More slots split the balance into smaller stakes, so the few big winners
     earn less while many more small losers are added.
-  - **Cap switched off again** (version 1.3.2, same day): we run the uncapped rules on purpose, for the highest
+  - **Cap switched off again** (the setting in 1.2.0): we run the uncapped rules on purpose, for the highest
     backtest return, and accept the deeper drawdowns and the clustered entries on strong breakout days. The cap
     stays in the code as an option; the results table above is for the uncapped rules.
-- **15-minute candles, same time horizon** (added 2026-09-29, version 1.4): the rules still buy a 20-hour high and
+- **15-minute candles, same time horizon** (added in 1.2.0): the rules still buy a 20-hour high and
   sell below a 10-hour low, but the bot checks every 15 minutes instead of every hour, so it gets in and out earlier.
   Tested on both Binance periods and on four half-years:
 

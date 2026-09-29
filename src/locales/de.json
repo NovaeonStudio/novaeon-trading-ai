@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "So entscheidet der Bot",
-      "exit": "Er verkauft, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
+      "exit": "Er verkauft die Hälfte, sobald der Coin 20 % über dem Kaufpreis steht, und den Rest, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Er prüft alle 15 Minuten. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
     },
     "steps": {
       "new": "Neu",

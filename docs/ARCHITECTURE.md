@@ -150,7 +150,7 @@ sequenceDiagram
     participant N as News feeds
     participant S as Sentinel
     participant H as Hyperliquid
-    E->>E: hourly candle closes: breakout + 2x volume + BTC above EMA50?
+    E->>E: 15-minute candle closes: breakout + 2x volume + BTC above EMA50?
     E->>N: headlines (cached 15 min)
     alt no headlines about the coin in the last 48 h
         E->>E: allow at 1x

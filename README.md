@@ -3,13 +3,14 @@
 **A crypto trading bot for your Mac that reads the news before it buys.** It trades one simple, tested breakout
 strategy on Hyperliquid, asks a local AI model (Novaeon Sentinel 9B) whether there is serious bad news about a coin
 before every purchase, and shows everything in a clear app. It starts with practice money, runs entirely on your own
-computers, and your wallet key never leaves MetaMask. New in 1.1: the bot also runs on Linux and, in beta, on Windows,
-with Sentinel on your Mac in the same private network.
+computers, and your wallet key never leaves MetaMask. New in 1.2: the bot checks every 15 minutes instead of every
+hour, sells half of a position at +20%, and the position chart has a right-click menu. Since 1.1 the bot also runs on
+Linux and, in beta, on Windows, with Sentinel on your Mac in the same private network.
 
 By [Novaeon Studio](https://novaeon.studio). Free and open source (GPL-3.0).
 
 <p>
-  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.1.2/NovaeonTradingAI-1.1.2.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.1.2-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
+  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.2.0/NovaeonTradingAI-1.2.0.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.2.0-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
   <a href="https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/Model-Sentinel%209B%20on%20Hugging%20Face-6C7BFF?style=for-the-badge&logo=huggingface&logoColor=white&labelColor=0A0E1C"></a>
 </p>
 
@@ -30,8 +31,8 @@ Apple Silicon Mac, macOS 14 or newer. Linux and Windows (beta): see [Install](#i
 
 ## What it does
 
-- **Trades one strategy, openly.** 1-hour breakouts on 20 large coins, only while Bitcoin is in an uptrend, only
-  on strong volume. Every rule is in [docs/STRATEGY.md](docs/STRATEGY.md), with the backtest numbers and their
+- **Trades one strategy, openly.** Breakouts above the 20-hour high on 20 large coins, checked every 15 minutes,
+  only while Bitcoin is in an uptrend, only on strong volume. Every rule is in [docs/STRATEGY.md](docs/STRATEGY.md), with the backtest numbers and their
   drawdowns.
 - **Checks the news first.** Before each purchase, Novaeon Sentinel 9B reads the last 48 hours of headlines about
   the coin and blocks the trade if they report a hack, delisting, lawsuit, chain halt or similar. The model runs on
@@ -227,14 +228,16 @@ Checked against the code in [`bot/strategies/`](bot/strategies/). Full rules and
 [docs/STRATEGY.md](docs/STRATEGY.md).
 
 - **Market:** 20 large coins on Hyperliquid (BTC, ETH, SOL, BNB, XRP, ADA, DOGE, AVAX, LINK, NEAR, ZEC, ONDO, ENA,
-  LTC, TAO, SUI, UNI, ARB, WLD, AAVE), 1-hour candles, long only, at most 8 positions, money split across free slots.
+  LTC, TAO, SUI, UNI, ARB, WLD, AAVE), 15-minute candles, long only, at most 8 positions, money split across free
+  slots. All windows below are in hours, so a check every 15 minutes keeps the same time horizon.
 - **Only in an uptrend:** new trades only while Bitcoin's daily close is above its 50-day exponential average
   (EMA50). When Bitcoin closes below it, the bot sells and waits in cash.
-- **Buy:** the hourly close breaks above the highest high of the previous 20 hours, on at least twice the average
+- **Buy:** a 15-minute close breaks above the highest high of the previous 20 hours, on at least twice the average
   volume of the last 20 hours.
 - **News check:** Sentinel blocks the purchase if P(major negative news) ≥ 0.30. No recent headlines about the coin
   means no check.
-- **Sell:** the hourly close falls below the lowest low of the previous 10 hours, or the Bitcoin trend flips.
+- **Take-profit:** once the price is 20% above the entry, the bot sells half; the other half keeps running.
+- **Sell:** a 15-minute close falls below the lowest low of the previous 10 hours, or the Bitcoin trend flips.
 - **Stop-loss:** 10% of the position's margin (at 1× that is a 10% price drop). You can tighten it by hand.
 - **Emergency brake:** after 6 stop-losses within 24 hours, no new purchases for 12 hours.
 - **AI leverage (opt-in):** 2× if P(clearly positive news) ≥ 0.50; 3× if ≥ 0.75 and Bitcoin's daily close is at
@@ -247,15 +250,16 @@ filter and AI leverage cannot be backtested and are not part of these numbers):
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor |
 |---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance USDT futures | +64.9% | 16.1% | 663 | 40% | 1.34 |
-| 2025-09-24 to 2026-09-25 | Binance USDT futures | +74.5% | 17.5% | 397 | 37% | 2.00 |
-| 2025-01-01 to 2026-09-26 | Hyperliquid* | +82.9% | 9.1% | 340 | 38% | 2.27 |
+| 2024-11-01 to 2025-09-24 | Binance USDT futures | +53.1% | 21.8% | 941 | 37% | 1.23 |
+| 2025-09-24 to 2026-09-25 | Binance USDT futures | +101.5% | 10.8% | 494 | 39% | 2.25 |
 
-\* Hyperliquid only serves about 5,000 hourly candles per coin: 9 of the 20 coins have data for the whole period,
-the other 11 only from March 2026.
+There is no Hyperliquid row for 15-minute candles: Hyperliquid serves only about 5,000 candles per coin, about 50
+days at 15 minutes. Compared with the same rules on 1-hour candles, 15 minutes did better in three of four
+half-years and clearly worse in the choppy first half (Nov 2024 – Apr 2025); see
+[docs/STRATEGY.md](docs/STRATEGY.md#why-these-rules).
 
-Most trades lose; the strategy lives on a few large moves. Expect long flat or losing stretches (the Hyperliquid
-test had one that lasted 90 days). **Past results do not guarantee future results. Not financial advice.**
+Most trades lose; the strategy lives on a few large moves. Expect long flat or losing stretches and drawdowns of
+20% or more. **Past results do not guarantee future results. Not financial advice.**
 
 ## Novaeon Sentinel 9B
 
