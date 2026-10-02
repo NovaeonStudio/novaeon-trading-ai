@@ -196,7 +196,8 @@ export function tradeFills(t: AnyTrade): NovaFill[] {
   let seenEntry = false;
   orders.forEach((o, i) => {
     const amount = o.filled ?? o.amount;
-    const isEntry = o.ft_is_entry;
+    // The engine's API may leave ft_is_entry empty: fall back to the order side (long: buy = entry).
+    const isEntry = o.ft_is_entry ?? o.ft_order_side === (t.is_short ? 'sell' : 'buy');
     let kind: NovaFillKind;
     if (isEntry) {
       kind = seenEntry ? 'add' : 'entry';

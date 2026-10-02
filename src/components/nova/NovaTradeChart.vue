@@ -528,7 +528,31 @@ const levels = computed<Level[]>(() => {
 // ---------- Geometry ----------
 const GRID_TOP = 12;
 const X_AXIS_BAND = 28;
-const gridRight = computed(() => (wide.value ? 80 : 68));
+// Price tags carry their name, distance and price and sit in their own column right of the plot, so no label ever
+// covers a line or a candle. The column is as wide as the widest tag (measured), names only from 640px on.
+let measureCtx: CanvasRenderingContext2D | null = null;
+function textWidth(text: string, weight: number): number {
+  measureCtx ??= document.createElement('canvas').getContext('2d');
+  if (!measureCtx) return text.length * 7;
+  measureCtx.font = `${weight} 12px ${tokens.value.fontFamily}`;
+  return measureCtx.measureText(text).width;
+}
+const TAG_PAD = 12; // px-1.5 on both sides
+const TAG_GAPX = 6; // gap-1.5 between the parts
+function tagWidth(l: Level, withNote: boolean): number {
+  let w = TAG_PAD + textWidth(priceText(l.price), 600) + 14 + TAG_GAPX; // price + room for an arrow / pencil
+  if (wide.value) w += textWidth(l.name, 500) + TAG_GAPX;
+  if (wide.value && withNote && l.note) w += textWidth(l.note, 500) + TAG_GAPX;
+  return w;
+}
+/** Notes (distance in %) only while they fit in a column of at most 240px. */
+const tagNotes = computed(
+  () => !wide.value || Math.max(0, ...levels.value.map((l) => tagWidth(l, true))) <= 240,
+);
+const gridRight = computed(() => {
+  const widest = Math.max(0, ...levels.value.map((l) => tagWidth(l, tagNotes.value)));
+  return Math.max(wide.value ? 80 : 68, Math.ceil(widest) + 10);
+});
 const volH = computed(() => (layers.value.volume ? (wide.value ? 52 : 36) : 0));
 const priceBottom = computed(() => X_AXIS_BAND + (volH.value ? volH.value + 12 : 0));
 
@@ -726,8 +750,9 @@ const option = computed((): EChartsOption | null => {
     );
 
   const win = userWindow ?? windowFor(range.value);
-  // Text labels next to fills only while candles are wide enough; zoomed out, the tooltip carries them.
-  const fillText = wide.value && (!win || (win[1] - win[0]) / ms <= 90);
+  // No text labels inside the plot (they would cover candles and lines): the triangle's color and direction say
+  // buy or sell, the tooltip and the legend carry the details.
+  const fillText = false;
   if (L.fills && fills.value.length) {
     series.push({
       type: 'scatter',
@@ -764,6 +789,8 @@ const option = computed((): EChartsOption | null => {
 
   if (L.ai && props.kev && kevTs.value) {
     const kb = bucket(kevTs.value);
+    const kevAboveSell =
+      L.fills && fillText && fills.value.some((f) => f.side === 'sell' && bucket(f.ts) === kb);
     const cand = rows.find((r) => r.ts === kb) ?? rows.find((r) => r.ts >= kb);
     if (cand)
       series.push({
@@ -775,7 +802,8 @@ const option = computed((): EChartsOption | null => {
             value: [cand.ts, cand.h],
             symbol: 'roundRect',
             symbolSize: [24, 16],
-            symbolOffset: [0, -18],
+            // Above a sell label on the same candle, so the two never overlap.
+            symbolOffset: [0, kevAboveSell ? -44 : -18],
             itemStyle: { color: k.secondary, borderColor: k.surface, borderWidth: 2 },
             label: {
               show: true,
@@ -1277,10 +1305,6 @@ const legend = computed(() => {
   return out;
 });
 
-/** Line names sit next to the price axis; on phones on the left edge, so they do not hide the newest candles. */
-const nameStyle = computed(() =>
-  wide.value ? { right: `${gridRight.value + 4}px` } : { left: '12px' },
-);
 const plotStyle = computed(() => (props.height ? { height: props.height } : undefined));
 </script>
 
@@ -1455,39 +1479,44 @@ const plotStyle = computed(() => (props.height ? { height: props.height } : unde
               v-for="tg in tags"
               :key="tg.key"
               class="absolute flex h-5 items-center"
-              :style="{ top: `${tg.y - 10}px`, left: '0px', right: '0px' }"
+              :style="{ top: `${tg.y - 10}px`, left: `${plotRight + 6}px` }"
             >
-              <button
-                v-if="tg.key === 'stop' && editableStop"
-                type="button"
-                class="pointer-events-auto absolute flex h-5 items-center gap-1 rounded-md border border-default/70 bg-default/90 px-1.5 text-xs font-medium whitespace-nowrap text-default shadow-sm transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-accented focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 active:scale-[0.98]"
-                :style="nameStyle"
-                :title="simple ? tr('stop.title.simple') : tr('stop.title.pro')"
-                @click="emit('editStop')"
-              >
-                <UIcon name="i-mdi-pencil-outline" class="size-3.5 text-muted" />
-                {{ tg.name }}<span v-if="tg.note" class="nova-num text-muted">{{ tg.note }}</span>
-              </button>
-              <span
-                v-else
-                class="absolute flex h-5 items-center gap-1 rounded-md bg-default/80 px-1.5 text-xs font-medium whitespace-nowrap text-default"
-                :style="nameStyle"
-              >
-                {{ tg.name }}<span v-if="tg.note" class="nova-num text-muted">{{ tg.note }}</span>
-              </span>
-              <span
-                class="nova-num absolute flex h-5 items-center gap-0.5 rounded-md px-1.5 text-xs font-semibold whitespace-nowrap"
+              <component
+                :is="tg.key === 'stop' && editableStop ? 'button' : 'span'"
+                :type="tg.key === 'stop' && editableStop ? 'button' : undefined"
+                class="nova-num flex h-5 items-center gap-1.5 rounded-md px-1.5 text-xs whitespace-nowrap"
+                :class="
+                  tg.key === 'stop' && editableStop
+                    ? 'pointer-events-auto cursor-pointer transition duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/60 active:scale-[0.98]'
+                    : ''
+                "
                 :style="{
-                  left: `${plotRight + 6}px`,
                   background: tg.color,
                   color: tokens.onColor,
                   outline: tg.key === 'preview' ? `2px solid ${tokens.surface}` : undefined,
                 }"
+                :title="
+                  tg.key === 'stop' && editableStop
+                    ? simple
+                      ? tr('stop.title.simple')
+                      : tr('stop.title.pro')
+                    : [tg.name, tg.note].filter(Boolean).join(' ')
+                "
+                @click="tg.key === 'stop' && editableStop ? emit('editStop') : undefined"
               >
-                <UIcon v-if="tg.off === 'up'" name="i-mdi-arrow-up" class="size-3" />
+                <UIcon
+                  v-if="tg.key === 'stop' && editableStop"
+                  name="i-mdi-pencil-outline"
+                  class="size-3.5"
+                />
+                <UIcon v-else-if="tg.off === 'up'" name="i-mdi-arrow-up" class="size-3" />
                 <UIcon v-else-if="tg.off === 'down'" name="i-mdi-arrow-down" class="size-3" />
-                {{ priceText(tg.price) }}
-              </span>
+                <span v-if="wide" class="font-medium">{{ tg.name }}</span>
+                <span v-if="wide && tagNotes && tg.note" class="font-medium opacity-75">{{
+                  tg.note
+                }}</span>
+                <span class="font-semibold">{{ priceText(tg.price) }}</span>
+              </component>
             </div>
             <!-- "If sold at this price" readout -->
             <div

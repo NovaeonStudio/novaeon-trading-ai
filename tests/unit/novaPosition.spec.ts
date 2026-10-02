@@ -180,3 +180,35 @@ describe('strategy windows in hours (15m candles)', () => {
     expect(live[live.length - 1]!.lo10).toBe(100);
   });
 });
+
+describe('tradeFills without ft_is_entry', () => {
+  it('treats the long entry order as a buy when the engine leaves ft_is_entry empty', () => {
+    const tr0 = {
+      is_open: true,
+      is_short: false,
+      orders: [
+        {
+          ft_order_side: 'buy',
+          ft_is_entry: null,
+          filled: 10,
+          amount: 10,
+          safe_price: 120,
+          order_filled_timestamp: 1000,
+        },
+        {
+          ft_order_side: 'sell',
+          ft_is_entry: null,
+          filled: 5,
+          amount: 5,
+          safe_price: 144,
+          order_filled_timestamp: 2000,
+        },
+      ],
+    } as unknown as Trade;
+    const fills = tradeFills(tr0);
+    expect(fills.map((f) => [f.side, f.kind])).toEqual([
+      ['buy', 'entry'],
+      ['sell', 'partial'],
+    ]);
+  });
+});
