@@ -3,15 +3,15 @@
 **A crypto trading bot for your Mac that reads the news before it buys.** It trades one simple, tested breakout
 strategy on Hyperliquid, asks a local AI model (Novaeon Sentinel 9B) whether there is serious bad news about a coin
 before every purchase, and shows everything in a clear app. It starts with practice money, runs entirely on your own
-computers, and your wallet key never leaves MetaMask. New in 1.2: the bot checks every 15 minutes instead of every
-hour, sells half of a position at +20%, its exit level only rises while it holds a coin (1.2.1), and the position
-chart has a right-click menu. Since 1.1 the bot also runs on
+computers, and your wallet key never leaves MetaMask. New in 1.3: the bot sells breakouts that do not get going after 2 hours
+instead of holding them for up to a day. Since 1.2 it checks every 15 minutes, sells half at +20%, and its exit level
+only rises while it holds a coin. Since 1.1 the bot also runs on
 Linux and, in beta, on Windows, with Sentinel on your Mac in the same private network.
 
 By [Novaeon Studio](https://novaeon.studio). Free and open source (GPL-3.0).
 
 <p>
-  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.2.2/NovaeonTradingAI-1.2.2.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.2.2-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
+  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.3.0/NovaeonTradingAI-1.3.0.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.3.0-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
   <a href="https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/Model-Sentinel%209B%20on%20Hugging%20Face-6C7BFF?style=for-the-badge&logo=huggingface&logoColor=white&labelColor=0A0E1C"></a>
 </p>
 
@@ -240,6 +240,8 @@ Checked against the code in [`bot/strategies/`](bot/strategies/). Full rules and
 - **Take-profit:** once the price is 20% above the entry, the bot sells half; the other half keeps running.
 - **Sell:** a 15-minute close falls below the lowest low of the previous 10 hours, or the Bitcoin trend flips.
   While a trade is open this exit level only rises: it follows the price up and never steps down again.
+- **Failed breakout:** 2 hours after buying, if the price has never been more than 2% up and closes below the entry,
+  the bot sells early instead of waiting for the 10-hour low.
 - **Stop-loss:** 10% of the position's margin (at 1× that is a 10% price drop). You can tighten it by hand.
 - **Emergency brake:** after 6 stop-losses within 24 hours, no new purchases for 12 hours.
 - **AI leverage (opt-in):** 2× if P(clearly positive news) ≥ 0.50; 3× if ≥ 0.75 and Bitcoin's daily close is at
@@ -252,16 +254,16 @@ filter and AI leverage cannot be backtested and are not part of these numbers):
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor |
 |---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance USDT futures | +46.9% | 18.5% | 984 | 38% | 1.19 |
-| 2025-09-24 to 2026-09-25 | Binance USDT futures | +105.5% | 10.7% | 518 | 39% | 2.31 |
+| 2024-11-01 to 2025-09-24 | Binance USDT futures | +75.4% | 11.9% | 1,478 | 22% | 1.30 |
+| 2025-09-24 to 2026-09-25 | Binance USDT futures | +75.0% | 9.1% | 846 | 22% | 1.84 |
 
 There is no Hyperliquid row for 15-minute candles: Hyperliquid serves only about 5,000 candles per coin, about 50
 days at 15 minutes. Compared with the same rules on 1-hour candles, 15 minutes did better in three of four
 half-years and clearly worse in the choppy first half (Nov 2024 – Apr 2025); see
 [docs/STRATEGY.md](docs/STRATEGY.md#why-these-rules).
 
-Most trades lose; the strategy lives on a few large moves. Expect long flat or losing stretches and drawdowns of
-20% or more. **Past results do not guarantee future results. Not financial advice.**
+Most trades lose (about 4 in 5 end with a small loss); the strategy lives on a few large moves. Expect long losing
+streaks and drawdowns of 20% or more. **Past results do not guarantee future results. Not financial advice.**
 
 ## Novaeon Sentinel 9B
 

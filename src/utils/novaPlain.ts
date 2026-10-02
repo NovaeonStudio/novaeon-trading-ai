@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 export function plainExitReason(reason?: string | null): string {
   const r = (reason ?? '').toLowerCase();
   if (r === 'exit_signal' || r === 'sell_signal') return t('plain.exit.signal');
+  if (r === 'failed_breakout') return t('plain.exit.failedBreakout');
   if (r === 'manual_stop') return t('plain.exit.manualStop');
   if (r.includes('trailing')) return t('plain.exit.trailing');
   if (r.includes('stop_loss') || r === 'stoploss' || r.includes('stoploss'))

@@ -1,6 +1,6 @@
 {
   "name": "novaeon-trading-ai",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "NovaeonTradingAI by Novaeon Studio: a crypto trading bot for your Mac (and Linux, Windows beta) that checks the news with a local AI model before it buys.",
   "license": "GPL-3.0",
   "author": "Novaeon Studio",

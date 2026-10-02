@@ -55,6 +55,14 @@ class BreakoutRegime(Breakout):
     # half-years. Only in profit (ratchet from break-even on) was neutral. Set ratchet_exit = False for v5.
     ratchet_exit = True
     _ratchet: dict = {}
+    # v7 (2026-10-02, Maik: "the stop comes much too late"): failed-breakout check. If a trade has never been more than
+    # +2% above its entry 2 hours after buying and a closed candle closes below the entry, sell. Live, most automatic
+    # losers never rose above +2% and drifted for 10-20 hours to -2..-6% before the 10-hour low fired. Research (16
+    # variants, see docs/STRATEGY.md): +75.3% / +75.1% (drawdown 11.9% / 9.0%) vs +46.9% / +105.5% (18.5% / 10.7%);
+    # lower drawdown in all four half-years, about the same 2-year return. Win rate falls (more small losses).
+    failed_breakout_hours = 2
+    failed_breakout_up = 0.02   # "never above +2%"
+    failed_breakout_check = True
 
     @property
     def protections(self):
@@ -118,13 +126,20 @@ class BreakoutRegime(Breakout):
         return lvl, float(last["close"])
 
     def custom_exit(self, pair, trade, current_time, current_rate, current_profit, **kwargs):
-        """Ratchet exit (v6): a closed candle closed below the highest 10-hour low since the entry."""
+        """Ratchet exit (v6): a closed candle closed below the highest 10-hour low since the entry.
+        Failed-breakout check (v7): 2 hours in, never above +2%, a closed candle closed below the entry."""
         if not self.ratchet_exit or trade.is_short:
             return None
         lvl, close = self.exit_level(pair, trade, current_time)
         if lvl is not None and close is not None and close < lvl:
             BreakoutRegime._ratchet.pop((trade.id, trade.open_date_utc), None)
             return "exit_signal"
+        if (self.failed_breakout_check and close is not None
+                and current_time - trade.open_date_utc >= timedelta(hours=self.failed_breakout_hours)
+                and (trade.max_rate or trade.open_rate) < trade.open_rate * (1 + self.failed_breakout_up)
+                and close < trade.open_rate):
+            BreakoutRegime._ratchet.pop((trade.id, trade.open_date_utc), None)
+            return "failed_breakout"
         return None
 
     def adjust_trade_position(self, trade, current_time, current_rate, current_profit, min_stake, max_stake,

@@ -231,6 +231,7 @@ export function novaExitReason(reason: string | null | undefined): string {
   if (r === 'manual_stop') return tr('exit.reason.manualStop');
   if (r === 'stop_loss' || r === 'stoploss_on_exchange') return tr('exit.reason.stopLoss');
   if (r === 'exit_signal') return tr('exit.reason.exitSignal');
+  if (r === 'failed_breakout') return tr('exit.reason.failedBreakout');
   if (r === 'force_exit') return tr('exit.reason.forceExit');
   if (r === 'roi') return tr('exit.reason.roi');
   return (r.charAt(0).toUpperCase() + r.slice(1)).replaceAll('_', ' ');

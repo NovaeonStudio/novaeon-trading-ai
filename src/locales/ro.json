@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "Cum decide botul",
-      "exit": "Vinde jumătate când moneda e cu 20% peste prețul de cumpărare, iar restul când moneda scade sub cel mai mic preț din ultimele 10 ore sau când atinge stopul de siguranță. Cât timp ține moneda, această linie de ieșire doar urcă odată cu prețul, nu coboară niciodată. Verifică la fiecare 15 minute. Frână de urgență: după 6 stopuri de siguranță în 24 de ore, oprește cumpărările timp de 12 ore."
+      "exit": "Vinde jumătate când moneda e cu 20% peste prețul de cumpărare, iar restul când moneda scade sub cel mai mic preț din ultimele 10 ore sau când atinge stopul de siguranță. Cât timp ține moneda, această linie de ieșire doar urcă odată cu prețul, nu coboară niciodată. Dacă la 2 ore după cumpărare moneda n-a crescut cu mai mult de 2% și e sub prețul de cumpărare, vinde devreme. Verifică la fiecare 15 minute. Frână de urgență: după 6 stopuri de siguranță în 24 de ore, oprește cumpărările timp de 12 ore."
     },
     "steps": {
       "new": "Nou",
@@ -1544,7 +1544,8 @@
       "stopLoss": "Stop loss",
       "exitSignal": "Semnal de ieșire",
       "forceExit": "Închisă manual",
-      "roi": "ROI"
+      "roi": "ROI",
+      "failedBreakout": "Breakout eșuat"
     }
   },
   "position": {
@@ -2340,7 +2341,8 @@
       "stop": "Stopul de siguranță a fost atins",
       "roi": "Ținta de profit a fost atinsă",
       "force": "Închisă de tine",
-      "liquidation": "Lichidată"
+      "liquidation": "Lichidată",
+      "failedBreakout": "Creșterea nu a pornit, vândută devreme"
     },
     "ago": {
       "justNow": "chiar acum",

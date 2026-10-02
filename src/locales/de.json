@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "So entscheidet der Bot",
-      "exit": "Er verkauft die Hälfte, sobald der Coin 20 % über dem Kaufpreis steht, und den Rest, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Solange er den Coin hält, steigt diese Ausstiegslinie nur mit dem Preis mit und sinkt nie. Er prüft alle 15 Minuten. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
+      "exit": "Er verkauft die Hälfte, sobald der Coin 20 % über dem Kaufpreis steht, und den Rest, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Solange er den Coin hält, steigt diese Ausstiegslinie nur mit dem Preis mit und sinkt nie. Ist ein Coin 2 Stunden nach dem Kauf nie mehr als 2 % gestiegen und liegt unter dem Kaufpreis, verkauft er früh. Er prüft alle 15 Minuten. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
     },
     "steps": {
       "new": "Neu",
@@ -1544,7 +1544,8 @@
       "stopLoss": "Stop-Loss",
       "exitSignal": "Ausstiegssignal",
       "forceExit": "Von Hand geschlossen",
-      "roi": "ROI"
+      "roi": "ROI",
+      "failedBreakout": "Ausbruch gescheitert"
     }
   },
   "position": {
@@ -2340,7 +2341,8 @@
       "stop": "Sicherheits-Stop wurde erreicht",
       "roi": "Gewinnziel erreicht",
       "force": "Von dir geschlossen",
-      "liquidation": "Liquidiert"
+      "liquidation": "Liquidiert",
+      "failedBreakout": "Der Anstieg kam nicht in Gang, früh verkauft"
     },
     "ago": {
       "justNow": "gerade eben",

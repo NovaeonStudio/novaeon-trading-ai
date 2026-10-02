@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "How the bot decides",
-      "exit": "It sells half once the coin is 20% above the buy price, and the rest when the coin drops below its lowest price of the last 10 hours, or at the safety stop. While it holds a coin, that exit line only moves up with the price, never down. It checks every 15 minutes. Emergency brake: after 6 safety stops within 24 hours it pauses buying for 12 hours."
+      "exit": "It sells half once the coin is 20% above the buy price, and the rest when the coin drops below its lowest price of the last 10 hours, or at the safety stop. While it holds a coin, that exit line only moves up with the price, never down. If a coin has not risen more than 2% two hours after buying and is below the buy price, it sells early. It checks every 15 minutes. Emergency brake: after 6 safety stops within 24 hours it pauses buying for 12 hours."
     },
     "steps": {
       "new": "New",
@@ -1544,7 +1544,8 @@
       "stopLoss": "Stop loss",
       "exitSignal": "Exit signal",
       "forceExit": "Closed by hand",
-      "roi": "ROI"
+      "roi": "ROI",
+      "failedBreakout": "Failed breakout"
     }
   },
   "position": {
@@ -2340,7 +2341,8 @@
       "stop": "Safety stop was hit",
       "roi": "Profit target reached",
       "force": "Closed by you",
-      "liquidation": "Liquidated"
+      "liquidation": "Liquidated",
+      "failedBreakout": "The rise did not get going, sold early"
     },
     "ago": {
       "justNow": "just now",

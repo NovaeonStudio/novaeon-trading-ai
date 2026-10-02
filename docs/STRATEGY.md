@@ -32,6 +32,7 @@ and the `Breakout` base class they extend.
 | Entry cap | Off: no limit on new trades per hour or day beyond the 8 slots. Optional: e.g. at most 2 per hour and 5 per 24 hours (manual buys count, but are never blocked) | `max_entries_1h = None`, `max_entries_24h = None` |
 | News check | Blocked if Sentinel's P(major negative news) ≥ 0.30 | `VETO_THRESHOLD = 0.3` |
 | Exit | 15-minute close below the exit level: the lowest low of the previous 10 hours (40 candles), but while a trade is open the level only rises (the highest 10-hour low since the entry) | `exit_hours = 10`, `ratchet_exit = True` |
+| Failed-breakout check | 2 hours after buying: if the price has never been more than 2% above the entry and a 15-minute candle closes below the entry, sell | `failed_breakout_hours = 2`, `failed_breakout_up = 0.02` |
 | Trend exit | Sell when Bitcoin's daily close falls below its 50-day EMA | `exit_long = 1` |
 | Stop-loss | 10% of the position's margin: a 10% price drop at 1×, about 3.3% at 3× | `stoploss = -0.10` |
 | Take-profit | Half the position once the price is 20% above the entry (measured on the price, not the leveraged profit); the other half runs until an exit rule fires | `take_profit_move = 0.20`, `take_profit_fraction = 0.5` |
@@ -108,8 +109,8 @@ positions keep a stop.
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor | Longest losing streak |
 |---|---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance | +46.9% | 18.5% | 984 | 38% | 1.19 | 23 trades |
-| 2025-09-24 to 2026-09-25 | Binance | +105.5% | 10.7% | 518 | 39% | 2.31 | 19 trades |
+| 2024-11-01 to 2025-09-24 | Binance | +75.4% | 11.9% | 1,478 | 22% | 1.30 | 34 trades |
+| 2025-09-24 to 2026-09-25 | Binance | +75.0% | 9.1% | 846 | 22% | 1.84 | 29 trades |
 
 On 15-minute candles there is no Hyperliquid row: Hyperliquid serves only about 5,000 candles per coin, which is
 about 50 days at 15 minutes. The same rules on 1-hour candles (1.1.2 used 1-hour candles, without the take-profit) gave +66.8% / 16.1%,
@@ -202,6 +203,29 @@ Read these together with the bad parts:
   Over four half-years the rising level lowered the drawdown in three (21.6% → 18.9%, 16.7% → 13.9%, 9.6% → 9.2%;
   8.3% → 8.5% in the fourth) at about the same return. The variant that only starts once the level reaches the entry
   price changed almost nothing, so the level rises from the entry on.
+- **Failed-breakout check** (added in 1.3.0): most automatic losses in live trading came from breakouts that never
+  got going: the price rose less than 2%, then drifted down for 10–20 hours until the 10-hour low fired at −2% to
+  −6%. Now the bot sells 2 hours after buying if the price has never been more than 2% above the entry and a
+  15-minute candle closes below it. We tested 16 variants (after 2, 3, 4 or 6 hours; never above +1% or +2%; below
+  the entry or 1% below it), plus a −5% and −7% stop, a 2×ATR stop and exit windows of 1, 2, 4 and 6 hours:
+
+  | | Before (1.2.x) | Failed-breakout check |
+  |---|---|---|
+  | 2024-11-01 to 2025-09-24 | +46.9% / 18.5% | **+75.4% / 11.9%** |
+  | 2025-09-24 to 2026-09-25 | **+105.5%** / 10.7% | +75.0% / **9.1%** |
+  | Nov 2024 – Apr 2025 | +9.7% / 18.9% | **+31.1% / 9.9%** |
+  | May – Sep 2025 | +34.2% / 13.9% | +33.8% / **11.9%** |
+  | Sep 2025 – Mar 2026 | +2.2% / 9.2% | **+2.8% / 6.8%** |
+  | Mar – Sep 2026 | **+96.5%** / 8.5% | +68.3% / **6.9%** |
+
+  The drawdown is lower in all four half-years and the two-year return about the same (×3.07 vs ×3.02); the strong
+  trend of Mar–Sep 2026 earned less. **The win rate falls from about 38% to 22%**: more trades end with a small loss
+  instead of fewer with a large one, and losing streaks get longer (up to 34 trades). Shorter exit windows were much
+  worse (1 hour: +6.5% / +22.6%, 2 hours: +9.8% / +43.2%), as were tighter stops (−5%: +39.3% / +96.0%) and a 2×ATR
+  stop (+16.6% / +41.8%). We also compared other strategies on the same coins with the same Bitcoin filter (1-hour
+  candles unless noted): Bollinger squeeze breakout +57.6% / +23.7%, Supertrend +18.5% / +70.6%, EMA20 pullback
+  +15.9% / +68.4%, RSI(2) mean reversion +15.9% / −3.3% (win rate 59–63%), a daily Donchian breakout −2.5% / +78.5%.
+  None beat the breakout.
 - **No tight trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends
   on letting winners run through normal pullbacks.
 - **The emergency brake** never triggered in the test periods; it exists for crash cascades that the tests did not
