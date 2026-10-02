@@ -443,8 +443,8 @@
       "stop": "Stop",
       "forcedSale": "Forced sale (liquidation)",
       "liquidation": "Liquidation",
-      "botSellsBelow": "Bot sells below (10-hour low)",
-      "exitSignal": "Exit signal (10-hour low)",
+      "botSellsBelow": "Bot sells below (10-hour low, only rises)",
+      "exitSignal": "Exit signal (10-hour low, only rises)",
       "breakout": "Breakout level (20-hour high)",
       "zonesSimple": "Shaded risk and profit",
       "zones": "Risk and profit zones",
@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "How the bot decides",
-      "exit": "It sells half once the coin is 20% above the buy price, and the rest when the coin drops below its lowest price of the last 10 hours, or at the safety stop. It checks every 15 minutes. Emergency brake: after 6 safety stops within 24 hours it pauses buying for 12 hours."
+      "exit": "It sells half once the coin is 20% above the buy price, and the rest when the coin drops below its lowest price of the last 10 hours, or at the safety stop. While it holds a coin, that exit line only moves up with the price, never down. It checks every 15 minutes. Emergency brake: after 6 safety stops within 24 hours it pauses buying for 12 hours."
     },
     "steps": {
       "new": "New",

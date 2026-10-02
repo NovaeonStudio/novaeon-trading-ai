@@ -31,7 +31,7 @@ and the `Breakout` base class they extend.
 | Volume filter | Entry candle volume at least 2× the average of the previous 20 hours | `volume_mult = 2.0`, `volume_hours = 20` |
 | Entry cap | Off: no limit on new trades per hour or day beyond the 8 slots. Optional: e.g. at most 2 per hour and 5 per 24 hours (manual buys count, but are never blocked) | `max_entries_1h = None`, `max_entries_24h = None` |
 | News check | Blocked if Sentinel's P(major negative news) ≥ 0.30 | `VETO_THRESHOLD = 0.3` |
-| Exit | 15-minute close below the lowest low of the previous 10 hours (40 candles) | `exit_hours = 10` |
+| Exit | 15-minute close below the exit level: the lowest low of the previous 10 hours (40 candles), but while a trade is open the level only rises (the highest 10-hour low since the entry) | `exit_hours = 10`, `ratchet_exit = True` |
 | Trend exit | Sell when Bitcoin's daily close falls below its 50-day EMA | `exit_long = 1` |
 | Stop-loss | 10% of the position's margin: a 10% price drop at 1×, about 3.3% at 3× | `stoploss = -0.10` |
 | Take-profit | Half the position once the price is 20% above the entry (measured on the price, not the leveraged profit); the other half runs until an exit rule fires | `take_profit_move = 0.20`, `take_profit_fraction = 0.5` |
@@ -108,8 +108,8 @@ positions keep a stop.
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor | Longest losing streak |
 |---|---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance | +53.1% | 21.8% | 941 | 37% | 1.23 | 22 trades |
-| 2025-09-24 to 2026-09-25 | Binance | +101.5% | 10.8% | 494 | 39% | 2.25 | 19 trades |
+| 2024-11-01 to 2025-09-24 | Binance | +46.9% | 18.5% | 984 | 38% | 1.19 | 23 trades |
+| 2025-09-24 to 2026-09-25 | Binance | +105.5% | 10.7% | 518 | 39% | 2.31 | 19 trades |
 
 On 15-minute candles there is no Hyperliquid row: Hyperliquid serves only about 5,000 candles per coin, which is
 about 50 days at 15 minutes. The same rules on 1-hour candles (1.1.2 used 1-hour candles, without the take-profit) gave +66.8% / 16.1%,
@@ -188,8 +188,22 @@ Read these together with the bad parts:
   (too little 15-minute history). The same rules with the 1-hour candle counts on shorter candles (20/10 candles =
   5 h / 2.5 h on 15m, 100 / 50 minutes on 5m) lost money: −7.5% and −48.4% in the first Binance period, from noise
   and fees on 4 to 12 times as many trades. Five-minute candles with the same time horizon were worse than one hour.
-- **No trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends on
-  letting winners run through normal pullbacks.
+- **The exit level only rises** (added in 1.2.1): the plain 10-hour low can step down again while a trade is open
+  (a wick below it without a close below, or old lows leaving the window), so the line on the chart sometimes fell
+  while the trade was in profit. Now the bot remembers the highest 10-hour low since the entry and sells when a
+  closed candle closes below it. It is still the wide 10-hour line, not a tight trailing stop. Results on 15-minute
+  candles, same data:
+
+  | | Before (plain 10-hour low) | Exit level only rises | Only rises once at or above the entry |
+  |---|---|---|---|
+  | 2024-11-01 to 2025-09-24 | +53.1% / 21.8% | +46.9% / **18.5%** | +51.5% / 21.5% |
+  | 2025-09-24 to 2026-09-25 | +101.5% / 10.8% | **+105.5%** / 10.7% | +102.1% / 11.2% |
+
+  Over four half-years the rising level lowered the drawdown in three (21.6% → 18.9%, 16.7% → 13.9%, 9.6% → 9.2%;
+  8.3% → 8.5% in the fourth) at about the same return. The variant that only starts once the level reaches the entry
+  price changed almost nothing, so the level rises from the entry on.
+- **No tight trailing stop or break-even stop:** tested, and both made results clearly worse. This strategy depends
+  on letting winners run through normal pullbacks.
 - **The emergency brake** never triggered in the test periods; it exists for crash cascades that the tests did not
   contain.
 

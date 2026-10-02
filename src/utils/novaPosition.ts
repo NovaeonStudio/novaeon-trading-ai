@@ -16,9 +16,9 @@ export interface NovaCandle {
   l: number;
   c: number;
   v: number;
-  /** Breakout level: highest high of the previous 20 candles. */
+  /** Breakout level: highest high of the previous 20 hours (strategy column hi20). */
   hi20: number | null;
-  /** Exit trigger: lowest low of the previous 10 candles. */
+  /** Exit trigger: lowest low of the previous 10 hours (strategy column lo10). */
   lo10: number | null;
   /** True for the synthetic candle that is still forming (last closed candle → current price). */
   live?: boolean;
@@ -42,6 +42,8 @@ export function donchianLevels(candles: NovaCandle[], hiN = 20, loN = 10): NovaC
  * otherwise computes them the same way.
  */
 export function positionCandles(ph: PairHistory | null | undefined): NovaCandle[] {
+  // The strategy's windows are in hours: 20 / 10 hours = 80 / 40 candles on 15m.
+  const cph = ph?.timeframe_ms ? Math.max(1, Math.round(3_600_000 / ph.timeframe_ms)) : 1;
   if (!ph?.data?.length) return [];
   const col = (name: string) => ph.columns.indexOf(name);
   const [iTs, iO, iH, iL, iC, iV, iHi, iLo] = [
@@ -74,7 +76,7 @@ export function positionCandles(ph: PairHistory | null | undefined): NovaCandle[
       lo10: iLo! >= 0 ? num(r[iLo!]) : null,
     });
   }
-  return iHi! >= 0 && iLo! >= 0 ? rows : donchianLevels(rows);
+  return iHi! >= 0 && iLo! >= 0 ? rows : donchianLevels(rows, 20 * cph, 10 * cph);
 }
 
 /**
@@ -105,7 +107,9 @@ export function withLiveCandle(
       live: true,
     },
   ];
-  const levels = donchianLevels(withLive.slice(-21));
+  // Windows in hours, like the strategy: 20 / 10 hours of candles of this size.
+  const cph = Math.max(1, Math.round(3_600_000 / tfMs));
+  const levels = donchianLevels(withLive.slice(-(20 * cph + 1)), 20 * cph, 10 * cph);
   const lv = levels[levels.length - 1]!;
   withLive[withLive.length - 1] = {
     ...withLive[withLive.length - 1]!,

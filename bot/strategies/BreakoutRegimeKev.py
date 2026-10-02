@@ -191,7 +191,7 @@ class BreakoutRegimeKev(BreakoutRegime):
         stop = self._manual_stop(trade)
         if stop is not None and stop > trade.stop_loss and current_rate <= stop:
             return "manual_stop"
-        return None
+        return super().custom_exit(pair, trade, current_time, current_rate, current_profit, **kwargs)
 
     def _headlines(self) -> list[dict]:
         ts, items = self._feed_cache

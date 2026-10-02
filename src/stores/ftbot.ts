@@ -1104,7 +1104,12 @@ export function createBotSubStore(botId: string, botName: string) {
     }
 
     /** Recent candles for one pair without touching shared chart state (NovaeonTradingAI trade charts). */
-    async function getCandlesQuiet(pair: string, timeframe: string, limit = 150) {
+    async function getCandlesQuiet(
+      pair: string,
+      timeframe: string,
+      limit = 150,
+      columns: string[] = [],
+    ) {
       try {
         const { data } = await api.post<PairCandlePayload, AxiosResponse<PairHistory>>(
           '/pair_candles',
@@ -1112,7 +1117,7 @@ export function createBotSubStore(botId: string, botName: string) {
             pair,
             timeframe,
             limit,
-            columns: [],
+            columns,
           },
         );
         return data;

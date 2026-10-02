@@ -443,8 +443,8 @@
       "stop": "Stop",
       "forcedSale": "Zwangsverkauf (Liquidation)",
       "liquidation": "Liquidation",
-      "botSellsBelow": "Bot verkauft darunter (10-Stunden-Tief)",
-      "exitSignal": "Ausstiegssignal (10-Stunden-Tief)",
+      "botSellsBelow": "Bot verkauft darunter (10-Stunden-Tief, steigt nur)",
+      "exitSignal": "Ausstiegssignal (10-Stunden-Tief, steigt nur)",
       "breakout": "Ausbruchsniveau (20-Stunden-Hoch)",
       "zonesSimple": "Risiko und Gewinn schattiert",
       "zones": "Risiko- und Gewinnzonen",
@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "So entscheidet der Bot",
-      "exit": "Er verkauft die Hälfte, sobald der Coin 20 % über dem Kaufpreis steht, und den Rest, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Er prüft alle 15 Minuten. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
+      "exit": "Er verkauft die Hälfte, sobald der Coin 20 % über dem Kaufpreis steht, und den Rest, wenn der Coin unter seinen tiefsten Preis der letzten 10 Stunden fällt, oder beim Sicherheits-Stop. Solange er den Coin hält, steigt diese Ausstiegslinie nur mit dem Preis mit und sinkt nie. Er prüft alle 15 Minuten. Notbremse: Nach 6 Sicherheits-Stops innerhalb von 24 Stunden pausiert er die Käufe für 12 Stunden."
     },
     "steps": {
       "new": "Neu",

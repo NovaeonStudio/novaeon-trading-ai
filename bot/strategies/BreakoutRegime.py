@@ -48,6 +48,13 @@ class BreakoutRegime(Breakout):
     # (16.1/17.7/8.8%). Behaviour is exactly v3. Set both values (e.g. 2 and 5) to switch the cap back on.
     max_entries_1h: int | None = None
     max_entries_24h: int | None = None
+    # v6 (2026-10-02, Maik): the exit level only rises. While a trade is open, it sells when a closed candle closes
+    # below the HIGHEST 10-hour low seen since the entry, so the line follows the price up and never steps down
+    # (before, the plain 10-hour low could fall again, e.g. after wicks). Research (Binance 15m, see docs/STRATEGY.md):
+    # +46.9% / +105.5% (drawdown 18.5% / 10.7%) vs +53.1% / +101.5% (21.8% / 10.8%); lower drawdown in 3 of 4
+    # half-years. Only in profit (ratchet from break-even on) was neutral. Set ratchet_exit = False for v5.
+    ratchet_exit = True
+    _ratchet: dict = {}
 
     @property
     def protections(self):
@@ -88,6 +95,37 @@ class BreakoutRegime(Breakout):
         df = super().populate_exit_trend(df, metadata)
         df.loc[df["btc_close_1d"] < df["btc_ema50_1d"], "exit_long"] = 1
         return df
+
+    def exit_level(self, pair: str, trade, current_time) -> tuple[float | None, float | None]:
+        """(Ratchet exit level, close of the last closed candle). The level is the highest lo10 of the closed candles
+        since the entry. Only closed candles count (close time <= now), so backtests never look ahead."""
+        df, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
+        if df is None or df.empty:
+            return None, None
+        tf = timedelta(minutes=timeframe_to_minutes(self.timeframe))
+        closed = df[df["date"] + tf <= current_time]
+        if closed.empty:
+            return None, None
+        last = closed.iloc[-1]
+        key = (trade.id, trade.open_date_utc)
+        lvl, seen = self._ratchet.get(key, (None, None))
+        if seen is None:  # first look at this trade (or after a restart): rebuild from the candles since the entry
+            since = closed.loc[closed["date"] >= trade.open_date_utc - tf, "lo10"].max()
+            lvl = since if since == since else None
+        elif last["date"] > seen and last["lo10"] == last["lo10"]:
+            lvl = last["lo10"] if lvl is None else max(lvl, last["lo10"])
+        BreakoutRegime._ratchet[key] = (lvl, last["date"])
+        return lvl, float(last["close"])
+
+    def custom_exit(self, pair, trade, current_time, current_rate, current_profit, **kwargs):
+        """Ratchet exit (v6): a closed candle closed below the highest 10-hour low since the entry."""
+        if not self.ratchet_exit or trade.is_short:
+            return None
+        lvl, close = self.exit_level(pair, trade, current_time)
+        if lvl is not None and close is not None and close < lvl:
+            BreakoutRegime._ratchet.pop((trade.id, trade.open_date_utc), None)
+            return "exit_signal"
+        return None
 
     def adjust_trade_position(self, trade, current_time, current_rate, current_profit, min_stake, max_stake,
                               **kwargs):

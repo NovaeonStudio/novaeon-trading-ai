@@ -443,8 +443,8 @@
       "stop": "Stop",
       "forcedSale": "Vânzare forțată (lichidare)",
       "liquidation": "Lichidare",
-      "botSellsBelow": "Botul vinde sub (minimul pe 10 ore)",
-      "exitSignal": "Semnal de ieșire (minimul pe 10 ore)",
+      "botSellsBelow": "Botul vinde sub (minimul pe 10 ore, doar crește)",
+      "exitSignal": "Semnal de ieșire (minimul pe 10 ore, doar crește)",
       "breakout": "Nivel de breakout (maximul pe 20 de ore)",
       "zonesSimple": "Risc și profit umbrite",
       "zones": "Zone de risc și profit",
@@ -1224,7 +1224,7 @@
     },
     "how": {
       "title": "Cum decide botul",
-      "exit": "Vinde jumătate când moneda e cu 20% peste prețul de cumpărare, iar restul când moneda scade sub cel mai mic preț din ultimele 10 ore sau când atinge stopul de siguranță. Verifică la fiecare 15 minute. Frână de urgență: după 6 stopuri de siguranță în 24 de ore, oprește cumpărările timp de 12 ore."
+      "exit": "Vinde jumătate când moneda e cu 20% peste prețul de cumpărare, iar restul când moneda scade sub cel mai mic preț din ultimele 10 ore sau când atinge stopul de siguranță. Cât timp ține moneda, această linie de ieșire doar urcă odată cu prețul, nu coboară niciodată. Verifică la fiecare 15 minute. Frână de urgență: după 6 stopuri de siguranță în 24 de ore, oprește cumpărările timp de 12 ore."
     },
     "steps": {
       "new": "Nou",

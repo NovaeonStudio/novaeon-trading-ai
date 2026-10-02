@@ -4,7 +4,7 @@
  * - readable candles on the strategy timeframe (4h / 1d built from them), range presets, drag to pan,
  *   pinch or Ctrl + scroll to zoom;
  * - average entry, break-even after fees, stop (with a live preview while it is being edited), liquidation,
- *   the strategy's exit trigger (10-hour low) and breakout level (20-hour high) as step lines;
+ *   the strategy's exit trigger (10-hour low; from the entry on it only rises) and breakout level (20-hour high);
  * - risk zone (entry → stop) and open-profit zone (entry → now), every fill, the Sentinel news check at entry;
  * - price tags on the right as HTML (stacked so they never overlap), a legend that doubles as the
  *   table view, and an "if sold at this price" readout under the pointer.
@@ -190,6 +190,7 @@ async function load() {
       props.trade.pair,
       timeframe,
       Math.min(Math.max(props.limit, need), 3000),
+      ['hi20', 'lo10'],
     );
     baseTfMs.value = ph?.timeframe_ms || ms;
     raw.value = positionCandles(ph);
@@ -212,10 +213,26 @@ useIntervalFn(() => {
   if (props.trade.is_open) load();
 }, 60_000);
 
+/** The ratchet exit (strategy v6) went live here; it applies to every trade still open from then on. */
+const RATCHET_SINCE = Date.parse('2026-10-02T14:24:06Z');
+/** Strategy v6: while a trade is open its exit level only rises (the highest 10-hour low since the entry). */
+function ratchetExit(rows: NovaCandle[]): NovaCandle[] {
+  const x = props.trade;
+  const closedAt = !x.is_open && 'close_timestamp' in x ? (x.close_timestamp ?? null) : null;
+  if (closedAt !== null && closedAt < RATCHET_SINCE) return rows;
+  const from = Math.floor(x.open_timestamp / tfMs.value) * tfMs.value;
+  const to = closedAt ?? Infinity;
+  let top: number | null = null;
+  return rows.map((r) => {
+    if (r.ts < from || r.ts > to || r.lo10 === null) return r;
+    top = top === null ? r.lo10 : Math.max(top, r.lo10);
+    return top === r.lo10 ? r : { ...r, lo10: top };
+  });
+}
 const candles = computed(() => {
   let rows = withLiveCandle(raw.value, baseTfMs.value, nowRate.value);
   if (tfMs.value > baseTfMs.value) rows = aggregateCandles(rows, tfMs.value);
-  return rows;
+  return ratchetExit(rows);
 });
 const bucket = (ts: number) => Math.floor(ts / tfMs.value) * tfMs.value;
 const fills = computed<NovaFill[]>(() => tradeFills(t.value));

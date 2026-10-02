@@ -637,6 +637,12 @@ def levels(a: str = Depends(auth)):
     return {str(tid): _levels(t, ms.get(str(tid))) for tid, t in trades.items()}
 
 
+def _tf_minutes(tf: str) -> int:
+    """Minutes per candle for a Freqtrade timeframe string ("15m", "1h", "4h", "1d")."""
+    unit = {"m": 1, "h": 60, "d": 1440, "w": 10080}[tf[-1]]
+    return int(tf[:-1]) * unit
+
+
 @app.get("/control/trades/{trade_id}/levels")
 def trade_levels(trade_id: int, a: str = Depends(auth)):
     """_levels plus the strategy's own exit/entry lines from the engine's analyzed candles."""
@@ -648,16 +654,27 @@ def trade_levels(trade_id: int, a: str = Depends(auth)):
     out.update(exit_level=None, entry_level=None, candle=None, btc_regime_ok=None)
     try:
         tf = _engine("show_config", a).get("timeframe", "1h")
-        r = httpx.get(f"{ENGINE}/pair_candles", params={"pair": t["pair"], "timeframe": tf, "limit": 30},
+        # The strategy's windows are in hours (10-hour low, 20-hour high): convert to candles of this timeframe.
+        cph = max(1, 60 // _tf_minutes(tf))
+        n_exit, n_entry = 10 * cph, 20 * cph
+        tf_ms = _tf_minutes(tf) * 60_000
+        held = max(0, int((time.time() * 1000 - (t.get("open_timestamp") or 0)) // tf_ms)) + 2
+        r = httpx.get(f"{ENGINE}/pair_candles",
+                      params={"pair": t["pair"], "timeframe": tf, "limit": min(n_entry + 10 + held, 5000)},
                       headers={"Authorization": a}, timeout=10)
         r.raise_for_status()
         c = r.json()
         rows = [dict(zip(c["columns"], row)) for row in c["data"]]  # closed candles only (Freqtrade drops the open one)
-        if len(rows) >= 20:
+        if len(rows) >= n_entry:
             last = rows[-1]
-            # The next candle exits if it CLOSES below the lowest low of the last 10 closed candles (its lo10).
-            out["exit_level"] = min(x["low"] for x in rows[-10:])
-            out["entry_level"] = max(x["high"] for x in rows[-20:])
+            # The next candle exits if it CLOSES below the exit level: the lowest low of the last 10 hours, but never
+            # lower than the highest such level since the entry (ratchet exit, strategy v6).
+            nxt = min(x["low"] for x in rows[-n_exit:])
+            since = t.get("open_timestamp") or 0
+            seen = [x["lo10"] for x in rows
+                    if x.get("lo10") is not None and (x.get("__date_ts") or 0) >= since - tf_ms]
+            out["exit_level"] = max([nxt, *seen])
+            out["entry_level"] = max(x["high"] for x in rows[-n_entry:])
             out["candle"] = {"timeframe": tf, "last_closed": last["date"], "lo10": last.get("lo10"), "hi20": last.get("hi20")}
             if last.get("btc_close_1d") is not None and last.get("btc_ema50_1d") is not None:
                 out["btc_regime_ok"] = last["btc_close_1d"] >= last["btc_ema50_1d"]

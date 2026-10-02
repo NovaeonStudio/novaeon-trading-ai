@@ -7,6 +7,7 @@ import {
   isStopExit,
   novaExitReason,
   novaPriceText,
+  positionCandles,
   priceForProfit,
   profitAtPrice,
   tradeFills,
@@ -144,5 +145,31 @@ describe('labels', () => {
     expect(novaPriceText(65012.7)).toBe('65,013');
     expect(novaPriceText(0.0123456)).toBe('0.012346');
     expect(novaPriceText(null)).toBe('–');
+  });
+});
+
+describe('strategy windows in hours (15m candles)', () => {
+  const M15 = 900_000;
+  // 100 candles: lows fall 1 per candle, so the 10-hour low (40 candles) is clearly below the 2.5-hour low.
+  const rows = Array.from({ length: 100 }, (_, i) => [i * M15, 200 - i, 201 - i, 199 - i, 200 - i, 1]);
+  const ph = {
+    timeframe_ms: M15,
+    columns: ['__date_ts', 'open', 'high', 'low', 'close', 'volume'],
+    data: rows,
+  } as unknown as Parameters<typeof positionCandles>[0];
+
+  it('computes lo10 / hi20 over 10 / 20 hours when the engine sends no level columns', () => {
+    const out = positionCandles(ph);
+    const last = out[out.length - 1]!;
+    // lows of candles 59..98 (previous 40): min = 199 - 98 = 101; highs of 19..98 (previous 80): max = 201 - 19 = 182
+    expect(last.lo10).toBe(101);
+    expect(last.hi20).toBe(182);
+  });
+
+  it('gives the forming candle the 10-hour low too', () => {
+    const base = positionCandles(ph);
+    const live = withLiveCandle(base, M15, 50, base[base.length - 1]!.ts + 2 * M15);
+    // previous 40 candles for the live one: 60..99 -> min low = 199 - 99 = 100
+    expect(live[live.length - 1]!.lo10).toBe(100);
   });
 });

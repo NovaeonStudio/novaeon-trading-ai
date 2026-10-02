@@ -4,13 +4,14 @@
 strategy on Hyperliquid, asks a local AI model (Novaeon Sentinel 9B) whether there is serious bad news about a coin
 before every purchase, and shows everything in a clear app. It starts with practice money, runs entirely on your own
 computers, and your wallet key never leaves MetaMask. New in 1.2: the bot checks every 15 minutes instead of every
-hour, sells half of a position at +20%, and the position chart has a right-click menu. Since 1.1 the bot also runs on
+hour, sells half of a position at +20%, its exit level only rises while it holds a coin (1.2.1), and the position
+chart has a right-click menu. Since 1.1 the bot also runs on
 Linux and, in beta, on Windows, with Sentinel on your Mac in the same private network.
 
 By [Novaeon Studio](https://novaeon.studio). Free and open source (GPL-3.0).
 
 <p>
-  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.2.0/NovaeonTradingAI-1.2.0.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.2.0-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
+  <a href="https://github.com/NovaeonStudio/novaeon-trading-ai/releases/download/v1.2.1/NovaeonTradingAI-1.2.1.dmg"><img alt="Download for macOS (.dmg)" src="https://img.shields.io/badge/Download%20for%20macOS-.dmg%20·%20v1.2.1-F4B25A?style=for-the-badge&logo=apple&logoColor=white&labelColor=0A0E1C"></a>
   <a href="https://huggingface.co/NovaeonStudio/novaeon-sentinel-9b"><img alt="Model on Hugging Face" src="https://img.shields.io/badge/Model-Sentinel%209B%20on%20Hugging%20Face-6C7BFF?style=for-the-badge&logo=huggingface&logoColor=white&labelColor=0A0E1C"></a>
 </p>
 
@@ -238,6 +239,7 @@ Checked against the code in [`bot/strategies/`](bot/strategies/). Full rules and
   means no check.
 - **Take-profit:** once the price is 20% above the entry, the bot sells half; the other half keeps running.
 - **Sell:** a 15-minute close falls below the lowest low of the previous 10 hours, or the Bitcoin trend flips.
+  While a trade is open this exit level only rises: it follows the price up and never steps down again.
 - **Stop-loss:** 10% of the position's margin (at 1× that is a 10% price drop). You can tighten it by hand.
 - **Emergency brake:** after 6 stop-losses within 24 hours, no new purchases for 12 hours.
 - **AI leverage (opt-in):** 2× if P(clearly positive news) ≥ 0.50; 3× if ≥ 0.75 and Bitcoin's daily close is at
@@ -250,8 +252,8 @@ filter and AI leverage cannot be backtested and are not part of these numbers):
 
 | Period | Data | Return | Max drawdown | Trades | Win rate | Profit factor |
 |---|---|---|---|---|---|---|
-| 2024-11-01 to 2025-09-24 | Binance USDT futures | +53.1% | 21.8% | 941 | 37% | 1.23 |
-| 2025-09-24 to 2026-09-25 | Binance USDT futures | +101.5% | 10.8% | 494 | 39% | 2.25 |
+| 2024-11-01 to 2025-09-24 | Binance USDT futures | +46.9% | 18.5% | 984 | 38% | 1.19 |
+| 2025-09-24 to 2026-09-25 | Binance USDT futures | +105.5% | 10.7% | 518 | 39% | 2.31 |
 
 There is no Hyperliquid row for 15-minute candles: Hyperliquid serves only about 5,000 candles per coin, about 50
 days at 15 minutes. Compared with the same rules on 1-hour candles, 15 minutes did better in three of four
