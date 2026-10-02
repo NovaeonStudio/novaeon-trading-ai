@@ -151,7 +151,14 @@ describe('labels', () => {
 describe('strategy windows in hours (15m candles)', () => {
   const M15 = 900_000;
   // 100 candles: lows fall 1 per candle, so the 10-hour low (40 candles) is clearly below the 2.5-hour low.
-  const rows = Array.from({ length: 100 }, (_, i) => [i * M15, 200 - i, 201 - i, 199 - i, 200 - i, 1]);
+  const rows = Array.from({ length: 100 }, (_, i) => [
+    i * M15,
+    200 - i,
+    201 - i,
+    199 - i,
+    200 - i,
+    1,
+  ]);
   const ph = {
     timeframe_ms: M15,
     columns: ['__date_ts', 'open', 'high', 'low', 'close', 'volume'],

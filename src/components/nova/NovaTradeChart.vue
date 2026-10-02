@@ -365,7 +365,8 @@ const layerDefs = computed(() => {
     {
       key: 'breakout',
       label: tr('chart.layer.breakout'),
-      color: k.textDim,
+      color: k.textMuted,
+      dash: 'dashed',
       show: hasLevels.value && !s,
     },
     {
@@ -480,8 +481,8 @@ const levels = computed<Level[]>(() => {
         key: 'breakout',
         name: tr('chart.tag.breakout'),
         price: entryLevel,
-        color: k.textDim,
-        dash: 'solid',
+        color: k.textMuted,
+        dash: 'dashed',
         series: true,
       });
     if (props.previewStop)
@@ -622,8 +623,8 @@ const option = computed((): EChartsOption | null => {
         lineStyle: {
           color: l.color,
           type: l.dash,
-          width: l.width ?? 1,
-          opacity: l.key === 'preview' ? 1 : 0.9,
+          width: l.width ?? 1.5,
+          opacity: 1,
         },
       })),
   };
@@ -683,22 +684,46 @@ const option = computed((): EChartsOption | null => {
     },
   ];
 
-  const step = (key: 'lo10' | 'hi20', name: string, color: string, width: number) =>
-    ({
+  // Strategy lines: drawn on top of the candles, carried through the right padding so they meet their price tag.
+  const step = (
+    key: 'lo10' | 'hi20',
+    name: string,
+    color: string,
+    width: number,
+    extra: Partial<LineSeriesOption> = {},
+  ) => {
+    const lastVal = rows[rows.length - 1]?.[key] ?? null;
+    return {
       type: 'line',
       name,
       step: 'start',
-      data: rows.map((r) => [r.ts, r[key] ?? '-']),
+      data: [
+        ...rows.map((r) => [r.ts, r[key] ?? '-']),
+        ...(lastVal !== null ? pad.map((ts) => [ts, lastVal]) : []),
+      ],
       showSymbol: false,
       symbol: 'none',
       connectNulls: false,
-      lineStyle: { color, width, opacity: 0.85 },
+      lineStyle: { color, width, opacity: 1 },
       itemStyle: { color },
       emphasis: { disabled: true },
-      z: 2,
-    }) as LineSeriesOption;
-  if (L.exitSignal && hasLevels.value) series.push(step('lo10', 'Exit signal', k.secondary, 1.5));
-  if (L.breakout && !s && hasLevels.value) series.push(step('hi20', 'Breakout', k.textDim, 1));
+      z: 4,
+      ...extra,
+    } as LineSeriesOption;
+  };
+  if (L.exitSignal && hasLevels.value)
+    series.push(
+      step('lo10', 'Exit signal', k.secondary, wide.value ? 2.5 : 2, {
+        // Soft "sell zone" below the line: a close in here sells.
+        areaStyle: { origin: 'start', color: k.secondary, opacity: 0.08 },
+      }),
+    );
+  if (L.breakout && !s && hasLevels.value)
+    series.push(
+      step('hi20', 'Breakout', k.textMuted, 1.5, {
+        lineStyle: { color: k.textMuted, width: 1.5, type: [6, 4], opacity: 0.95 },
+      }),
+    );
 
   const win = userWindow ?? windowFor(range.value);
   // Text labels next to fills only while candles are wide enough; zoomed out, the tooltip carries them.
